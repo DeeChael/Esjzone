@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Esjzone</string>
+    <string name="navigation_home">主页</string>
+    <string name="navigation_profile">个人资料</string>
+    <string name="email">电子邮箱</string>
+    <string name="password">密码</string>
+    <string name="password_show">显示密码</string>
+    <string name="password_hide">隐藏密码</string>
+    <string name="button_login">登录</string>
+    <string name="login_success">登录成功</string>
+    <string name="login_fail">登录失败</string>
+    <string name="screen_main_tab_home">主页</string>
+    <string name="screen_main_tab_category">分类</string>
+    <string name="screen_main_tab_search">搜索</string>
+    <string name="screen_main_tab_profile">个人资料</string>
+    <string name="tab_home_recentlyupdate_tranlated">最新更新（翻译小说）</string>
+    <string name="tab_home_recentlyupdate_original">最新更新（原创）</string>
+    <string name="tab_home_recentlyupdate_tranlated_r18">最新更新（翻译小说 R18）</string>
+    <string name="tab_home_recentlyupdate_original_r18">最新更新（原创 R18）</string>
+    <string name="tab_home_recommendation">热门推荐</string>
+</resources>

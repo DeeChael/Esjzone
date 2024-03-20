@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Esjzone</string>
+    <string name="navigation_home">Home</string>
+    <string name="navigation_profile">Profile</string>
+    <string name="email">E-Mail</string>
+    <string name="password">Password</string>
+    <string name="password_show">Show Password</string>
+    <string name="password_hide">Hide Password</string>
+    <string name="button_login">Login</string>
+    <string name="login_success">Login Successfully</string>
+    <string name="login_fail">Failed to login</string>
+    <string name="screen_main_tab_home">Home</string>
+    <string name="screen_main_tab_category">Category</string>
+    <string name="screen_main_tab_profile">Profile</string>
+    <string name="screen_main_tab_search">Search</string>
+    <string name="tab_home_recentlyupdate_tranlated">Recently Update (Translated)</string>
+    <string name="tab_home_recentlyupdate_original">Recently Update (Original)</string>
+    <string name="tab_home_recentlyupdate_tranlated_r18">Recently Update (Translated R18)</string>
+    <string name="tab_home_recentlyupdate_original_r18">Recently Update (Original R18)</string>
+    <string name="tab_home_recommendation">Recommendation</string>
+</resources>
