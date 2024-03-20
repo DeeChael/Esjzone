@@ -9,9 +9,9 @@ import cafe.adriel.voyager.transitions.SlideTransition
 import net.deechael.esjzone.ui.screen.LoadingScreen
 
 @Composable
-fun App(modifier: Modifier) {
+fun App() {
     Surface(
-        modifier = modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize()
     ) {
         Navigator(
             LoadingScreen()

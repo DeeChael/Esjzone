@@ -8,5 +8,4 @@ class HomeData(
     val recentlyUpdateTranslatedR18: List<HomeNovel>,
     val recentlyUpdateOriginalR18: List<HomeNovel>,
     val recommendation: List<HomeNovel>
-) {
-}
+)

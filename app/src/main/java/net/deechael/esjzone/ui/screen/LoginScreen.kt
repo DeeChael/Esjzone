@@ -50,7 +50,7 @@ object LoginScreen : Screen {
     override fun Content() {
         val context = LocalContext.current
         val navigator = LocalNavigator.currentOrThrow
-        
+
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
@@ -78,17 +78,17 @@ object LoginScreen : Screen {
             var loggingIn by remember {
                 mutableStateOf(false)
             }
-            
+
             val scope = rememberCoroutineScope()
 
             TextField(
                 value = email,
                 onValueChange = { email = it },
                 label = {
-                        Text(text = stringResource(id = R.string.email))
+                    Text(text = stringResource(id = R.string.email))
                 },
                 placeholder = {
-                        Text(text = stringResource(id = R.string.email))
+                    Text(text = stringResource(id = R.string.email))
                 },
                 singleLine = true,
             )
@@ -97,10 +97,10 @@ object LoginScreen : Screen {
                 value = password,
                 onValueChange = { password = it },
                 label = {
-                        Text(text = stringResource(id = R.string.password))
+                    Text(text = stringResource(id = R.string.password))
                 },
                 placeholder = {
-                        Text(text = stringResource(id = R.string.password))
+                    Text(text = stringResource(id = R.string.password))
                 },
                 singleLine = true,
                 visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
@@ -111,7 +111,8 @@ object LoginScreen : Screen {
                     else
                         Icons.Filled.VisibilityOff
 
-                    val description = stringResource(id = if (passwordVisible) R.string.password_hide else R.string.password_show)
+                    val description =
+                        stringResource(id = if (passwordVisible) R.string.password_hide else R.string.password_show)
 
                     IconButton(onClick = { passwordVisible = !passwordVisible }) {
                         Icon(imageVector = image, description)
@@ -119,33 +120,37 @@ object LoginScreen : Screen {
                 }
             )
             Spacer(modifier = Modifier.height(50.dp))
-            Button(onClick = {
-                buttonEnabled = false
-                loggingIn = true
-                scope.launch(Dispatchers.IO) {
-                    val authorization = EsjzoneClient.login(email, password)
-                    if (authorization != null) {
-                        val ewsKeyCache = MainActivity.database.cacheDao().findByKey("ews_key")
-                        val ewsTokenCache = MainActivity.database.cacheDao().findByKey("ews_token")
+            Button(
+                onClick = {
+                    buttonEnabled = false
+                    loggingIn = true
+                    scope.launch(Dispatchers.IO) {
+                        val authorization = EsjzoneClient.login(email, password)
+                        if (authorization != null) {
+                            val ewsKeyCache = MainActivity.database.cacheDao().findByKey("ews_key")
+                            val ewsTokenCache =
+                                MainActivity.database.cacheDao().findByKey("ews_token")
 
-                        ewsKeyCache.value = authorization.ewsKey
-                        ewsTokenCache.value = authorization.ewsToken
+                            ewsKeyCache.value = authorization.ewsKey
+                            ewsTokenCache.value = authorization.ewsToken
 
-                        MainActivity.database.cacheDao().update(ewsKeyCache, ewsTokenCache)
+                            MainActivity.database.cacheDao().update(ewsKeyCache, ewsTokenCache)
 
-                        launch(Dispatchers.Main) {
-                            Toast.makeText(context, R.string.login_success, Toast.LENGTH_SHORT).show()
-                            navigator.replace(MainScreen(authorization = authorization))
+                            launch(Dispatchers.Main) {
+                                Toast.makeText(context, R.string.login_success, Toast.LENGTH_SHORT)
+                                    .show()
+                                navigator.replace(MainScreen(authorization = authorization))
+                            }
+                        } else {
+                            launch(Dispatchers.Main) {
+                                Toast.makeText(context, R.string.login_fail, Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                            loggingIn = false
+                            buttonEnabled = true
                         }
-                    } else {
-                        launch(Dispatchers.Main) {
-                            Toast.makeText(context, R.string.login_fail, Toast.LENGTH_SHORT).show()
-                        }
-                        loggingIn = false
-                        buttonEnabled = true
                     }
-                }
-            },
+                },
                 enabled = buttonEnabled
             ) {
                 Box(

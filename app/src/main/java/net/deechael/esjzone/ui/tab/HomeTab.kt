@@ -11,9 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
@@ -267,7 +265,7 @@ object HomeTab : Tab {
                 }
 
             }
-            
+
             Spacer(modifier = Modifier.height(80.dp))
 
             Row(
@@ -276,7 +274,12 @@ object HomeTab : Tab {
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(text = "Powered by ")
-                Image(painter = painterResource(id = R.drawable.jetpack_compose_high), contentScale = ContentScale.Inside, contentDescription = "jetpack compose", modifier = Modifier.height(20.dp))
+                Image(
+                    painter = painterResource(id = R.drawable.jetpack_compose_high),
+                    contentScale = ContentScale.Inside,
+                    contentDescription = "jetpack compose",
+                    modifier = Modifier.height(20.dp)
+                )
                 Text(text = "Jetpack Compose", fontWeight = FontWeight.Bold)
             }
 
@@ -350,7 +353,13 @@ fun NovelSets(novels: List<HomeNovel>) {
                                 imageVector = Icons.Filled.RemoveRedEye,
                                 contentDescription = ""
                             )
-                            Text(text = "${novel.views}", maxLines = 1, overflow = TextOverflow.Ellipsis, fontSize = 3.em, modifier = Modifier.padding(start = 4.dp))
+                            Text(
+                                text = "${novel.views}",
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                                fontSize = 3.em,
+                                modifier = Modifier.padding(start = 4.dp)
+                            )
                         }
                         Spacer(modifier = Modifier.weight(1f))
                         Row(
@@ -366,7 +375,13 @@ fun NovelSets(novels: List<HomeNovel>) {
                                 imageVector = Icons.Filled.ThumbUp,
                                 contentDescription = ""
                             )
-                            Text(text = "${novel.likes}", maxLines = 1, overflow = TextOverflow.Ellipsis, fontSize = 3.em, modifier = Modifier.padding(start = 4.dp))
+                            Text(
+                                text = "${novel.likes}",
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                                fontSize = 3.em,
+                                modifier = Modifier.padding(start = 4.dp)
+                            )
                         }
                     }
                 }
@@ -385,11 +400,17 @@ fun FooterPreview() {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
             .height(IntrinsicSize.Min)
     ) {
         Text(text = "Powered by ")
-        Image(painter = painterResource(id = R.drawable.jetpack_compose_xxx_high), contentScale = ContentScale.Inside, contentDescription = "jetpack compose", modifier = Modifier.height(20.dp))
+        Image(
+            painter = painterResource(id = R.drawable.jetpack_compose_xxx_high),
+            contentScale = ContentScale.Inside,
+            contentDescription = "jetpack compose",
+            modifier = Modifier.height(20.dp)
+        )
         Text(text = "Jetpack Compose", fontWeight = FontWeight.Bold)
     }
 }

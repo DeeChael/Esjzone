@@ -4,10 +4,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Category
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
@@ -53,14 +51,14 @@ object ProfileTab : Tab {
     @Composable
     override fun Content() {
         val authorization = LocalAuthorization.current
-        
+
         var data: UserProfile? by remember {
             mutableStateOf(null)
         }
-        
+
         val scope = rememberCoroutineScope()
-        
-        
+
+
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Top,
@@ -89,7 +87,7 @@ object ProfileTab : Tab {
                 )
             }
         }
-        
+
         LaunchedEffect(currentCompositeKeyHash) {
             scope.launch(Dispatchers.IO) {
                 data = EsjzoneClient.getUserProfile(authorization)

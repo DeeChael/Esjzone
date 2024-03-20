@@ -17,8 +17,10 @@ fun EsjzoneClient.getUserProfile(authorization: Authorization): UserProfile {
         .cookieJar(object : CookieJar {
             override fun loadForRequest(url: HttpUrl): List<Cookie> {
                 return listOf(
-                    Cookie.Builder().domain("www.esjzone.me").name("ews_key").value(authorization.ewsKey).build(),
-                    Cookie.Builder().domain("www.esjzone.me").name("ews_token").value(authorization.ewsToken).build()
+                    Cookie.Builder().domain("www.esjzone.me").name("ews_key")
+                        .value(authorization.ewsKey).build(),
+                    Cookie.Builder().domain("www.esjzone.me").name("ews_token")
+                        .value(authorization.ewsToken).build()
                 )
             }
 

@@ -18,8 +18,10 @@ fun EsjzoneClient.getHomeData(authorization: Authorization): HomeData {
         .cookieJar(object : CookieJar {
             override fun loadForRequest(url: HttpUrl): List<Cookie> {
                 return listOf(
-                    Cookie.Builder().domain("www.esjzone.me").name("ews_key").value(authorization.ewsKey).build(),
-                    Cookie.Builder().domain("www.esjzone.me").name("ews_token").value(authorization.ewsToken).build()
+                    Cookie.Builder().domain("www.esjzone.me").name("ews_key")
+                        .value(authorization.ewsKey).build(),
+                    Cookie.Builder().domain("www.esjzone.me").name("ews_token")
+                        .value(authorization.ewsToken).build()
                 )
             }
 
@@ -48,50 +50,66 @@ fun EsjzoneClient.getHomeData(authorization: Authorization): HomeData {
     val recentlyUpdateOriginalR18Novels = mutableListOf<HomeNovel>()
     val recommendationNovels = mutableListOf<HomeNovel>()
 
-    for (recentlyUpdateTranslatedData in EsjzoneXPaths.Home.RecentlyUpdateTranslated.All.evaluate(document).elements) {
+    for (recentlyUpdateTranslatedData in EsjzoneXPaths.Home.RecentlyUpdateTranslated.All.evaluate(
+        document
+    ).elements) {
         recentlyUpdateTranslatedNovels.add(
             HomeNovel(
                 EsjzoneXPaths.Home.Novel.Cover.evaluate(recentlyUpdateTranslatedData).get(),
                 EsjzoneXPaths.Home.Novel.Name.evaluate(recentlyUpdateTranslatedData).get(),
                 EsjzoneXPaths.Home.Novel.Url.evaluate(recentlyUpdateTranslatedData).get(),
-                EsjzoneXPaths.Home.Novel.Views.evaluate(recentlyUpdateTranslatedData).get().substring(1).toInt(),
-                EsjzoneXPaths.Home.Novel.Likes.evaluate(recentlyUpdateTranslatedData).get().substring(1).toInt(),
+                EsjzoneXPaths.Home.Novel.Views.evaluate(recentlyUpdateTranslatedData).get()
+                    .substring(1).toInt(),
+                EsjzoneXPaths.Home.Novel.Likes.evaluate(recentlyUpdateTranslatedData).get()
+                    .substring(1).toInt(),
             )
         )
     }
 
-    for (recentlyUpdateOriginalData in EsjzoneXPaths.Home.RecentlyUpdateOriginal.All.evaluate(document).elements) {
+    for (recentlyUpdateOriginalData in EsjzoneXPaths.Home.RecentlyUpdateOriginal.All.evaluate(
+        document
+    ).elements) {
         recentlyUpdateOriginalNovels.add(
             HomeNovel(
                 EsjzoneXPaths.Home.Novel.Cover.evaluate(recentlyUpdateOriginalData).get(),
                 EsjzoneXPaths.Home.Novel.Name.evaluate(recentlyUpdateOriginalData).get(),
                 EsjzoneXPaths.Home.Novel.Url.evaluate(recentlyUpdateOriginalData).get(),
-                EsjzoneXPaths.Home.Novel.Views.evaluate(recentlyUpdateOriginalData).get().substring(1).toInt(),
-                EsjzoneXPaths.Home.Novel.Likes.evaluate(recentlyUpdateOriginalData).get().substring(1).toInt(),
+                EsjzoneXPaths.Home.Novel.Views.evaluate(recentlyUpdateOriginalData).get()
+                    .substring(1).toInt(),
+                EsjzoneXPaths.Home.Novel.Likes.evaluate(recentlyUpdateOriginalData).get()
+                    .substring(1).toInt(),
             )
         )
     }
 
-    for (recentlyUpdateTranslatedR18Data in EsjzoneXPaths.Home.RecentlyUpdateTranslatedR18.All.evaluate(document).elements) {
+    for (recentlyUpdateTranslatedR18Data in EsjzoneXPaths.Home.RecentlyUpdateTranslatedR18.All.evaluate(
+        document
+    ).elements) {
         recentlyUpdateTranslatedR18Novels.add(
             HomeNovel(
                 EsjzoneXPaths.Home.Novel.Cover.evaluate(recentlyUpdateTranslatedR18Data).get(),
                 EsjzoneXPaths.Home.Novel.Name.evaluate(recentlyUpdateTranslatedR18Data).get(),
                 EsjzoneXPaths.Home.Novel.Url.evaluate(recentlyUpdateTranslatedR18Data).get(),
-                EsjzoneXPaths.Home.Novel.Views.evaluate(recentlyUpdateTranslatedR18Data).get().substring(1).toInt(),
-                EsjzoneXPaths.Home.Novel.Likes.evaluate(recentlyUpdateTranslatedR18Data).get().substring(1).toInt(),
+                EsjzoneXPaths.Home.Novel.Views.evaluate(recentlyUpdateTranslatedR18Data).get()
+                    .substring(1).toInt(),
+                EsjzoneXPaths.Home.Novel.Likes.evaluate(recentlyUpdateTranslatedR18Data).get()
+                    .substring(1).toInt(),
             )
         )
     }
 
-    for (recentlyUpdateOriginalR18Data in EsjzoneXPaths.Home.RecentlyUpdateOriginalR18.All.evaluate(document).elements) {
+    for (recentlyUpdateOriginalR18Data in EsjzoneXPaths.Home.RecentlyUpdateOriginalR18.All.evaluate(
+        document
+    ).elements) {
         recentlyUpdateOriginalR18Novels.add(
             HomeNovel(
                 EsjzoneXPaths.Home.Novel.Cover.evaluate(recentlyUpdateOriginalR18Data).get(),
                 EsjzoneXPaths.Home.Novel.Name.evaluate(recentlyUpdateOriginalR18Data).get(),
                 EsjzoneXPaths.Home.Novel.Url.evaluate(recentlyUpdateOriginalR18Data).get(),
-                EsjzoneXPaths.Home.Novel.Views.evaluate(recentlyUpdateOriginalR18Data).get().substring(1).toInt(),
-                EsjzoneXPaths.Home.Novel.Likes.evaluate(recentlyUpdateOriginalR18Data).get().substring(1).toInt(),
+                EsjzoneXPaths.Home.Novel.Views.evaluate(recentlyUpdateOriginalR18Data).get()
+                    .substring(1).toInt(),
+                EsjzoneXPaths.Home.Novel.Likes.evaluate(recentlyUpdateOriginalR18Data).get()
+                    .substring(1).toInt(),
             )
         )
     }
@@ -102,8 +120,10 @@ fun EsjzoneClient.getHomeData(authorization: Authorization): HomeData {
                 EsjzoneXPaths.Home.Novel.Cover.evaluate(recommendationData).get(),
                 EsjzoneXPaths.Home.Novel.Name.evaluate(recommendationData).get(),
                 EsjzoneXPaths.Home.Novel.Url.evaluate(recommendationData).get(),
-                EsjzoneXPaths.Home.Novel.Views.evaluate(recommendationData).get().substring(1).toInt(),
-                EsjzoneXPaths.Home.Novel.Likes.evaluate(recommendationData).get().substring(1).toInt(),
+                EsjzoneXPaths.Home.Novel.Views.evaluate(recommendationData).get().substring(1)
+                    .toInt(),
+                EsjzoneXPaths.Home.Novel.Likes.evaluate(recommendationData).get().substring(1)
+                    .toInt(),
             )
         )
     }

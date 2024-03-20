@@ -38,7 +38,7 @@ fun EsjzoneClient.login(email: String, password: String): Authorization? {
         })
         .build()
 
-    val firstResponse = EsjzoneClient.EMPTY_HTTP_CLIENT.newCall(
+    val firstResponse = EMPTY_HTTP_CLIENT.newCall(
         Request.Builder()
             .url(EsjzoneUrls.My.Login)
             .post(

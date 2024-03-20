@@ -40,7 +40,9 @@ class MainScreen(val authorization: Authorization) : Screen {
             ) {
                 CompositionLocalProvider(value = LocalAuthorization provides authorization) {
                     Surface(
-                        modifier = Modifier.fillMaxSize().padding(it)
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(it)
                     ) {
                         CurrentTab()
                     }
@@ -59,8 +61,8 @@ private fun RowScope.TabNavigationItem(tab: Tab) {
         selected = tabNavigator.current == tab,
         onClick = { tabNavigator.current = tab },
         icon = {
-            if (tab.options.icon != null) 
-                Icon(painter = tab.options.icon!!, contentDescription = tab.options.title) 
+            if (tab.options.icon != null)
+                Icon(painter = tab.options.icon!!, contentDescription = tab.options.title)
         }
     )
 }
