@@ -6,6 +6,7 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import net.deechael.esjzone.ui.typegraphy.HarmonyOsSansSCTypography
 
 val catppuccin_latte_rosewater_light_primary = Color(0xFF9C4330)
 val catppuccin_latte_rosewater_light_onPrimary = Color(0xFFFFFFFF)
@@ -148,6 +149,7 @@ fun LatteRosewaterTheme(
 
     MaterialTheme(
         colorScheme = colors,
+        typography = HarmonyOsSansSCTypography,
         content = content
     )
 }
