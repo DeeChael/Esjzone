@@ -1,7 +1,7 @@
 package net.deechael.esjzone
 
+import net.deechael.esjzone.novellibrary.component.TextComponent
 import net.deechael.esjzone.novellibrary.novel.NovelDescription
-import net.deechael.esjzone.novellibrary.novel.TextDescriptionComponent
 import net.deechael.esjzone.novellibrary.novel.analyseDescription
 import org.jsoup.Jsoup
 import org.jsoup.parser.Parser
@@ -26,7 +26,7 @@ class DescriptionTest {
         println(description.components)
 
         for (component in description.components) {
-            if (component is TextDescriptionComponent) {
+            if (component is TextComponent) {
                 println(component.javaClass)
             }
         }

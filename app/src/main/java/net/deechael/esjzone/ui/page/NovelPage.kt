@@ -21,14 +21,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
-import net.deechael.esjzone.novellibrary.novel.BackgroundColorTextStyle
-import net.deechael.esjzone.novellibrary.novel.BoldTextStyle
-import net.deechael.esjzone.novellibrary.novel.ColorTextStyle
-import net.deechael.esjzone.novellibrary.novel.FontSizeTextStyle
-import net.deechael.esjzone.novellibrary.novel.FuriganaTextStyle
-import net.deechael.esjzone.novellibrary.novel.ImageDescriptionComponent
+import net.deechael.esjzone.novellibrary.component.BackgroundColorTextStyle
+import net.deechael.esjzone.novellibrary.component.BoldTextStyle
+import net.deechael.esjzone.novellibrary.component.ColorTextStyle
+import net.deechael.esjzone.novellibrary.component.FontSizeTextStyle
+import net.deechael.esjzone.novellibrary.component.FuriganaTextStyle
+import net.deechael.esjzone.novellibrary.component.ImageComponent
 import net.deechael.esjzone.novellibrary.novel.NovelDescription
-import net.deechael.esjzone.novellibrary.novel.TextDescriptionComponent
+import net.deechael.esjzone.novellibrary.component.TextComponent
 import net.deechael.esjzone.novellibrary.novel.analyseDescription
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -54,7 +54,7 @@ fun Description(description: NovelDescription, modifier: Modifier = Modifier) {
                 .verticalScroll(rememberScrollState())
         ) {
             for (component in description.components) {
-                if (component is TextDescriptionComponent) {
+                if (component is TextComponent) {
                     val (str, inlines) = component.toInlineAnnotatedString(
                         textMeasurer,
                         textStyle,
@@ -70,7 +70,7 @@ fun Description(description: NovelDescription, modifier: Modifier = Modifier) {
                                             modifier = Modifier.padding(3.dp)
                                         )
                                         */
-                } else if (component is ImageDescriptionComponent) {
+                } else if (component is ImageComponent) {
                     SubcomposeAsyncImage(
                         model = ImageRequest.Builder(LocalContext.current)
                             .data(component.url)
@@ -101,30 +101,30 @@ fun Description(description: NovelDescription, modifier: Modifier = Modifier) {
 fun FuriganaTestPreview() {
     val description = NovelDescription(
         listOf(
-            TextDescriptionComponent("【").append(
-                TextDescriptionComponent("簡單的概要").style(
+            TextComponent("【").append(
+                TextComponent("簡單的概要").style(
                     BoldTextStyle
                 )
             ).append(
-                TextDescriptionComponent("】")
+                TextComponent("】")
             ),
-            TextDescriptionComponent("在慶祝成人的派對上，稍微社交障礙，深藏箱房（物理上）的大小姐莫卡，與第二王子賽方相遇，締下婚約，雖然遇上許多麻煩但最終還是結婚的故事"),
-            TextDescriptionComponent("Color test").style(ColorTextStyle(Color.Blue)),
-            TextDescriptionComponent("Color with bold").style(ColorTextStyle(Color.Blue))
+            TextComponent("在慶祝成人的派對上，稍微社交障礙，深藏箱房（物理上）的大小姐莫卡，與第二王子賽方相遇，締下婚約，雖然遇上許多麻煩但最終還是結婚的故事"),
+            TextComponent("Color test").style(ColorTextStyle(Color.Blue)),
+            TextComponent("Color with bold").style(ColorTextStyle(Color.Blue))
                 .style(BoldTextStyle),
-            TextDescriptionComponent("size").style(FontSizeTextStyle(24)),
-            TextDescriptionComponent("background").style(BackgroundColorTextStyle(Color.Cyan)),
-            TextDescriptionComponent("furigana").style(FuriganaTextStyle(TextDescriptionComponent("test"))),
-            TextDescriptionComponent("furigana with style").style(
+            TextComponent("size").style(FontSizeTextStyle(24)),
+            TextComponent("background").style(BackgroundColorTextStyle(Color.Cyan)),
+            TextComponent("furigana").style(FuriganaTextStyle(TextComponent("test"))),
+            TextComponent("furigana with style").style(
                 FuriganaTextStyle(
-                    TextDescriptionComponent("test").style(ColorTextStyle(Color.Red))
+                    TextComponent("test").style(ColorTextStyle(Color.Red))
                         .style(FontSizeTextStyle(24) /* Prevent overflow, size is not allowed in furigana */)
                 )
             ),
-            TextDescriptionComponent("furigana with size").style(FontSizeTextStyle(24))
-                .style(FuriganaTextStyle(TextDescriptionComponent("test")))
-                .append(TextDescriptionComponent("append")).append(TextDescriptionComponent("more"))
-                .append(TextDescriptionComponent("furigana")),
+            TextComponent("furigana with size").style(FontSizeTextStyle(24))
+                .style(FuriganaTextStyle(TextComponent("test")))
+                .append(TextComponent("append")).append(TextComponent("more"))
+                .append(TextComponent("furigana")),
         )
     )
 
@@ -141,7 +141,7 @@ fun FuriganaTestPreview() {
                 .verticalScroll(rememberScrollState())
         ) {
             for (component in description.components) {
-                if (component is TextDescriptionComponent) {
+                if (component is TextComponent) {
                     val (str, inlines) = component.toInlineAnnotatedString(
                         textMeasurer,
                         textStyle,
@@ -151,7 +151,7 @@ fun FuriganaTestPreview() {
                         text = str,
                         inlineContent = inlines
                     )
-                } else if (component is ImageDescriptionComponent) {
+                } else if (component is ImageComponent) {
                     SubcomposeAsyncImage(
                         model = ImageRequest.Builder(LocalContext.current)
                             .data(component.url)
@@ -183,19 +183,19 @@ fun DescriptionPreview() {
     Description(
         description = NovelDescription(
             listOf(
-                TextDescriptionComponent("【").append(
-                    TextDescriptionComponent("簡單的概要").style(
+                TextComponent("【").append(
+                    TextComponent("簡單的概要").style(
                         BoldTextStyle
                     )
                 ).append(
-                    TextDescriptionComponent("】")
+                    TextComponent("】")
                 ),
-                TextDescriptionComponent("在慶祝成人的派對上，稍微社交障礙，深藏箱房（物理上）的大小姐莫卡，與第二王子賽方相遇，締下婚約，雖然遇上許多麻煩但最終還是結婚的故事"),
-                TextDescriptionComponent("Color test").style(ColorTextStyle(Color.Blue)),
-                TextDescriptionComponent("Color with bold").style(ColorTextStyle(Color.Blue))
+                TextComponent("在慶祝成人的派對上，稍微社交障礙，深藏箱房（物理上）的大小姐莫卡，與第二王子賽方相遇，締下婚約，雖然遇上許多麻煩但最終還是結婚的故事"),
+                TextComponent("Color test").style(ColorTextStyle(Color.Blue)),
+                TextComponent("Color with bold").style(ColorTextStyle(Color.Blue))
                     .style(BoldTextStyle),
-                TextDescriptionComponent("size").style(FontSizeTextStyle(24)),
-                TextDescriptionComponent("background").style(BackgroundColorTextStyle(Color.Cyan)),
+                TextComponent("size").style(FontSizeTextStyle(24)),
+                TextComponent("background").style(BackgroundColorTextStyle(Color.Cyan)),
             )
         ), // test from: https://www.esjzone.me/detail/1642059588.html
         modifier = Modifier.fillMaxSize()

@@ -1,11 +1,10 @@
 package net.deechael.esjzone
 
-import net.deechael.esjzone.novellibrary.novel.TextDescriptionComponent
+import net.deechael.esjzone.novellibrary.component.TextComponent
 import net.deechael.esjzone.novellibrary.novel.analyseDescription
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
-import org.jsoup.parser.Parser
 import org.junit.Test
 
 class ParagraphTest {
@@ -18,7 +17,7 @@ class ParagraphTest {
         analyseDescription(element)
             .components.forEach {
                 println(it)
-                if (it is TextDescriptionComponent) {
+                if (it is TextComponent) {
                     println(it.getExtras())
                 }
             }

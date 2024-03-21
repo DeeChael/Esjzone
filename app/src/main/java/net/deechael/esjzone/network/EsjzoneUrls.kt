@@ -2,6 +2,7 @@ package net.deechael.esjzone.network
 
 object EsjzoneUrls {
 
+    const val EmptyCover: String = "https://esjzone.me/assets/img/empty.jpg"
     const val Home: String = "https://www.esjzone.me"
 
     object My {
