@@ -12,18 +12,37 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.CurrentScreen
+import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
 import net.deechael.esjzone.network.Authorization
 import net.deechael.esjzone.network.LocalAuthorization
+import net.deechael.esjzone.ui.navigation.LocalBaseNavigator
 import net.deechael.esjzone.ui.tab.CategoryTab
 import net.deechael.esjzone.ui.tab.HomeTab
 import net.deechael.esjzone.ui.tab.ProfileTab
 import net.deechael.esjzone.ui.tab.SearchTab
 
 class MainScreen(val authorization: Authorization) : Screen {
+
+    @Composable
+    override fun Content() {
+        CompositionLocalProvider(value = LocalAuthorization provides authorization) {
+            Navigator(screen = TabScreen) { navigator ->
+                CompositionLocalProvider(value = LocalBaseNavigator provides navigator) {
+                    CurrentScreen()
+                }
+            }
+        }
+    }
+
+}
+
+private object TabScreen : Screen {
+    private fun readResolve(): Any = TabScreen
 
     @Composable
     override fun Content() {
@@ -38,14 +57,12 @@ class MainScreen(val authorization: Authorization) : Screen {
                     }
                 }
             ) {
-                CompositionLocalProvider(value = LocalAuthorization provides authorization) {
-                    Surface(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(it)
-                    ) {
-                        CurrentTab()
-                    }
+                Surface(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(it)
+                ) {
+                    CurrentTab()
                 }
             }
         }

@@ -60,8 +60,30 @@ object EsjzoneXPaths {
 
     object Detail {
 
+        val Cover: XPathEvaluator =
+            Xsoup.compile("/html/body/div[3]/section/div/div[1]/div[1]/div[1]/div[1]/a/img/@src") // attention: not all the novels have cover
+        val Views: XPathEvaluator =
+            Xsoup.compile("/html/body/div[3]/section/div/div[1]/div[1]/div[2]/span/label[1]/span/text()")
+        val Likes: XPathEvaluator =
+            Xsoup.compile("/html/body/div[3]/section/div/div[1]/div[1]/div[2]/span/label[2]/span/text()")
+        val Words: XPathEvaluator =
+            Xsoup.compile("/html/body/div[3]/section/div/div[1]/div[1]/div[2]/span/label[3]/span/text()")
+        val Type: XPathEvaluator =
+            Xsoup.compile("/html/body/div[3]/section/div/div[1]/div[1]/div[2]/ul/li[1]/text()")
+        val Author: XPathEvaluator =
+            Xsoup.compile("/html/body/div[3]/section/div/div[1]/div[1]/div[2]/ul/li[2]/a/text()")
         val Description: XPathEvaluator =
             Xsoup.compile("/html/body/div[3]/section/div/div[1]/div[2]/div/div/div") // used with NovelDescription#analyseDescription
+        val ForumUrl: XPathEvaluator =
+            Xsoup.compile("/html/body/div[3]/section/div/div[1]/div[1]/div[2]/div[2]/div/a[1]/@href")
+        val ChapterList: XPathEvaluator =
+            Xsoup.compile("/html/body/div[3]/section/div/div[1]/div[5]/div/div/div/div[2]")
+
+        object ChapterListDetails {
+
+            val Title: XPathEvaluator = Xsoup.compile("/summary/strong/text()")
+
+        }
 
     }
 

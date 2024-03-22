@@ -59,6 +59,8 @@ import net.deechael.esjzone.network.features.getHomeData
 import net.deechael.esjzone.novellibrary.data.HomeData
 import net.deechael.esjzone.novellibrary.novel.HomeNovel
 import net.deechael.esjzone.ui.compose.SubcomposeRow
+import net.deechael.esjzone.ui.navigation.LocalBaseNavigator
+import net.deechael.esjzone.ui.page.NovelPage
 
 object HomeTab : Tab {
 
@@ -298,6 +300,7 @@ object HomeTab : Tab {
 @Composable
 fun NovelSets(novels: List<HomeNovel>) {
     val configuration = LocalConfiguration.current
+    val navigator = LocalBaseNavigator.current
 
     SubcomposeRow(
         modifier = Modifier.horizontalScroll(rememberScrollState())
@@ -309,7 +312,7 @@ fun NovelSets(novels: List<HomeNovel>) {
                 modifier = Modifier
                     .widthIn(max = (configuration.screenWidthDp / 2).dp)
                     .clickable {
-                        // Open the novel detail page
+                        navigator.push(NovelPage(novel))
                     }
             ) {
                 Column {

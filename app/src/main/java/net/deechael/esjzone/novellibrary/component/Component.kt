@@ -26,7 +26,6 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import net.deechael.esjzone.novellibrary.novel.NovelDescription
 import org.jsoup.nodes.Element
 import org.jsoup.nodes.Node
 import org.jsoup.nodes.TextNode
@@ -43,7 +42,7 @@ fun analyseComponents(element: Element): List<Component> {
 }
 
 
-private fun analyseParagraph(paragraph: Element): List<Component> {
+internal fun analyseParagraph(paragraph: Element): List<Component> {
     val components = mutableListOf<TextComponent>()
 
     for (child in paragraph.childNodes()) {
