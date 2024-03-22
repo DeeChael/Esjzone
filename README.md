@@ -12,7 +12,7 @@ Please check [NETWORK.md](./NETWORK.md) for esjzone network information
 ![](./screenshots/showcase/1.jpg)
 ![](./screenshots/showcase/2.jpg)
 
-./screenshots/showcase/3.mp4
+https://raw.githubusercontent.com/DeeChael/Esjzone/master/screenshots/showcase/3.mp4
 
 ![](./screenshots/showcase/4.jpg)
 ![](./screenshots/showcase/5.jpg)
