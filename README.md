@@ -36,23 +36,43 @@
 
 <table>
   <tr>
-    <td><img src="./screenshots/showcase/1.jpg" alt="1" width=360px height=640px ></td>
+    <td>登录页面</td>
+    <td>登录页面（尝试登录）</td>
+    <td>小说详细页（已过时）</td>
+  </tr> 
+  <tr>
+    <td><img src="./screenshots/showcase/1.jpg" alt="1" width=360px height=640px></td>
     <td><img src="./screenshots/showcase/2.jpg" alt="2" width=360px height=640px></td>
     <td><img src="./screenshots/showcase/4.jpg" alt="2" width=360px height=640px></td>
   </tr> 
   <tr>
-    <td><img src="./screenshots/showcase/5.jpg" alt="1" width=360px height=640px ></td>
+    <td>章节列表（普通章节）</td>
+    <td>章节列表（分组-未展开）</td>
+    <td>章节列表（分组-已展开）</td>
+  </tr> 
+  <tr>
+    <td><img src="./screenshots/showcase/5.jpg" alt="1" width=360px height=640px></td>
     <td><img src="./screenshots/showcase/6.jpg" alt="2" width=360px height=640px></td>
     <td><img src="./screenshots/showcase/7.jpg" alt="2" width=360px height=640px></td>
   </tr> 
   <tr>
-    <td><img src="./screenshots/showcase/8.jpg" alt="1" width=360px height=640px ></td>
+    <td>章节阅读界面</td>
+    <td>章节阅读界面（显示顶栏（点击正文部分可以 显示/隐藏 顶栏））</td>
+    <td>章节阅读界面（带有图片的展示）</td>
+  </tr> 
+  <tr>
+    <td><img src="./screenshots/showcase/8.jpg" alt="1" width=360px height=640px></td>
     <td><img src="./screenshots/showcase/9.jpg" alt="2" width=360px height=640px></td>
     <td><img src="./screenshots/showcase/10.jpg" alt="2" width=360px height=640px></td>
   </tr> 
   <tr>
-    <td><img src="./screenshots/showcase/11.jpg" alt="1" width=360px height=640px ></td>
+    <td>小说详细页（带有图片的简介-已过时）</td>
+  </tr> 
+  <tr>
+    <td><img src="./screenshots/showcase/11.jpg" alt="1" width=360px height=640px></td>
   </tr> 
 </table>
+
+软件主页
 
 https://github.com/DeeChael/DeeChael/assets/63186003/bc835c1c-2206-4788-8c2e-70c10a173e25
