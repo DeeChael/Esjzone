@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.sp
 import org.jsoup.nodes.Element
 import org.jsoup.nodes.Node
 import org.jsoup.nodes.TextNode
+import java.io.Serializable
 
 
 fun analyseComponents(element: Element): List<Component> {
@@ -172,7 +173,7 @@ private fun analyseStyles(styleString: String): List<TextStyle> {
     return list.toList()
 }
 
-interface Component
+interface Component : Serializable
 
 open class TextComponent(val text: String) : Component {
 

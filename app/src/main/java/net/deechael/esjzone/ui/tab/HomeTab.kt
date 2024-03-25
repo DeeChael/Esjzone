@@ -93,7 +93,7 @@ object HomeTab : Tab {
                 fontSize = 8.0.em,
                 fontWeight = FontWeight.Black,
                 modifier = Modifier.padding(
-                    top = 48.dp,
+                    top = 24.dp,
                     start = 16.dp,
                     bottom = 16.dp
                 )

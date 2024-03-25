@@ -26,6 +26,8 @@ import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
 import net.deechael.esjzone.network.EsjzoneXPaths
 import net.deechael.esjzone.novellibrary.novel.Chapter
+import net.deechael.esjzone.ui.navigation.LocalBaseNavigator
+import net.deechael.esjzone.ui.page.ChapterPage
 import org.jsoup.nodes.Element
 
 fun analyseItems(element: Element): List<Item> {
@@ -96,12 +98,14 @@ class ChapterItem(private val chapter: Chapter) : Item {
 
     @Composable
     override fun Render() {
+        val navigator = LocalBaseNavigator.current
+
         Card(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp)
                 .clickable {
-                    // go to the chapter page
+                    navigator.push(ChapterPage(chapter))
                 }
         ) {
             Text(text = chapter.name, modifier = Modifier.padding(16.dp))
@@ -114,6 +118,8 @@ class ChapterListItem(private val name: String, private val chapters: List<Chapt
 
     @Composable
     override fun Render() {
+        val navigator = LocalBaseNavigator.current
+
         OutlinedCard(
             modifier = Modifier
                 .fillMaxWidth()
@@ -151,7 +157,7 @@ class ChapterListItem(private val name: String, private val chapters: List<Chapt
                                         bottom = 8.dp
                                     )
                                     .clickable {
-                                        // go to the chapter page
+                                        navigator.push(ChapterPage(chapter))
                                     }
                             ) {
                                 Text(text = chapter.name, modifier = Modifier.padding(16.dp))

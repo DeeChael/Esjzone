@@ -12,12 +12,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.CurrentScreen
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
+import cafe.adriel.voyager.transitions.SlideTransition
 import net.deechael.esjzone.network.Authorization
 import net.deechael.esjzone.network.LocalAuthorization
 import net.deechael.esjzone.ui.navigation.LocalBaseNavigator
@@ -32,8 +32,11 @@ class MainScreen(val authorization: Authorization) : Screen {
     override fun Content() {
         CompositionLocalProvider(value = LocalAuthorization provides authorization) {
             Navigator(screen = TabScreen) { navigator ->
-                CompositionLocalProvider(value = LocalBaseNavigator provides navigator) {
-                    CurrentScreen()
+
+                SlideTransition(navigator = navigator) { screen ->
+                    CompositionLocalProvider(value = LocalBaseNavigator provides navigator) {
+                        screen.Content()
+                    }
                 }
             }
         }

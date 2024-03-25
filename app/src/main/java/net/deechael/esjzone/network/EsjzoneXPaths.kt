@@ -87,6 +87,12 @@ object EsjzoneXPaths {
 
     }
 
+    object Forum {
+
+        val Content: XPathEvaluator = Xsoup.compile("/html/body/div[3]/section/div/div[1]/div[3]")
+
+    }
+
     object Profile {
 
         val Username: XPathEvaluator =
