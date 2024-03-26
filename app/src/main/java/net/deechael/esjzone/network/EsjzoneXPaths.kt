@@ -87,6 +87,25 @@ object EsjzoneXPaths {
 
     }
 
+    object Tags {
+
+        val Pages: XPathEvaluator = Xsoup.compile("/html/body/script[20]")
+
+        object Novel {
+
+            val All: XPathEvaluator =
+                Xsoup.compile("/html/body/div[3]/section/div/div[1]/div[3]/div")
+
+            val Cover: XPathEvaluator = Xsoup.compile("/div/a/div/div/div/@data-src")
+            val Name: XPathEvaluator = Xsoup.compile("/div/div/h5/a/text()")
+            val Url: XPathEvaluator = Xsoup.compile("/div/div/h5/a/@href")
+            val Views: XPathEvaluator = Xsoup.compile("/div/div/div[4]/div[1]/text()")
+            val Likes: XPathEvaluator = Xsoup.compile("/div/div/div[4]/div[2]/text()")
+
+        }
+
+    }
+
     object Forum {
 
         val Content: XPathEvaluator = Xsoup.compile("/html/body/div[3]/section/div/div[1]/div[3]")

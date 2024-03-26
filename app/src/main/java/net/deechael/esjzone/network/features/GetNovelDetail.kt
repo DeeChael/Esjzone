@@ -4,8 +4,8 @@ import net.deechael.esjzone.network.Authorization
 import net.deechael.esjzone.network.EsjzoneClient
 import net.deechael.esjzone.network.EsjzoneUrls
 import net.deechael.esjzone.network.EsjzoneXPaths
+import net.deechael.esjzone.novellibrary.novel.CoveredNovel
 import net.deechael.esjzone.novellibrary.novel.DetailedNovel
-import net.deechael.esjzone.novellibrary.novel.HomeNovel
 import net.deechael.esjzone.novellibrary.novel.analyseChapterList
 import net.deechael.esjzone.novellibrary.novel.analyseDescription
 import okhttp3.Cookie
@@ -16,7 +16,7 @@ import okhttp3.Request
 import org.jsoup.Jsoup
 
 
-fun EsjzoneClient.getNovelDetail(authorization: Authorization, novel: HomeNovel): DetailedNovel {
+fun EsjzoneClient.getNovelDetail(authorization: Authorization, novel: CoveredNovel): DetailedNovel {
     val httpClient = OkHttpClient.Builder()
         .cookieJar(object : CookieJar {
             override fun loadForRequest(url: HttpUrl): List<Cookie> {

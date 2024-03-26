@@ -105,7 +105,8 @@ class ChapterItem(private val chapter: Chapter) : Item {
                 .fillMaxWidth()
                 .padding(8.dp)
                 .clickable {
-                    navigator.push(ChapterPage(chapter))
+                    if (chapter.url.contains("esjzone"))
+                        navigator.push(ChapterPage(chapter))
                 }
         ) {
             Text(text = chapter.name, modifier = Modifier.padding(16.dp))
@@ -157,7 +158,8 @@ class ChapterListItem(private val name: String, private val chapters: List<Chapt
                                         bottom = 8.dp
                                     )
                                     .clickable {
-                                        navigator.push(ChapterPage(chapter))
+                                        if (chapter.url.contains("esjzone"))
+                                            navigator.push(ChapterPage(chapter))
                                     }
                             ) {
                                 Text(text = chapter.name, modifier = Modifier.padding(16.dp))

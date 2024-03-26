@@ -57,7 +57,7 @@ import net.deechael.esjzone.network.EsjzoneClient
 import net.deechael.esjzone.network.LocalAuthorization
 import net.deechael.esjzone.network.features.getHomeData
 import net.deechael.esjzone.novellibrary.data.HomeData
-import net.deechael.esjzone.novellibrary.novel.HomeNovel
+import net.deechael.esjzone.novellibrary.novel.CoveredNovel
 import net.deechael.esjzone.ui.compose.SubcomposeRow
 import net.deechael.esjzone.ui.navigation.LocalBaseNavigator
 import net.deechael.esjzone.ui.page.NovelPage
@@ -298,7 +298,7 @@ object HomeTab : Tab {
 }
 
 @Composable
-fun NovelSets(novels: List<HomeNovel>) {
+fun NovelSets(novels: List<CoveredNovel>) {
     val configuration = LocalConfiguration.current
     val navigator = LocalBaseNavigator.current
 

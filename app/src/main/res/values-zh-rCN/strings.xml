@@ -21,4 +21,6 @@
     <string name="tab_home_recommendation">热门推荐</string>
     <string name="novel_chapterlist">章节列表</string>
     <string name="author">作者</string>
+    <string name="search_result">搜索结果</string>
+    <string name="search_placeholder">输入关键词搜索</string>
 </resources>

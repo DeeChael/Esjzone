@@ -1,11 +1,11 @@
 package net.deechael.esjzone.novellibrary.data
 
-import net.deechael.esjzone.novellibrary.novel.HomeNovel
+import net.deechael.esjzone.novellibrary.novel.CoveredNovel
 
 class HomeData(
-    val recentlyUpdateTranslated: List<HomeNovel>,
-    val recentlyUpdateOriginal: List<HomeNovel>,
-    val recentlyUpdateTranslatedR18: List<HomeNovel>,
-    val recentlyUpdateOriginalR18: List<HomeNovel>,
-    val recommendation: List<HomeNovel>
+    val recentlyUpdateTranslated: List<CoveredNovel>,
+    val recentlyUpdateOriginal: List<CoveredNovel>,
+    val recentlyUpdateTranslatedR18: List<CoveredNovel>,
+    val recentlyUpdateOriginalR18: List<CoveredNovel>,
+    val recommendation: List<CoveredNovel>
 )

@@ -4,6 +4,7 @@ object EsjzoneUrls {
 
     const val EmptyCover: String = "https://esjzone.me/assets/img/empty.jpg"
     const val Home: String = "https://www.esjzone.me"
+    const val Tags: String = "https://www.esjzone.me/tags"
 
     object My {
 

@@ -2,13 +2,20 @@ package net.deechael.esjzone.novellibrary.novel
 
 import java.io.Serializable
 
-data class HomeNovel(
-    val coverUrl: String,
-    val name: String,
-    val url: String,
+interface Novel : Serializable {
+
+    val coverUrl: String
+    val name: String
+    val url: String
+}
+
+data class CoveredNovel(
+    override val coverUrl: String,
+    override val name: String,
+    override val url: String,
     val views: Int,
     val likes: Int,
-) : Serializable
+) : Novel
 
 data class DetailedNovel(
     val name: String,

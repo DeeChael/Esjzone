@@ -4,9 +4,12 @@
 
 查看 [NETWORK.md](./NETWORK.md) 来了解 Esjzone 网络请求相关内容
 
-目前开发进度：首页的小说都能打开详细页并打开章节页面进行阅读了，接下来把搜索做出来就可以暂缓开发进度了。 \
+目前开发进度：首页的小说都能打开详细页并打开章节页面进行阅读了，~~接下来把搜索做出来就可以暂缓开发进度了。~~ \
 搜索完成后会先完成收藏和列出所有小说的功能，然后就会完全放缓开发速度，因为已经可以使用了。 \
 欢迎各位大佬提交 PR，我的开发能力有限，实在无法将这个软件做的十分完善。
+
+#### 更新于 2024.3.26
+已完成搜索功能，已经处于一个可以正常使用的状态了
 
 ## 吐槽
 
@@ -17,11 +20,11 @@
 
 ## 开发计划
 ### 正常使用
-1. 搜索
+1. ~~搜索~~ 已完成（2024.3.26），支持 Endless Scrolling，无需手动切换分页 
 2. 列出所有
 3. 分类
 4. 收藏
-5. 观看记录 （目前不知道应该用什么办法将软件的记录更新到 Esjzone 的后端）
+5. ~~观看记录 （目前不知道应该用什么办法将软件的记录更新到 Esjzone 的后端）~~ 测试发现只要请求了论坛内容界面就会自动保存记录，所以不需要处理
 6. 评论
 7. 论坛功能
 8. \[非必须] 将论坛的发帖页面和整合页读取到的章节分开显示，但是论坛里是乱序的，可能是因为编辑者有时会修改前文内容，并且论坛是按时间排序的 
@@ -68,9 +71,21 @@
   </tr> 
   <tr>
     <td>小说详细页（带有图片的简介-已过时）</td>
+    <td>搜索页面（未输入）</td>
+    <td>搜索页面（正在输入）</td>
   </tr> 
   <tr>
     <td><img src="./screenshots/showcase/11.jpg" alt="1" width=360px height=640px></td>
+    <td><img src="./screenshots/showcase/12.jpg" alt="1" width=360px height=640px></td>
+    <td><img src="./screenshots/showcase/13.jpg" alt="1" width=360px height=640px></td>
+  </tr> 
+  <tr>
+    <td>搜索结果</td>
+    <td>小说详细页（更新后）</td>
+  </tr> 
+  <tr>
+    <td><img src="./screenshots/showcase/14.jpg" alt="1" width=360px height=640px></td>
+    <td><img src="./screenshots/showcase/15.jpg" alt="1" width=360px height=640px></td>
   </tr> 
 </table>
 

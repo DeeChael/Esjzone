@@ -20,4 +20,6 @@
     <string name="tab_home_recommendation">Recommendation</string>
     <string name="novel_chapterlist">Chapter List</string>
     <string name="author">Author</string>
+    <string name="search_result">Search Result</string>
+    <string name="search_placeholder">Type the keyword to search</string>
 </resources>
