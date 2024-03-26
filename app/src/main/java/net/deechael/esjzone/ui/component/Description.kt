@@ -21,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
+import net.deechael.esjzone.MainActivity
 import net.deechael.esjzone.novellibrary.component.BackgroundColorTextStyle
 import net.deechael.esjzone.novellibrary.component.BoldTextStyle
 import net.deechael.esjzone.novellibrary.component.ColorTextStyle
@@ -70,6 +71,7 @@ fun Description(description: NovelDescription, modifier: Modifier = Modifier) {
                             .crossfade(true)
                             .build(),
                         contentDescription = "description",
+                        imageLoader = MainActivity.imageLoader,
                         loading = {
                             CircularProgressIndicator()
                         },
@@ -151,6 +153,7 @@ fun FuriganaTestPreview() {
                             .crossfade(true)
                             .build(),
                         contentDescription = "description",
+                        imageLoader = MainActivity.imageLoader,
                         loading = {
                             CircularProgressIndicator()
                         },

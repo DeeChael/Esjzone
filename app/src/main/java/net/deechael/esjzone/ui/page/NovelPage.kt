@@ -45,6 +45,7 @@ import coil.request.ImageRequest
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import net.deechael.esjzone.MainActivity
 import net.deechael.esjzone.R
 import net.deechael.esjzone.network.Authorization
 import net.deechael.esjzone.network.EsjzoneClient
@@ -125,6 +126,7 @@ class NovelPage(private val novel: CoveredNovel) : Screen {
                                 .crossfade(true)
                                 .build(),
                             contentDescription = novel.name,
+                            imageLoader = MainActivity.imageLoader,
                             loading = {
                                 CircularProgressIndicator()
                             },

@@ -54,6 +54,7 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.coil.core)
     implementation(libs.coil.compose)
+    implementation(libs.coil.gif)
     implementation(libs.voyager.navigator)
     implementation(libs.voyager.screenmodel)
     implementation(libs.voyager.bottomSheetNavigator)

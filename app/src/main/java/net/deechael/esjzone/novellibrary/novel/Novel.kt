@@ -15,7 +15,23 @@ data class CoveredNovel(
     override val url: String,
     val views: Int,
     val likes: Int,
-) : Novel
+) : Novel {
+
+    override fun equals(other: Any?): Boolean {
+        if (other == null)
+            return false
+        if (this === other)
+            return true
+        if (other !is Novel)
+            return false
+        return other.url.contentEquals(this.url)
+    }
+
+    override fun hashCode(): Int {
+        return url.hashCode()
+    }
+
+}
 
 data class DetailedNovel(
     val name: String,

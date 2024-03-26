@@ -28,7 +28,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.currentCompositeKeyHash
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
@@ -53,6 +52,7 @@ import coil.request.ImageRequest
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import net.deechael.esjzone.MainActivity
 import net.deechael.esjzone.R
 import net.deechael.esjzone.network.Authorization
 import net.deechael.esjzone.network.EsjzoneClient
@@ -130,31 +130,11 @@ class SearchPage(private val keyword: String) : Screen {
 
                     val listState = rememberLazyListState()
 
-                    val shouldLoadMore: Boolean by remember {
-                        derivedStateOf {
-                            val lastVisibleItem = listState.layoutInfo.visibleItemsInfo.lastOrNull()
-                            lastVisibleItem?.index != 0 && lastVisibleItem?.index == listState.layoutInfo.totalItemsCount - 1 && current <= max
-                        }
-                    }
-                    /*
-
-                                        LaunchedEffect(shouldLoadMore) {
-                                            if (shouldLoadMore) {
-                                                scope.launch(Dispatchers.IO) {
-                                                    val newlyLoaded = requester.more(current)
-                                                    println("newly loaded: " + newlyLoaded.map { it.name })
-                                                    items.addAll(newlyLoaded)
-                                                    current += 1
-                                                }
-                                            }
-                                        }
-                    */
-
                     LazyColumn(state = listState) {
-                        items(items, key = { it.url }) { novel ->
+                        items(items.toList().distinct()) { novel ->
                             Card(
                                 modifier = Modifier
-                                    .padding(8.dp)
+                                    .padding(start = 8.dp, end = 8.dp, top = 4.dp)
                                     .fillMaxWidth()
                                     .clickable {
                                         navigator.push(NovelPage(novel))
@@ -167,6 +147,7 @@ class SearchPage(private val keyword: String) : Screen {
                                             .crossfade(true)
                                             .build(),
                                         contentDescription = novel.name,
+                                        imageLoader = MainActivity.imageLoader,
                                         loading = {
                                             CircularProgressIndicator()
                                         },
@@ -231,7 +212,7 @@ class SearchPage(private val keyword: String) : Screen {
                         }
 
                         item {
-                            if (current <= max) {
+                            if (current <= max && max > 1) {
                                 Box(
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -243,12 +224,16 @@ class SearchPage(private val keyword: String) : Screen {
                                 LaunchedEffect(currentCompositeKeyHash) {
                                     scope.launch(Dispatchers.IO) {
                                         val newlyLoaded = requester.more(current)
-                                        println("newly loaded: " + newlyLoaded.map { it.name })
-                                        items.addAll(newlyLoaded)
+                                        for (item in newlyLoaded) {
+                                            if (items.contains(item))
+                                                continue
+                                            items.add(item)
+                                        }
                                         current += 1
                                     }
                                 }
                             }
+                            Spacer(modifier = Modifier.height(8.dp))
                         }
                     }
                 }

@@ -52,6 +52,7 @@ import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import net.deechael.esjzone.MainActivity
 import net.deechael.esjzone.R
 import net.deechael.esjzone.network.EsjzoneClient
 import net.deechael.esjzone.network.LocalAuthorization
@@ -323,6 +324,7 @@ fun NovelSets(novels: List<CoveredNovel>) {
                                 .crossfade(true)
                                 .build(),
                             contentDescription = novel.name,
+                            imageLoader = MainActivity.imageLoader,
                             loading = {
                                 CircularProgressIndicator()
                             },
