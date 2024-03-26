@@ -19,6 +19,7 @@ import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
@@ -123,12 +124,12 @@ private fun analyseText(node: Node, styles: List<TextStyle>): List<TextComponent
         newStyles.addAll(styles)
         if (node.nameIs("strong")) {
             newStyles.add(BoldTextStyle)
+        } else if (node.nameIs("em")) {
+            newStyles.add(ItalicTextStyle)
         } else if (node.nameIs("u")) {
             newStyles.add(UnderlineTextStyle)
-        } else if (node.nameIs("!strong")) {
-            newStyles.remove(BoldTextStyle)
-        } else if (node.nameIs("!u")) {
-            newStyles.remove(UnderlineTextStyle)
+        } else if (node.nameIs("s")) {
+            newStyles.add(LineThroughTextStyle)
         } else if (node.nameIs("span")) {
             newStyles.addAll(analyseStyles(node.attr("style").replace(" ", "")))
         }
@@ -310,6 +311,30 @@ object UnderlineTextStyle : TextStyle {
         return spanStyle.merge(
             SpanStyle(
                 textDecoration = TextDecoration.Underline
+            )
+        )
+    }
+
+}
+
+object ItalicTextStyle : TextStyle {
+
+    override fun apply(spanStyle: SpanStyle): SpanStyle {
+        return spanStyle.merge(
+            SpanStyle(
+                fontStyle = FontStyle.Italic
+            )
+        )
+    }
+
+}
+
+object LineThroughTextStyle : TextStyle {
+
+    override fun apply(spanStyle: SpanStyle): SpanStyle {
+        return spanStyle.merge(
+            SpanStyle(
+                textDecoration = TextDecoration.LineThrough
             )
         )
     }
