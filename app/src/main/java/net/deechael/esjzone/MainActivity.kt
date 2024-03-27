@@ -7,8 +7,8 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import coil.ImageLoader
 import coil.decode.ImageDecoderDecoder
-import net.deechael.esjzone.app.App
 import net.deechael.esjzone.database.GeneralDatabase
+import net.deechael.esjzone.ui.app.App
 import net.deechael.esjzone.ui.theme.catppuccin.latte.CatppuccinLatteYellowTheme
 
 class MainActivity : ComponentActivity() {

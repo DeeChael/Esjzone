@@ -71,8 +71,8 @@
   </tr> 
   <tr>
     <td>小说详细页（带有图片的简介-已过时）</td>
-    <td>搜索页面（未输入）</td>
-    <td>搜索页面（正在输入）</td>
+    <td>搜索页面（未输入-已过时）</td>
+    <td>搜索页面（正在输入-已过时）</td>
   </tr> 
   <tr>
     <td><img src="./screenshots/showcase/11.jpg" alt="1" width=360px height=640px></td>
@@ -82,10 +82,18 @@
   <tr>
     <td>搜索结果</td>
     <td>小说详细页（更新后）</td>
+    <td>搜索页面（未输入-带有搜索历史）</td>
   </tr> 
   <tr>
     <td><img src="./screenshots/showcase/14.jpg" alt="1" width=360px height=640px></td>
     <td><img src="./screenshots/showcase/15.jpg" alt="1" width=360px height=640px></td>
+    <td><img src="./screenshots/showcase/16.jpg" alt="1" width=360px height=640px></td>
+  </tr> 
+  <tr>
+    <td>个人主页（施工中，仅为测试用）</td>
+  </tr> 
+  <tr>
+    <td><img src="./screenshots/showcase/17.jpg" alt="1" width=360px height=640px></td>
   </tr> 
 </table>
 

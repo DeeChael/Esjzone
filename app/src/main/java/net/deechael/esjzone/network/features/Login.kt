@@ -32,7 +32,10 @@ fun EsjzoneClient.login(email: String, password: String): Authorization? {
                         ewsToken = cookie.value
                 }
 
-                authorization = Authorization(ewsKey!!, ewsToken!!)
+                if (ewsKey == null || ewsToken == null)
+                    return
+
+                authorization = Authorization(ewsKey, ewsToken)
             }
 
         })

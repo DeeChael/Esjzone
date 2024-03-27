@@ -15,6 +15,8 @@ object EsjzoneUrls {
 
         const val Login: String = "$Base/my/login"
 
+        const val Logout: String = "$Base/my/logout"
+
         const val Favorite: String = "$Base/my/favorite"
 
         const val View: String = "$Base/my/view"

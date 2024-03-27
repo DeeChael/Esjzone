@@ -34,4 +34,7 @@
     <string name="novel_filter_mostcomments">Most Comments</string>
     <string name="novel_filter_mostfavorites">Most Favorites</string>
     <string name="novel_filter_mostwords">Most Words</string>
+    <string name="search_history">Search History</string>
+    <string name="button_logout">Logout</string>
+    <string name="field_required">This field is required</string>
 </resources>

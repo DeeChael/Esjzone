@@ -7,9 +7,6 @@ import net.deechael.esjzone.network.EsjzoneXPaths
 import net.deechael.esjzone.novellibrary.component.analyseComponents
 import net.deechael.esjzone.novellibrary.novel.Chapter
 import net.deechael.esjzone.novellibrary.novel.DetailedChapter
-import okhttp3.Cookie
-import okhttp3.CookieJar
-import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.jsoup.Jsoup

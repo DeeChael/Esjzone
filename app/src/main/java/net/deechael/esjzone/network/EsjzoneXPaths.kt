@@ -108,7 +108,8 @@ object EsjzoneXPaths {
 
     object Forum {
 
-        val Novel: XPathEvaluator = Xsoup.compile("/html/body/div[3]/section/div/div/div/table/tbody/tr/td/a") // text() for novel name, @href for link
+        val Novel: XPathEvaluator =
+            Xsoup.compile("/html/body/div[3]/section/div/div/div/table/tbody/tr/td/a") // text() for novel name, @href for link
         val Content: XPathEvaluator = Xsoup.compile("/html/body/div[3]/section/div/div[1]/div[3]")
 
     }

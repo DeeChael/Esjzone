@@ -35,4 +35,7 @@
     <string name="novel_filter_mostcomments">最多讨论</string>
     <string name="novel_filter_mostfavorites">最多收藏</string>
     <string name="novel_filter_mostwords">最多字数</string>
+    <string name="search_history">搜索历史</string>
+    <string name="button_logout">登出</string>
+    <string name="field_required">此栏为必填项</string>
 </resources>
