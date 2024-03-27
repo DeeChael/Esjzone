@@ -1,6 +1,7 @@
 package net.deechael.esjzone.network.features
 
 import net.deechael.esjzone.network.Authorization
+import net.deechael.esjzone.network.AuthorizationCookieJar
 import net.deechael.esjzone.network.EsjzoneClient
 import net.deechael.esjzone.network.EsjzoneUrls
 import net.deechael.esjzone.network.EsjzoneXPaths
@@ -14,20 +15,7 @@ import org.jsoup.Jsoup
 
 fun EsjzoneClient.getUserProfile(authorization: Authorization): UserProfile {
     val httpClient = OkHttpClient.Builder()
-        .cookieJar(object : CookieJar {
-            override fun loadForRequest(url: HttpUrl): List<Cookie> {
-                return listOf(
-                    Cookie.Builder().domain("www.esjzone.me").name("ews_key")
-                        .value(authorization.ewsKey).build(),
-                    Cookie.Builder().domain("www.esjzone.me").name("ews_token")
-                        .value(authorization.ewsToken).build()
-                )
-            }
-
-            override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
-            }
-
-        })
+        .cookieJar(AuthorizationCookieJar(authorization))
         .build()
 
     val response = httpClient.newCall(

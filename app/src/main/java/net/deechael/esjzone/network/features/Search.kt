@@ -1,14 +1,12 @@
 package net.deechael.esjzone.network.features
 
 import net.deechael.esjzone.network.Authorization
+import net.deechael.esjzone.network.AuthorizationCookieJar
 import net.deechael.esjzone.network.EsjzoneClient
 import net.deechael.esjzone.network.EsjzoneUrls
 import net.deechael.esjzone.network.EsjzoneXPaths
 import net.deechael.esjzone.network.PageableRequester
 import net.deechael.esjzone.novellibrary.novel.CoveredNovel
-import okhttp3.Cookie
-import okhttp3.CookieJar
-import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.jsoup.Jsoup
@@ -20,20 +18,7 @@ fun EsjzoneClient.search(
     keyword: String
 ): Pair<PageableRequester<CoveredNovel>, List<CoveredNovel>> {
     val httpClient = OkHttpClient.Builder()
-        .cookieJar(object : CookieJar {
-            override fun loadForRequest(url: HttpUrl): List<Cookie> {
-                return listOf(
-                    Cookie.Builder().domain("www.esjzone.me").name("ews_key")
-                        .value(authorization.ewsKey).build(),
-                    Cookie.Builder().domain("www.esjzone.me").name("ews_token")
-                        .value(authorization.ewsToken).build()
-                )
-            }
-
-            override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
-            }
-
-        })
+        .cookieJar(AuthorizationCookieJar(authorization))
         .build()
 
     val response = httpClient.newCall(
@@ -66,30 +51,17 @@ fun EsjzoneClient.search(
         )
     }
 
-    return NovelRequester(authorization, keyword, pages) to novels
+    return SearchNovelRequester(authorization, keyword, pages) to novels
 }
 
-private class NovelRequester(
+private class SearchNovelRequester(
     private val authorization: Authorization,
     private val keyword: String,
     private val pages: Int
 ) : PageableRequester<CoveredNovel> {
 
     private val httpClient = OkHttpClient.Builder()
-        .cookieJar(object : CookieJar {
-            override fun loadForRequest(url: HttpUrl): List<Cookie> {
-                return listOf(
-                    Cookie.Builder().domain("www.esjzone.me").name("ews_key")
-                        .value(authorization.ewsKey).build(),
-                    Cookie.Builder().domain("www.esjzone.me").name("ews_token")
-                        .value(authorization.ewsToken).build()
-                )
-            }
-
-            override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
-            }
-
-        })
+        .cookieJar(AuthorizationCookieJar(authorization))
         .build()
 
     private var current: Int = 2
