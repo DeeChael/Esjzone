@@ -23,4 +23,16 @@
     <string name="author">作者</string>
     <string name="search_result">搜索结果</string>
     <string name="search_placeholder">输入关键词搜索</string>
+    <string name="novel_list_all">全部</string>
+    <string name="novel_list_japanese">日轻</string>
+    <string name="novel_list_original">原创</string>
+    <string name="novel_list_korean">韩轻</string>
+    <string name="novel_filter_recentlyupdate">最新更新</string>
+    <string name="novel_filter_recentlyupload">最新上架</string>
+    <string name="novel_filter_highestrating">最高评分</string>
+    <string name="novel_filter_mostviews">最多观看</string>
+    <string name="novel_filter_mostchapters">最多文章</string>
+    <string name="novel_filter_mostcomments">最多讨论</string>
+    <string name="novel_filter_mostfavorites">最多收藏</string>
+    <string name="novel_filter_mostwords">最多字数</string>
 </resources>

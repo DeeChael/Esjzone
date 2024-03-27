@@ -22,4 +22,16 @@
     <string name="author">Author</string>
     <string name="search_result">Search Result</string>
     <string name="search_placeholder">Type the keyword to search</string>
+    <string name="novel_list_all">All</string>
+    <string name="novel_list_japanese">Japanese</string>
+    <string name="novel_list_original">Original</string>
+    <string name="novel_list_korean">Korean</string>
+    <string name="novel_filter_recentlyupdate">Recently Update</string>
+    <string name="novel_filter_recentlyupload">Recently Upload</string>
+    <string name="novel_filter_highestrating">Highest Rating</string>
+    <string name="novel_filter_mostviews">Most Views</string>
+    <string name="novel_filter_mostchapters">Most Chapters</string>
+    <string name="novel_filter_mostcomments">Most Comments</string>
+    <string name="novel_filter_mostfavorites">Most Favorites</string>
+    <string name="novel_filter_mostwords">Most Words</string>
 </resources>
