@@ -15,6 +15,7 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import net.deechael.esjzone.GlobalSettings
 import net.deechael.esjzone.MainActivity
 import net.deechael.esjzone.database.GeneralDatabase
 import net.deechael.esjzone.database.entity.Cache
@@ -43,8 +44,10 @@ class LoadingScreen : Screen {
                     GeneralDatabase::class.java, "general"
                 ).build()
 
-                if (!MainActivity.database.cacheDao().exists("ews_key")) {
-                    MainActivity.database.cacheDao().insertNotExists(
+                val dao = MainActivity.database.cacheDao()
+
+                if (!dao.exists("ews_key")) {
+                    dao.insertNotExists(
                         Cache(
                             key = "ews_key",
                             value = "null"
@@ -52,8 +55,8 @@ class LoadingScreen : Screen {
                     )
                 }
 
-                if (!MainActivity.database.cacheDao().exists("ews_token")) {
-                    MainActivity.database.cacheDao().insertNotExists(
+                if (!dao.exists("ews_token")) {
+                    dao.insertNotExists(
                         Cache(
                             key = "ews_token",
                             value = "null"
@@ -61,8 +64,19 @@ class LoadingScreen : Screen {
                     )
                 }
 
-                val ewsKey = MainActivity.database.cacheDao().findByKey("ews_key")
-                val ewsToken = MainActivity.database.cacheDao().findByKey("ews_token")
+                if (!dao.exists("show_adult")) {
+                    dao.insertNotExists(
+                        Cache(
+                            key = "show_adult",
+                            value = "false"
+                        )
+                    )
+                }
+
+                val ewsKey = dao.findByKey("ews_key")
+                val ewsToken = dao.findByKey("ews_token")
+
+                GlobalSettings.adult.value = dao.findByKey("show_adult").value.toBooleanStrictOrNull() ?: false
 
                 val authorization = Authorization(ewsKey.value, ewsToken.value)
 

@@ -129,9 +129,8 @@ object SettingsPage : Screen {
                             EsjzoneClient.logout(authorization)
                             val dao = MainActivity.database.cacheDao()
                             dao.delete(
-                                *dao
-                                    .getAll()
-                                    .toTypedArray()
+                                dao.findByKey("ews_key"),
+                                dao.findByKey("ews_token"),
                             )
                         }
                         appNavigator.replaceAll(LoginScreen)
