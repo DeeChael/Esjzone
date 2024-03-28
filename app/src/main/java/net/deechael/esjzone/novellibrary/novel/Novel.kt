@@ -15,6 +15,7 @@ data class CoveredNovel(
     override val url: String,
     val views: Int,
     val likes: Int,
+    val isAdult: Boolean
 ) : Novel {
 
     override fun equals(other: Any?): Boolean {

@@ -112,7 +112,15 @@ object SettingsPage : Screen {
                     Spacer(modifier = Modifier.weight(1f))
                     Switch(
                         checked = adult,
-                        onCheckedChange = { adult = it },
+                        onCheckedChange = {
+                            adult = it
+                            scope.launch(Dispatchers.IO) {
+                                val dao = MainActivity.database.cacheDao()
+                                val showAdult = dao.findByKey("show_adult")
+                                showAdult.value = it.toString()
+                                dao.update(showAdult)
+                            }
+                        },
                         modifier = Modifier
                             .padding(top = 4.dp, bottom = 4.dp, end = 16.dp)
                             .scale(0.9f),

@@ -310,12 +310,20 @@ fun NovelSets(novels: List<CoveredNovel>) {
     val configuration = LocalConfiguration.current
     val navigator = LocalBaseNavigator.current
 
+    val adult by remember {
+        GlobalSettings.adult
+    }
+
+    val finalNovels = novels.filter {
+        !(it.isAdult && !adult)
+    }.toList()
+
     SubcomposeRow(
         modifier = Modifier.horizontalScroll(rememberScrollState())
     ) {
-        val length = novels.size
+        val length = finalNovels.size
         for (index in 0 until length) {
-            val novel = novels[index]
+            val novel = finalNovels[index]
             Card(
                 modifier = Modifier
                     .widthIn(max = (configuration.screenWidthDp / 2).dp)

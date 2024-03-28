@@ -54,6 +54,8 @@ object EsjzoneXPaths {
             val Likes: XPathEvaluator =
                 Xsoup.compile("/div/div/div[2]/div[2]/text()") // example: " 1234", so need remove the spaces and parse it to int
 
+            val R18Badge: XPathEvaluator = Xsoup.compile("/div/div[1]")
+
         }
 
     }
@@ -101,6 +103,8 @@ object EsjzoneXPaths {
             val Url: XPathEvaluator = Xsoup.compile("/div/div/h5/a/@href")
             val Views: XPathEvaluator = Xsoup.compile("/div/div/div[4]/div[1]/text()")
             val Likes: XPathEvaluator = Xsoup.compile("/div/div/div[4]/div[2]/text()")
+
+            val R18Badge: XPathEvaluator = Xsoup.compile("/div/div[1]")
 
         }
 

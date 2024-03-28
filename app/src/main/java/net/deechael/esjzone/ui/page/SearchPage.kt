@@ -52,6 +52,7 @@ import coil.request.ImageRequest
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import net.deechael.esjzone.GlobalSettings
 import net.deechael.esjzone.MainActivity
 import net.deechael.esjzone.R
 import net.deechael.esjzone.network.Authorization
@@ -130,8 +131,17 @@ class SearchPage(private val keyword: String) : Screen {
 
                     val listState = rememberLazyListState()
 
+                    val adult by remember {
+                        GlobalSettings.adult
+                    }
+
                     LazyColumn(state = listState) {
-                        items(items.toList().distinct()) { novel ->
+                        items(items.toList().filter {
+                            if (!it.isAdult)
+                                true
+                            else
+                                adult
+                        }.distinct()) { novel ->
                             Card(
                                 modifier = Modifier
                                     .padding(start = 8.dp, end = 8.dp, top = 4.dp)
