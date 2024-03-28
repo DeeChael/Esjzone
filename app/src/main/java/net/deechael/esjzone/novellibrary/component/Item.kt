@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ExpandLess
@@ -47,7 +48,7 @@ fun analyseItems(element: Element): List<Item> {
 }
 
 private fun analyseChapterList(element: Element): ChapterListItem {
-    val title = EsjzoneXPaths.Detail.ChapterListDetails.Title.evaluate(element).get()
+    val title = analyseParagraph(EsjzoneXPaths.Detail.ChapterListDetails.Title.evaluate(element).elements[0])[0] as TextComponent
 
     val chapters = mutableListOf<Chapter>()
     for (child in element.children()) {
@@ -115,11 +116,15 @@ class ChapterItem(private val chapter: Chapter) : Item {
 
 }
 
-class ChapterListItem(private val name: String, private val chapters: List<Chapter>) : Item {
+class ChapterListItem(private val name: TextComponent, private val chapters: List<Chapter>) : Item {
 
     @Composable
     override fun Render() {
         val navigator = LocalBaseNavigator.current
+
+        val textMeasurer = rememberTextMeasurer()
+        val textStyle = LocalTextStyle.current
+        val density = LocalDensity.current
 
         OutlinedCard(
             modifier = Modifier
@@ -138,22 +143,27 @@ class ChapterListItem(private val name: String, private val chapters: List<Chapt
                         .fillMaxWidth()
                         .clickable { expanded = !expanded }
                 ) {
-                    Text(text = name, modifier = Modifier.padding(16.dp))
-                    Spacer(modifier = Modifier.weight(1f))
-                    Icon(
-                        imageVector = if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
-                        contentDescription = "",
-                        modifier = Modifier.padding(12.dp)
+                    val (str, inlines) = name.toInlineAnnotatedString(
+                        textMeasurer,
+                        textStyle,
+                        density
+                    )
+                    Text(
+                        text = str,
+                        inlineContent = inlines,
+                        modifier = Modifier
+                            .padding(8.dp)
                     )
                 }
                 AnimatedVisibility(expanded) {
                     Column {
+                        Spacer(modifier = Modifier.height(8.dp))
                         for (chapter in chapters) {
                             Card(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(
-                                        start = 16.dp,
+                                        start = 8.dp,
                                         end = 8.dp,
                                         bottom = 8.dp
                                     )

@@ -53,7 +53,7 @@ fun ChapterListPreview() {
                 ChapterItem(Chapter("example chapter 1", "")),
                 ChapterItem(Chapter("example chapter 2", "")),
                 ChapterListItem(
-                    "Chapter list example",
+                    TextComponent("Chapter list example"),
                     listOf(
                         Chapter("in chapter list 1", ""),
                         Chapter("in chapter list 2", ""),

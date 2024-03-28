@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Card
@@ -86,7 +87,7 @@ object ProfileTab : Tab {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             if (data == null) {
-                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                Box(modifier = Modifier.fillMaxWidth().padding(16.dp), contentAlignment = Alignment.Center) {
                     CircularProgressIndicator()
                 }
             } else {
@@ -112,68 +113,96 @@ object ProfileTab : Tab {
                     fontSize = 24.sp,
                     modifier = Modifier.padding(8.dp)
                 )
-                HorizontalDivider(
-                    thickness = 2.dp,
-                    modifier = Modifier.padding(start = 32.dp, end = 32.dp)
-                )
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
-                    modifier = Modifier.padding(16.dp)
-                ) {
-                    item {
-                        Card(
-                            modifier = Modifier
-                                .padding(start = 8.dp, end = 8.dp, bottom = 16.dp)
-                                .clickable {
-                                    // TODO: push to Favorites page
-                                }
-                        ) {
-                            Column(
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                                verticalArrangement = Arrangement.Center,
-                                modifier = Modifier.fillMaxWidth()
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Filled.Favorite,
-                                    contentDescription = "",
-                                    modifier = Modifier
-                                        .padding(top = 16.dp)
-                                        .size(50.dp)
-                                )
-                                Text(
-                                    text = stringResource(id = R.string.favorites),
-                                    modifier = Modifier.padding(16.dp),
-                                    fontSize = 20.sp
-                                )
+            }
+            HorizontalDivider(
+                thickness = 2.dp,
+                modifier = Modifier.padding(start = 32.dp, end = 32.dp)
+            )
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                modifier = Modifier.padding(16.dp)
+            ) {
+                item {
+                    Card(
+                        modifier = Modifier
+                            .padding(start = 8.dp, end = 8.dp, bottom = 16.dp)
+                            .clickable {
+                                // TODO: push to Favorites page
                             }
+                    ) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center,
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.Favorite,
+                                contentDescription = "",
+                                modifier = Modifier
+                                    .padding(top = 16.dp)
+                                    .size(50.dp)
+                            )
+                            Text(
+                                text = stringResource(id = R.string.favorites),
+                                modifier = Modifier.padding(16.dp),
+                                fontSize = 20.sp
+                            )
                         }
                     }
-                    item {
-                        Card(
-                            modifier = Modifier
-                                .padding(start = 8.dp, end = 8.dp, bottom = 16.dp)
-                                .clickable {
-                                    navigator.push(SettingsPage)
-                                }
-                        ) {
-                            Column(
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                                verticalArrangement = Arrangement.Center,
-                                modifier = Modifier.fillMaxWidth()
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Filled.Settings,
-                                    contentDescription = "",
-                                    modifier = Modifier
-                                        .padding(top = 16.dp)
-                                        .size(50.dp)
-                                )
-                                Text(
-                                    text = stringResource(id = R.string.settings),
-                                    modifier = Modifier.padding(16.dp),
-                                    fontSize = 20.sp
-                                )
+                }
+                item {
+                    Card(
+                        modifier = Modifier
+                            .padding(start = 8.dp, end = 8.dp, bottom = 16.dp)
+                            .clickable {
+                                // TODO: push to History page
                             }
+                    ) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center,
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.History,
+                                contentDescription = "",
+                                modifier = Modifier
+                                    .padding(top = 16.dp)
+                                    .size(50.dp)
+                            )
+                            Text(
+                                text = stringResource(id = R.string.history),
+                                modifier = Modifier.padding(16.dp),
+                                fontSize = 20.sp
+                            )
+                        }
+                    }
+                }
+                item {
+                    Card(
+                        modifier = Modifier
+                            .padding(start = 8.dp, end = 8.dp, bottom = 16.dp)
+                            .clickable {
+                                navigator.push(SettingsPage)
+                            }
+                    ) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center,
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.Settings,
+                                contentDescription = "",
+                                modifier = Modifier
+                                    .padding(top = 16.dp)
+                                    .size(50.dp)
+                            )
+                            Text(
+                                text = stringResource(id = R.string.settings),
+                                modifier = Modifier.padding(16.dp),
+                                fontSize = 20.sp
+                            )
                         }
                     }
                 }

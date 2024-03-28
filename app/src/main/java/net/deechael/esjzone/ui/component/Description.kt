@@ -16,12 +16,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import net.deechael.esjzone.MainActivity
+import net.deechael.esjzone.R
 import net.deechael.esjzone.novellibrary.component.BackgroundColorTextStyle
 import net.deechael.esjzone.novellibrary.component.BoldTextStyle
 import net.deechael.esjzone.novellibrary.component.ColorTextStyle
@@ -47,6 +50,11 @@ fun Description(description: NovelDescription, modifier: Modifier = Modifier) {
         Column(
             modifier = Modifier.padding(8.dp)
         ) {
+            Text(
+                text = stringResource(id = R.string.description),
+                fontSize = 20.sp,
+                modifier = Modifier.padding(4.dp)
+            )
             for (component in description.components) {
                 if (component is TextComponent) {
                     val (str, inlines) = component.toInlineAnnotatedString(

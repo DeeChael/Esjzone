@@ -42,4 +42,6 @@
     <string name="settings">设置</string>
     <string name="settings_showadultcontent">显示成人内容</string>
     <string name="favorites">收藏</string>
+    <string name="description">作品简介</string>
+    <string name="history">历史记录</string>
 </resources>

@@ -7,6 +7,7 @@ object EsjzoneUrls {
 
     const val EmptyCover: String = "$Base/assets/img/empty.jpg"
     const val Home: String = Base
+    const val Forum: String = "$Base/forum"
     const val Tags: String = "$Base/tags"
 
     object My {
