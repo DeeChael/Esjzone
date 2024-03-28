@@ -52,6 +52,7 @@ import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import net.deechael.esjzone.GlobalSettings
 import net.deechael.esjzone.MainActivity
 import net.deechael.esjzone.R
 import net.deechael.esjzone.network.EsjzoneClient
@@ -172,76 +173,82 @@ object HomeTab : Tab {
 
             }
 
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            ) {
-                Row(
-                    modifier = Modifier.clickable {
-                        // More page: https://www.esjzone.me/tags/R18
-                    }
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.tab_home_recentlyupdate_tranlated_r18),
-                        fontSize = 6.em,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .padding(8.dp)
-                    )
-                    Spacer(modifier = Modifier.weight(1f))
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowForwardIos,
-                        contentDescription = "",
-                        modifier = Modifier
-                            .padding(10.dp)
-                    )
-                }
-
-                if (homeData == null) {
-                    CircularProgressIndicator(
-                        modifier = Modifier.align(Alignment.CenterHorizontally)
-                    )
-                } else {
-                    NovelSets(novels = homeData!!.recentlyUpdateTranslatedR18)
-                }
-
+            val adult by remember {
+                GlobalSettings.adult
             }
 
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            ) {
-                Row(
-                    modifier = Modifier.clickable {
-                        // More page: https://www.esjzone.me/list-21/
-                    }
+            if (adult) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
                 ) {
-                    Text(
-                        text = stringResource(id = R.string.tab_home_recentlyupdate_original_r18),
-                        fontSize = 6.em,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .padding(8.dp)
-                    )
-                    Spacer(modifier = Modifier.weight(1f))
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowForwardIos,
-                        contentDescription = "",
-                        modifier = Modifier
-                            .padding(10.dp)
-                    )
+                    Row(
+                        modifier = Modifier.clickable {
+                            // More page: https://www.esjzone.me/tags/R18
+                        }
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.tab_home_recentlyupdate_tranlated_r18),
+                            fontSize = 6.em,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier
+                                .padding(8.dp)
+                        )
+                        Spacer(modifier = Modifier.weight(1f))
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowForwardIos,
+                            contentDescription = "",
+                            modifier = Modifier
+                                .padding(10.dp)
+                        )
+                    }
+
+                    if (homeData == null) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.align(Alignment.CenterHorizontally)
+                        )
+                    } else {
+                        NovelSets(novels = homeData!!.recentlyUpdateTranslatedR18)
+                    }
+
                 }
 
-                if (homeData == null) {
-                    CircularProgressIndicator(
-                        modifier = Modifier.align(Alignment.CenterHorizontally)
-                    )
-                } else {
-                    NovelSets(novels = homeData!!.recentlyUpdateOriginalR18)
-                }
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.clickable {
+                            // More page: https://www.esjzone.me/list-21/
+                        }
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.tab_home_recentlyupdate_original_r18),
+                            fontSize = 6.em,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier
+                                .padding(8.dp)
+                        )
+                        Spacer(modifier = Modifier.weight(1f))
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowForwardIos,
+                            contentDescription = "",
+                            modifier = Modifier
+                                .padding(10.dp)
+                        )
+                    }
 
+                    if (homeData == null) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.align(Alignment.CenterHorizontally)
+                        )
+                    } else {
+                        NovelSets(novels = homeData!!.recentlyUpdateOriginalR18)
+                    }
+
+                }
             }
 
             Column(

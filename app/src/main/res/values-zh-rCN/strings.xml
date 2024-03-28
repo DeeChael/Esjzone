@@ -38,4 +38,8 @@
     <string name="search_history">搜索历史</string>
     <string name="button_logout">登出</string>
     <string name="field_required">此栏为必填项</string>
+    <string name="categories">分类</string>
+    <string name="settings">设置</string>
+    <string name="settings_showadultcontent">显示成人内容</string>
+    <string name="favorites">收藏</string>
 </resources>

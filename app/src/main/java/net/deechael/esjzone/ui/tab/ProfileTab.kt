@@ -1,19 +1,26 @@
 package net.deechael.esjzone.ui.tab
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.Button
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -44,10 +51,9 @@ import net.deechael.esjzone.R
 import net.deechael.esjzone.network.EsjzoneClient
 import net.deechael.esjzone.network.LocalAuthorization
 import net.deechael.esjzone.network.features.getUserProfile
-import net.deechael.esjzone.network.features.logout
 import net.deechael.esjzone.novellibrary.user.UserProfile
-import net.deechael.esjzone.ui.navigation.LocalAppNavigator
-import net.deechael.esjzone.ui.screen.LoginScreen
+import net.deechael.esjzone.ui.navigation.LocalBaseNavigator
+import net.deechael.esjzone.ui.page.SettingsPage
 
 object ProfileTab : Tab {
 
@@ -63,7 +69,7 @@ object ProfileTab : Tab {
 
     @Composable
     override fun Content() {
-        val appNavigator = LocalAppNavigator.current
+        val navigator = LocalBaseNavigator.current
 
         val configuration = LocalConfiguration.current
         val authorization = LocalAuthorization.current
@@ -106,25 +112,70 @@ object ProfileTab : Tab {
                     fontSize = 24.sp,
                     modifier = Modifier.padding(8.dp)
                 )
-                Spacer(modifier = Modifier.weight(1f))
-                Button(
-                    onClick = {
-                        scope.launch(Dispatchers.IO) {
-                            EsjzoneClient.logout(authorization)
-                            val dao = MainActivity.database.cacheDao()
-                            dao.delete(*dao.getAll().toTypedArray())
-                        }
-                        appNavigator.replaceAll(LoginScreen)
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 8.dp, end = 8.dp, bottom = 16.dp)
+                HorizontalDivider(
+                    thickness = 2.dp,
+                    modifier = Modifier.padding(start = 32.dp, end = 32.dp)
+                )
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    modifier = Modifier.padding(16.dp)
                 ) {
-                    Text(
-                        text = stringResource(id = R.string.button_logout),
-                        modifier = Modifier.padding(8.dp),
-                        fontSize = 16.sp
-                    )
+                    item {
+                        Card(
+                            modifier = Modifier
+                                .padding(start = 8.dp, end = 8.dp, bottom = 16.dp)
+                                .clickable {
+                                    // TODO: push to Favorites page
+                                }
+                        ) {
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.Center,
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Filled.Favorite,
+                                    contentDescription = "",
+                                    modifier = Modifier
+                                        .padding(top = 16.dp)
+                                        .size(50.dp)
+                                )
+                                Text(
+                                    text = stringResource(id = R.string.favorites),
+                                    modifier = Modifier.padding(16.dp),
+                                    fontSize = 20.sp
+                                )
+                            }
+                        }
+                    }
+                    item {
+                        Card(
+                            modifier = Modifier
+                                .padding(start = 8.dp, end = 8.dp, bottom = 16.dp)
+                                .clickable {
+                                    navigator.push(SettingsPage)
+                                }
+                        ) {
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.Center,
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Filled.Settings,
+                                    contentDescription = "",
+                                    modifier = Modifier
+                                        .padding(top = 16.dp)
+                                        .size(50.dp)
+                                )
+                                Text(
+                                    text = stringResource(id = R.string.settings),
+                                    modifier = Modifier.padding(16.dp),
+                                    fontSize = 20.sp
+                                )
+                            }
+                        }
+                    }
                 }
             }
         }

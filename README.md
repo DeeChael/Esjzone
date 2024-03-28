@@ -61,7 +61,7 @@
   </tr> 
   <tr>
     <td>章节阅读界面</td>
-    <td>章节阅读界面（显示顶栏（点击正文部分可以 显示/隐藏 顶栏））</td>
+    <td>章节阅读界面（显示顶栏）</td>
     <td>章节阅读界面（带有图片的展示）</td>
   </tr> 
   <tr>
@@ -91,9 +91,19 @@
   </tr> 
   <tr>
     <td>个人主页（施工中，仅为测试用）</td>
+    <td>个人主页（设计定稿）</td>
+    <td>设置界面</td>
   </tr> 
   <tr>
     <td><img src="./screenshots/showcase/17.jpg" alt="1" width=360px height=640px></td>
+    <td><img src="./screenshots/showcase/18.jpg" alt="1" width=360px height=640px></td>
+    <td><img src="./screenshots/showcase/19.jpg" alt="1" width=360px height=640px></td>
+  </tr> 
+  <tr>
+    <td>主页（关闭成人内容）</td>
+  </tr> 
+  <tr>
+    <td><img src="./screenshots/showcase/20.jpg" alt="1" width=360px height=640px></td>
   </tr> 
 </table>
 

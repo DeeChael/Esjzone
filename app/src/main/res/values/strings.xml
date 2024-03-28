@@ -37,4 +37,8 @@
     <string name="search_history">Search History</string>
     <string name="button_logout">Logout</string>
     <string name="field_required">This field is required</string>
+    <string name="categories">Categories</string>
+    <string name="settings">Settings</string>
+    <string name="settings_showadultcontent">Show Adult Content</string>
+    <string name="favorites">Favorites</string>
 </resources>
