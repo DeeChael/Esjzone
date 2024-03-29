@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -19,7 +18,6 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.NoAdultContent
 import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
@@ -29,16 +27,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.currentCompositeKeyHash
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -57,13 +50,9 @@ import net.deechael.esjzone.R
 import net.deechael.esjzone.network.Authorization
 import net.deechael.esjzone.network.EsjzoneClient
 import net.deechael.esjzone.network.LocalAuthorization
-import net.deechael.esjzone.network.PageableRequester
 import net.deechael.esjzone.network.features.getCategories
-import net.deechael.esjzone.network.features.search
 import net.deechael.esjzone.novellibrary.novel.Category
-import net.deechael.esjzone.novellibrary.novel.CoveredNovel
 import net.deechael.esjzone.ui.navigation.LocalBaseNavigator
-import net.deechael.esjzone.ui.page.SettingsPage
 
 @Composable
 private fun MirroredIcon(index: Int, modifier: Modifier) {
@@ -71,20 +60,29 @@ private fun MirroredIcon(index: Int, modifier: Modifier) {
         0 -> {
             Icon(imageVector = Icons.Filled.Refresh, contentDescription = "", modifier)
         }
+
         1 -> {
-            Icon(painter = painterResource(id = R.drawable.outline_swords_24), contentDescription = "", modifier)
+            Icon(
+                painter = painterResource(id = R.drawable.outline_swords_24),
+                contentDescription = "",
+                modifier
+            )
         }
+
         2 -> {
             Icon(imageVector = Icons.Filled.Favorite, contentDescription = "", modifier)
         }
+
         3 -> {
             Icon(imageVector = Icons.Filled.Edit, contentDescription = "", modifier)
         }
+
         4 -> {
             Icon(imageVector = Icons.Filled.NoAdultContent, contentDescription = "", modifier)
         }
     }
 }
+
 object CategoryTab : Tab {
 
     private fun readResolve(): Any = CategoryTab
@@ -140,7 +138,8 @@ object CategoryTab : Tab {
                         GlobalSettings.adult
                     }
 
-                    val filteredList = result.categories.toList().filter { !(it.isAdult && !adult) }.toList()
+                    val filteredList =
+                        result.categories.toList().filter { !(it.isAdult && !adult) }.toList()
 
                     LazyVerticalGrid(
                         columns = GridCells.Fixed(2),

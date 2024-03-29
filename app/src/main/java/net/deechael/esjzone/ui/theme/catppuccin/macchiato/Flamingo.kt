@@ -6,7 +6,6 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import net.deechael.esjzone.ui.typegraphy.HarmonyOsSansSCTypography
 
 val catppuccin_macchiato_flamingo_light_primary = Color(0xFF9C4147)
 val catppuccin_macchiato_flamingo_light_onPrimary = Color(0xFFFFFFFF)
@@ -69,7 +68,7 @@ val catppuccin_macchiato_flamingo_dark_surfaceTint = Color(0xFFFFB3B4)
 val catppuccin_macchiato_flamingo_dark_outlineVariant = Color(0xFF524343)
 val catppuccin_macchiato_flamingo_dark_scrim = Color(0xFF000000)
 
-private val CatppuccinMacchiatoFlamingoLightColors = lightColorScheme(
+val CatppuccinMacchiatoFlamingoLightColors = lightColorScheme(
     primary = catppuccin_macchiato_flamingo_light_primary,
     onPrimary = catppuccin_macchiato_flamingo_light_onPrimary,
     primaryContainer = catppuccin_macchiato_flamingo_light_primaryContainer,
@@ -102,7 +101,7 @@ private val CatppuccinMacchiatoFlamingoLightColors = lightColorScheme(
 )
 
 
-private val CatppuccinMacchiatoFlamingoDarkColors = darkColorScheme(
+val CatppuccinMacchiatoFlamingoDarkColors = darkColorScheme(
     primary = catppuccin_macchiato_flamingo_dark_primary,
     onPrimary = catppuccin_macchiato_flamingo_dark_onPrimary,
     primaryContainer = catppuccin_macchiato_flamingo_dark_primaryContainer,
@@ -147,7 +146,6 @@ fun CatppuccinMacchiatoFlamingoTheme(
 
     MaterialTheme(
         colorScheme = colors,
-        typography = HarmonyOsSansSCTypography,
         content = content
     )
 }

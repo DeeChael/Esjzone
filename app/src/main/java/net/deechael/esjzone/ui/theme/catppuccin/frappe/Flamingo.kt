@@ -6,7 +6,6 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import net.deechael.esjzone.ui.typegraphy.HarmonyOsSansSCTypography
 
 val catppuccin_frappe_flamingo_light_primary = Color(0xFF9C4146)
 val catppuccin_frappe_flamingo_light_onPrimary = Color(0xFFFFFFFF)
@@ -69,7 +68,7 @@ val catppuccin_frappe_flamingo_dark_surfaceTint = Color(0xFFFFB3B4)
 val catppuccin_frappe_flamingo_dark_outlineVariant = Color(0xFF524343)
 val catppuccin_frappe_flamingo_dark_scrim = Color(0xFF000000)
 
-private val CatppuccinFrappeFlamingoLightColors = lightColorScheme(
+val CatppuccinFrappeFlamingoLightColors = lightColorScheme(
     primary = catppuccin_frappe_flamingo_light_primary,
     onPrimary = catppuccin_frappe_flamingo_light_onPrimary,
     primaryContainer = catppuccin_frappe_flamingo_light_primaryContainer,
@@ -102,7 +101,7 @@ private val CatppuccinFrappeFlamingoLightColors = lightColorScheme(
 )
 
 
-private val CatppuccinFrappeFlamingoDarkColors = darkColorScheme(
+val CatppuccinFrappeFlamingoDarkColors = darkColorScheme(
     primary = catppuccin_frappe_flamingo_dark_primary,
     onPrimary = catppuccin_frappe_flamingo_dark_onPrimary,
     primaryContainer = catppuccin_frappe_flamingo_dark_primaryContainer,
@@ -147,7 +146,6 @@ fun CatppuccinFrappeFlamingoTheme(
 
     MaterialTheme(
         colorScheme = colors,
-        typography = HarmonyOsSansSCTypography,
         content = content
     )
 }

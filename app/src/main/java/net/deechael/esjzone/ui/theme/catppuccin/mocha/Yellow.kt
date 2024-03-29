@@ -6,7 +6,6 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import net.deechael.esjzone.ui.typegraphy.HarmonyOsSansSCTypography
 
 val catppuccin_mocha_yellow_light_primary = Color(0xFF765B00)
 val catppuccin_mocha_yellow_light_onPrimary = Color(0xFFFFFFFF)
@@ -69,7 +68,7 @@ val catppuccin_mocha_yellow_dark_surfaceTint = Color(0xFFEDC148)
 val catppuccin_mocha_yellow_dark_outlineVariant = Color(0xFF4C4639)
 val catppuccin_mocha_yellow_dark_scrim = Color(0xFF000000)
 
-private val CatppuccinMochaYellowLightColors = lightColorScheme(
+val CatppuccinMochaYellowLightColors = lightColorScheme(
     primary = catppuccin_mocha_yellow_light_primary,
     onPrimary = catppuccin_mocha_yellow_light_onPrimary,
     primaryContainer = catppuccin_mocha_yellow_light_primaryContainer,
@@ -102,7 +101,7 @@ private val CatppuccinMochaYellowLightColors = lightColorScheme(
 )
 
 
-private val CatppuccinMochaYellowDarkColors = darkColorScheme(
+val CatppuccinMochaYellowDarkColors = darkColorScheme(
     primary = catppuccin_mocha_yellow_dark_primary,
     onPrimary = catppuccin_mocha_yellow_dark_onPrimary,
     primaryContainer = catppuccin_mocha_yellow_dark_primaryContainer,
@@ -147,7 +146,6 @@ fun CatppuccinMochaYellowTheme(
 
     MaterialTheme(
         colorScheme = colors,
-        typography = HarmonyOsSansSCTypography,
         content = content
     )
 }

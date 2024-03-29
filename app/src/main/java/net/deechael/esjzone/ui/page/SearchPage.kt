@@ -245,6 +245,19 @@ class SearchPage(private val keyword: String) : Screen {
                             }
                             Spacer(modifier = Modifier.height(8.dp))
                         }
+
+                        item {
+                            Row(
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Spacer(modifier = Modifier.weight(1f))
+                                Text(
+                                    text = stringResource(id = R.string.the_end),
+                                    modifier = Modifier.padding(16.dp)
+                                )
+                                Spacer(modifier = Modifier.weight(1f))
+                            }
+                        }
                     }
                 }
             }

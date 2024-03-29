@@ -6,7 +6,6 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import net.deechael.esjzone.ui.typegraphy.HarmonyOsSansSCTypography
 
 val catppuccin_latte_teal_light_primary = Color(0xFF00696E)
 val catppuccin_latte_teal_light_onPrimary = Color(0xFFFFFFFF)
@@ -69,7 +68,7 @@ val catppuccin_latte_teal_dark_surfaceTint = Color(0xFF4CD9E2)
 val catppuccin_latte_teal_dark_outlineVariant = Color(0xFF3F4849)
 val catppuccin_latte_teal_dark_scrim = Color(0xFF000000)
 
-private val CatppuccinLatteTealLightColors = lightColorScheme(
+val CatppuccinLatteTealLightColors = lightColorScheme(
     primary = catppuccin_latte_teal_light_primary,
     onPrimary = catppuccin_latte_teal_light_onPrimary,
     primaryContainer = catppuccin_latte_teal_light_primaryContainer,
@@ -102,7 +101,7 @@ private val CatppuccinLatteTealLightColors = lightColorScheme(
 )
 
 
-private val CatppuccinLatteTealDarkColors = darkColorScheme(
+val CatppuccinLatteTealDarkColors = darkColorScheme(
     primary = catppuccin_latte_teal_dark_primary,
     onPrimary = catppuccin_latte_teal_dark_onPrimary,
     primaryContainer = catppuccin_latte_teal_dark_primaryContainer,
@@ -147,7 +146,6 @@ fun CatppuccinLatteTealTheme(
 
     MaterialTheme(
         colorScheme = colors,
-        typography = HarmonyOsSansSCTypography,
         content = content
     )
 }

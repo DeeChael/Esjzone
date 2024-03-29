@@ -48,4 +48,9 @@
     <string name="maintainers">维护者</string>
     <string name="contributors">贡献者</string>
     <string name="open_source_libraries">开源库</string>
+    <string name="the_end">—— 已经到末尾啦~ ——</string>
+    <string name="settings_category_preference">外观</string>
+    <string name="settings_category_content">内容</string>
+    <string name="settings_category_app">软件</string>
+    <string name="settings_theme">主题</string>
 </resources>

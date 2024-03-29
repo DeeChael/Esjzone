@@ -6,7 +6,6 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import net.deechael.esjzone.ui.typegraphy.HarmonyOsSansSCTypography
 
 val catppuccin_frappe_mauve_light_primary = Color(0xFF794A99)
 val catppuccin_frappe_mauve_light_onPrimary = Color(0xFFFFFFFF)
@@ -69,7 +68,7 @@ val catppuccin_frappe_mauve_dark_surfaceTint = Color(0xFFE3B5FF)
 val catppuccin_frappe_mauve_dark_outlineVariant = Color(0xFF4B454D)
 val catppuccin_frappe_mauve_dark_scrim = Color(0xFF000000)
 
-private val CatppuccinFrappeMauveLightColors = lightColorScheme(
+val CatppuccinFrappeMauveLightColors = lightColorScheme(
     primary = catppuccin_frappe_mauve_light_primary,
     onPrimary = catppuccin_frappe_mauve_light_onPrimary,
     primaryContainer = catppuccin_frappe_mauve_light_primaryContainer,
@@ -102,7 +101,7 @@ private val CatppuccinFrappeMauveLightColors = lightColorScheme(
 )
 
 
-private val CatppuccinFrappeMauveDarkColors = darkColorScheme(
+val CatppuccinFrappeMauveDarkColors = darkColorScheme(
     primary = catppuccin_frappe_mauve_dark_primary,
     onPrimary = catppuccin_frappe_mauve_dark_onPrimary,
     primaryContainer = catppuccin_frappe_mauve_dark_primaryContainer,
@@ -147,7 +146,6 @@ fun CatppuccinFrappeMauveTheme(
 
     MaterialTheme(
         colorScheme = colors,
-        typography = HarmonyOsSansSCTypography,
         content = content
     )
 }

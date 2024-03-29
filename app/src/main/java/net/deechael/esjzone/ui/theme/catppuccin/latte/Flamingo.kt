@@ -6,7 +6,6 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import net.deechael.esjzone.ui.typegraphy.HarmonyOsSansSCTypography
 
 val catppuccin_latte_flamingo_light_primary = Color(0xFF9C4143)
 val catppuccin_latte_flamingo_light_onPrimary = Color(0xFFFFFFFF)
@@ -71,7 +70,7 @@ val catppuccin_latte_flamingo_dark_outlineVariant = Color(0xFF524343)
 val catppuccin_latte_flamingo_dark_scrim = Color(0xFF000000)
 
 
-private val CatppuccinLatteFlamingoLightColors = lightColorScheme(
+val CatppuccinLatteFlamingoLightColors = lightColorScheme(
     primary = catppuccin_latte_flamingo_light_primary,
     onPrimary = catppuccin_latte_flamingo_light_onPrimary,
     primaryContainer = catppuccin_latte_flamingo_light_primaryContainer,
@@ -104,7 +103,7 @@ private val CatppuccinLatteFlamingoLightColors = lightColorScheme(
 )
 
 
-private val CatppuccinLatteFlamingoDarkColors = darkColorScheme(
+val CatppuccinLatteFlamingoDarkColors = darkColorScheme(
     primary = catppuccin_latte_flamingo_dark_primary,
     onPrimary = catppuccin_latte_flamingo_dark_onPrimary,
     primaryContainer = catppuccin_latte_flamingo_dark_primaryContainer,
@@ -137,7 +136,7 @@ private val CatppuccinLatteFlamingoDarkColors = darkColorScheme(
 )
 
 @Composable
-fun LatteFlamingoTheme(
+fun CatppuccinLatteFlamingoTheme(
     useDarkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
@@ -149,7 +148,6 @@ fun LatteFlamingoTheme(
 
     MaterialTheme(
         colorScheme = colors,
-        typography = HarmonyOsSansSCTypography,
         content = content
     )
 }

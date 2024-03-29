@@ -6,7 +6,6 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import net.deechael.esjzone.ui.typegraphy.HarmonyOsSansSCTypography
 
 val catppuccin_mocha_sky_light_primary = Color(0xFF006875)
 val catppuccin_mocha_sky_light_onPrimary = Color(0xFFFFFFFF)
@@ -69,7 +68,7 @@ val catppuccin_mocha_sky_dark_surfaceTint = Color(0xFF50D8ED)
 val catppuccin_mocha_sky_dark_outlineVariant = Color(0xFF3F484A)
 val catppuccin_mocha_sky_dark_scrim = Color(0xFF000000)
 
-private val CatppuccinMochaSkyLightColors = lightColorScheme(
+val CatppuccinMochaSkyLightColors = lightColorScheme(
     primary = catppuccin_mocha_sky_light_primary,
     onPrimary = catppuccin_mocha_sky_light_onPrimary,
     primaryContainer = catppuccin_mocha_sky_light_primaryContainer,
@@ -102,7 +101,7 @@ private val CatppuccinMochaSkyLightColors = lightColorScheme(
 )
 
 
-private val CatppuccinMochaSkyDarkColors = darkColorScheme(
+val CatppuccinMochaSkyDarkColors = darkColorScheme(
     primary = catppuccin_mocha_sky_dark_primary,
     onPrimary = catppuccin_mocha_sky_dark_onPrimary,
     primaryContainer = catppuccin_mocha_sky_dark_primaryContainer,
@@ -147,7 +146,6 @@ fun CatppuccinMochaSkyTheme(
 
     MaterialTheme(
         colorScheme = colors,
-        typography = HarmonyOsSansSCTypography,
         content = content
     )
 }

@@ -6,7 +6,6 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import net.deechael.esjzone.ui.typegraphy.HarmonyOsSansSCTypography
 
 val catppuccin_latte_blue_light_primary = Color(0xFF0054D8)
 val catppuccin_latte_blue_light_onPrimary = Color(0xFFFFFFFF)
@@ -69,7 +68,7 @@ val catppuccin_latte_blue_dark_surfaceTint = Color(0xFFB3C5FF)
 val catppuccin_latte_blue_dark_outlineVariant = Color(0xFF45464F)
 val catppuccin_latte_blue_dark_scrim = Color(0xFF000000)
 
-private val CatppuccinLatteBlueLightColors = lightColorScheme(
+val CatppuccinLatteBlueLightColors = lightColorScheme(
     primary = catppuccin_latte_blue_light_primary,
     onPrimary = catppuccin_latte_blue_light_onPrimary,
     primaryContainer = catppuccin_latte_blue_light_primaryContainer,
@@ -102,7 +101,7 @@ private val CatppuccinLatteBlueLightColors = lightColorScheme(
 )
 
 
-private val CatppuccinLatteBlueDarkColors = darkColorScheme(
+val CatppuccinLatteBlueDarkColors = darkColorScheme(
     primary = catppuccin_latte_blue_dark_primary,
     onPrimary = catppuccin_latte_blue_dark_onPrimary,
     primaryContainer = catppuccin_latte_blue_dark_primaryContainer,
@@ -147,7 +146,6 @@ fun CatppuccinLatteBlueTheme(
 
     MaterialTheme(
         colorScheme = colors,
-        typography = HarmonyOsSansSCTypography,
         content = content
     )
 }

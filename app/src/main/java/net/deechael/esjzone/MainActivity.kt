@@ -5,11 +5,17 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.lifecycle.lifecycleScope
+import androidx.room.Room
 import coil.ImageLoader
 import coil.decode.ImageDecoderDecoder
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import net.deechael.esjzone.database.GeneralDatabase
+import net.deechael.esjzone.database.entity.Cache
 import net.deechael.esjzone.ui.app.App
-import net.deechael.esjzone.ui.theme.catppuccin.latte.CatppuccinLatteYellowTheme
+import net.deechael.esjzone.ui.theme.catppuccin.CatppuccinDynamicTheme
+import net.deechael.esjzone.ui.theme.catppuccin.CatppuccinThemeType
 
 class MainActivity : ComponentActivity() {
 
@@ -30,11 +36,33 @@ class MainActivity : ComponentActivity() {
             }
             .build()
 
-
         enableEdgeToEdge()
-        setContent {
-            CatppuccinLatteYellowTheme {
-                App()
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            database = Room.databaseBuilder(
+                this@MainActivity,
+                GeneralDatabase::class.java, "general"
+            ).build()
+
+            val dao = database.cacheDao()
+
+            if (!dao.exists("theme")) {
+                dao.insertNotExists(
+                    Cache(
+                        key = "theme",
+                        value = GlobalSettings.theme.value.name
+                    )
+                )
+            }
+
+            GlobalSettings.theme.value = CatppuccinThemeType.valueOf(dao.findByKey("theme").value)
+
+            this.launch(Dispatchers.Main) {
+                setContent {
+                    CatppuccinDynamicTheme {
+                        App()
+                    }
+                }
             }
         }
     }

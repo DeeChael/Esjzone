@@ -6,7 +6,6 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import net.deechael.esjzone.ui.typegraphy.HarmonyOsSansSCTypography
 
 val catppuccin_frappe_yellow_light_primary = Color(0xFF795900)
 val catppuccin_frappe_yellow_light_onPrimary = Color(0xFFFFFFFF)
@@ -69,7 +68,7 @@ val catppuccin_frappe_yellow_dark_surfaceTint = Color(0xFFF3BF48)
 val catppuccin_frappe_yellow_dark_outlineVariant = Color(0xFF4D4639)
 val catppuccin_frappe_yellow_dark_scrim = Color(0xFF000000)
 
-private val CatppuccinFrappeYellowLightColors = lightColorScheme(
+val CatppuccinFrappeYellowLightColors = lightColorScheme(
     primary = catppuccin_frappe_yellow_light_primary,
     onPrimary = catppuccin_frappe_yellow_light_onPrimary,
     primaryContainer = catppuccin_frappe_yellow_light_primaryContainer,
@@ -102,7 +101,7 @@ private val CatppuccinFrappeYellowLightColors = lightColorScheme(
 )
 
 
-private val CatppuccinFrappeYellowDarkColors = darkColorScheme(
+val CatppuccinFrappeYellowDarkColors = darkColorScheme(
     primary = catppuccin_frappe_yellow_dark_primary,
     onPrimary = catppuccin_frappe_yellow_dark_onPrimary,
     primaryContainer = catppuccin_frappe_yellow_dark_primaryContainer,
@@ -147,7 +146,6 @@ fun CatppuccinFrappeYellowTheme(
 
     MaterialTheme(
         colorScheme = colors,
-        typography = HarmonyOsSansSCTypography,
         content = content
     )
 }

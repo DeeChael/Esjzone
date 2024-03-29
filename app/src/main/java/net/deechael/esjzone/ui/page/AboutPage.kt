@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -124,7 +125,10 @@ object AboutPage : Screen {
             Spacer(modifier = Modifier.height(10.dp))
 
             for (library in Constants.OPEN_SOURCE_LIBRARIES) {
-                HorizontalDivider(thickness = 2.dp, modifier = Modifier.padding(start = 32.dp, end = 32.dp))
+                HorizontalDivider(
+                    thickness = 2.dp,
+                    modifier = Modifier.padding(start = 32.dp, end = 32.dp)
+                )
                 Row(
                     Modifier
                         .padding(start = 24.dp, end = 24.dp, top = 4.dp, bottom = 4.dp)
@@ -139,12 +143,21 @@ object AboutPage : Screen {
                         Row(
                             modifier = Modifier.fillMaxWidth()
                         ) {
-                            Text(text = library.name, modifier = Modifier.padding(start = 8.dp, top = 4.dp))
+                            Text(
+                                text = library.name,
+                                modifier = Modifier.padding(start = 8.dp, top = 4.dp)
+                            )
                             Spacer(modifier = Modifier.weight(1f))
-                            Text(text = library.owner, modifier = Modifier.padding(end = 8.dp, top = 4.dp))
+                            Text(
+                                text = library.owner,
+                                modifier = Modifier.padding(end = 8.dp, top = 4.dp)
+                            )
                         }
                         Spacer(modifier = Modifier.height(8.dp))
-                        Text(text = library.description, modifier = Modifier.padding(start = 16.dp, end = 16.dp))
+                        Text(
+                            text = library.description,
+                            modifier = Modifier.padding(start = 16.dp, end = 16.dp)
+                        )
                     }
                 }
             }
@@ -164,6 +177,24 @@ object AboutPage : Screen {
                     modifier = Modifier.height(20.dp)
                 )
                 Text(text = "Jetpack Compose", fontWeight = FontWeight.Bold)
+            }
+
+            Spacer(modifier = Modifier.height(5.dp))
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(text = "Designed with ")
+                Image(
+                    painter = painterResource(id = R.drawable.catppuccin_x_high),
+                    contentScale = ContentScale.Inside,
+                    contentDescription = "catppuccin",
+                    modifier = Modifier.height(20.dp)
+                )
+                Spacer(modifier = Modifier.width(2.dp))
+                Text(text = "Catppuccin", fontWeight = FontWeight.Bold)
             }
 
             Spacer(modifier = Modifier.height(20.dp))

@@ -113,7 +113,8 @@ fun EsjzoneClient.getHomeData(authorization: Authorization): HomeData {
                     .toInt(),
                 EsjzoneXPaths.Home.Novel.Likes.evaluate(recommendationData).get().substring(1)
                     .toInt(),
-                EsjzoneXPaths.Home.Novel.R18Badge.evaluate(recommendationData).elements[0].attr("class").contains("badge")
+                EsjzoneXPaths.Home.Novel.R18Badge.evaluate(recommendationData).elements[0].attr("class")
+                    .contains("badge")
             )
         )
     }

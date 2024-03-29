@@ -47,7 +47,8 @@ fun EsjzoneClient.search(
                 EsjzoneXPaths.Tags.Novel.Url.evaluate(novelData).get(),
                 EsjzoneXPaths.Tags.Novel.Views.evaluate(novelData).get().substring(1).toInt(),
                 EsjzoneXPaths.Tags.Novel.Likes.evaluate(novelData).get().substring(1).toInt(),
-                EsjzoneXPaths.Tags.Novel.R18Badge.evaluate(novelData).elements[0].attr("class").contains("badge")
+                EsjzoneXPaths.Tags.Novel.R18Badge.evaluate(novelData).elements[0].attr("class")
+                    .contains("badge")
             )
         )
     }
@@ -100,7 +101,8 @@ private class SearchNovelRequester(
                     EsjzoneXPaths.Tags.Novel.Url.evaluate(novelData).get(),
                     EsjzoneXPaths.Tags.Novel.Views.evaluate(novelData).get().substring(1).toInt(),
                     EsjzoneXPaths.Tags.Novel.Likes.evaluate(novelData).get().substring(1).toInt(),
-                    EsjzoneXPaths.Tags.Novel.R18Badge.evaluate(novelData).elements[0].attr("class").contains("badge")
+                    EsjzoneXPaths.Tags.Novel.R18Badge.evaluate(novelData).elements[0].attr("class")
+                        .contains("badge")
                 )
             )
         }

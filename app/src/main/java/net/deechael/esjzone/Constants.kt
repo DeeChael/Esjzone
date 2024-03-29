@@ -46,6 +46,12 @@ object Constants {
             "Yihua Huang",
             "xsoup",
             "When jsoup meets XPath."
+        ),
+        GithubRepo(
+            "https://github.com/catppuccin/catppuccin",
+            "Catppuccin",
+            "Catppuccin",
+            "\uD83D\uDE38 Soothing pastel theme for the high-spirited!"
         )
     )
 

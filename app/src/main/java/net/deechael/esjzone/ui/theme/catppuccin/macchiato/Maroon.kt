@@ -6,7 +6,6 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import net.deechael.esjzone.ui.typegraphy.HarmonyOsSansSCTypography
 
 val catppuccin_macchiato_maroon_light_primary = Color(0xFF9C404C)
 val catppuccin_macchiato_maroon_light_onPrimary = Color(0xFFFFFFFF)
@@ -69,7 +68,7 @@ val catppuccin_macchiato_maroon_dark_surfaceTint = Color(0xFFFFB2B8)
 val catppuccin_macchiato_maroon_dark_outlineVariant = Color(0xFF524344)
 val catppuccin_macchiato_maroon_dark_scrim = Color(0xFF000000)
 
-private val CatppuccinMacchiatoMaroonLightColors = lightColorScheme(
+val CatppuccinMacchiatoMaroonLightColors = lightColorScheme(
     primary = catppuccin_macchiato_maroon_light_primary,
     onPrimary = catppuccin_macchiato_maroon_light_onPrimary,
     primaryContainer = catppuccin_macchiato_maroon_light_primaryContainer,
@@ -102,7 +101,7 @@ private val CatppuccinMacchiatoMaroonLightColors = lightColorScheme(
 )
 
 
-private val CatppuccinMacchiatoMaroonDarkColors = darkColorScheme(
+val CatppuccinMacchiatoMaroonDarkColors = darkColorScheme(
     primary = catppuccin_macchiato_maroon_dark_primary,
     onPrimary = catppuccin_macchiato_maroon_dark_onPrimary,
     primaryContainer = catppuccin_macchiato_maroon_dark_primaryContainer,
@@ -147,7 +146,6 @@ fun CatppuccinMacchiatoMaroonTheme(
 
     MaterialTheme(
         colorScheme = colors,
-        typography = HarmonyOsSansSCTypography,
         content = content
     )
 }

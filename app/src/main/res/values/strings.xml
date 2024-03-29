@@ -47,4 +47,9 @@
     <string name="maintainers">Maintainers</string>
     <string name="contributors">Contributors</string>
     <string name="open_source_libraries">Open Source Libraries</string>
+    <string name="the_end">-- The End --</string>
+    <string name="settings_category_preference">Preference</string>
+    <string name="settings_category_content">Content</string>
+    <string name="settings_category_app">App</string>
+    <string name="settings_theme">Theme</string>
 </resources>

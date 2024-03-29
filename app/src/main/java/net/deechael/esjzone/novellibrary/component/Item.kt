@@ -8,11 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ExpandLess
-import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material3.Card
-import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
@@ -48,7 +44,8 @@ fun analyseItems(element: Element): List<Item> {
 }
 
 private fun analyseChapterList(element: Element): ChapterListItem {
-    val title = analyseParagraph(EsjzoneXPaths.Detail.ChapterListDetails.Title.evaluate(element).elements[0])[0] as TextComponent
+    val title =
+        analyseParagraph(EsjzoneXPaths.Detail.ChapterListDetails.Title.evaluate(element).elements[0])[0] as TextComponent
 
     val chapters = mutableListOf<Chapter>()
     for (child in element.children()) {
