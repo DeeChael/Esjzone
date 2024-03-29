@@ -43,4 +43,8 @@
     <string name="favorites">Favorites</string>
     <string name="description">Description</string>
     <string name="history">History</string>
+    <string name="about">About</string>
+    <string name="maintainers">Maintainers</string>
+    <string name="contributors">Contributors</string>
+    <string name="open_source_libraries">Open Source Libraries</string>
 </resources>

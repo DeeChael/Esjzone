@@ -63,8 +63,6 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.jsoup)
     implementation(libs.xsoup)
-    implementation(libs.ktorm.core)
-    implementation(libs.ktorm.support.sqlite)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

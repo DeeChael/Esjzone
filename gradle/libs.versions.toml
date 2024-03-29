@@ -34,8 +34,6 @@ okhttp = { group = 'com.squareup.okhttp3', name = 'okhttp', version.ref = "okhtt
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 jsoup = { group = "org.jsoup", name = "jsoup", version.ref = "jsoup" }
 xsoup = { group = "us.codecraft", name = "xsoup", version.ref = "xsoup" }
-ktorm-core = { group = "org.ktorm", name = "ktorm-core", version.ref = "ktorm" }
-ktorm-support-sqlite = { group = "org.ktorm", name = "ktorm-support-sqlite", version.ref = "ktorm" }
 
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }

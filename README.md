@@ -48,9 +48,9 @@
     <td>小说详细页（已过时）</td>
   </tr> 
   <tr>
-    <td><img src="./screenshots/showcase/1.jpg" alt="1" width=360px height=640px></td>
-    <td><img src="./screenshots/showcase/2.jpg" alt="2" width=360px height=640px></td>
-    <td><img src="./screenshots/showcase/4.jpg" alt="2" width=360px height=640px></td>
+    <td><img src="./screenshots/showcase/1.jpg" alt="1"></td>
+    <td><img src="./screenshots/showcase/2.jpg" alt="2"></td>
+    <td><img src="./screenshots/showcase/4.jpg" alt="3"></td>
   </tr> 
   <tr>
     <td>章节列表（普通章节）</td>
@@ -58,9 +58,9 @@
     <td>章节列表（分组-已展开）</td>
   </tr> 
   <tr>
-    <td><img src="./screenshots/showcase/5.jpg" alt="1" width=360px height=640px></td>
-    <td><img src="./screenshots/showcase/6.jpg" alt="2" width=360px height=640px></td>
-    <td><img src="./screenshots/showcase/7.jpg" alt="2" width=360px height=640px></td>
+    <td><img src="./screenshots/showcase/5.jpg" alt="5"></td>
+    <td><img src="./screenshots/showcase/6.jpg" alt="6"></td>
+    <td><img src="./screenshots/showcase/7.jpg" alt="7"></td>
   </tr> 
   <tr>
     <td>章节阅读界面</td>
@@ -68,9 +68,9 @@
     <td>章节阅读界面（带有图片的展示）</td>
   </tr> 
   <tr>
-    <td><img src="./screenshots/showcase/8.jpg" alt="1" width=360px height=640px></td>
-    <td><img src="./screenshots/showcase/9.jpg" alt="2" width=360px height=640px></td>
-    <td><img src="./screenshots/showcase/10.jpg" alt="2" width=360px height=640px></td>
+    <td><img src="./screenshots/showcase/8.jpg" alt="8"></td>
+    <td><img src="./screenshots/showcase/9.jpg" alt="9"></td>
+    <td><img src="./screenshots/showcase/10.jpg" alt="10"></td>
   </tr> 
   <tr>
     <td>小说详细页（带有图片的简介-已过时）</td>
@@ -78,9 +78,9 @@
     <td>搜索页面（正在输入-已过时）</td>
   </tr> 
   <tr>
-    <td><img src="./screenshots/showcase/11.jpg" alt="1" width=360px height=640px></td>
-    <td><img src="./screenshots/showcase/12.jpg" alt="1" width=360px height=640px></td>
-    <td><img src="./screenshots/showcase/13.jpg" alt="1" width=360px height=640px></td>
+    <td><img src="./screenshots/showcase/11.jpg" alt="11"></td>
+    <td><img src="./screenshots/showcase/12.jpg" alt="12"></td>
+    <td><img src="./screenshots/showcase/13.jpg" alt="13"></td>
   </tr> 
   <tr>
     <td>搜索结果</td>
@@ -88,9 +88,9 @@
     <td>搜索页面（未输入-带有搜索历史）</td>
   </tr> 
   <tr>
-    <td><img src="./screenshots/showcase/14.jpg" alt="1" width=360px height=640px></td>
-    <td><img src="./screenshots/showcase/15.jpg" alt="1" width=360px height=640px></td>
-    <td><img src="./screenshots/showcase/16.jpg" alt="1" width=360px height=640px></td>
+    <td><img src="./screenshots/showcase/14.jpg" alt="14"></td>
+    <td><img src="./screenshots/showcase/15.jpg" alt="15"></td>
+    <td><img src="./screenshots/showcase/16.jpg" alt="16"></td>
   </tr> 
   <tr>
     <td>个人主页（施工中，仅为测试用）</td>
@@ -98,17 +98,17 @@
     <td>设置界面</td>
   </tr> 
   <tr>
-    <td><img src="./screenshots/showcase/17.jpg" alt="1" width=360px height=640px></td>
-    <td><img src="./screenshots/showcase/18.jpg" alt="1" width=360px height=640px></td>
-    <td><img src="./screenshots/showcase/19.jpg" alt="1" width=360px height=640px></td>
+    <td><img src="./screenshots/showcase/17.jpg" alt="17"></td>
+    <td><img src="./screenshots/showcase/18.jpg" alt="18"></td>
+    <td><img src="./screenshots/showcase/19.jpg" alt="19"></td>
   </tr> 
   <tr>
     <td>主页（关闭成人内容）</td>
     <td>分类界面</td>
   </tr> 
   <tr>
-    <td><img src="./screenshots/showcase/20.jpg" alt="1" width=360px height=640px></td>
-    <td><img src="./screenshots/showcase/21.jpg" alt="1" width=360px height=640px></td>
+    <td><img src="./screenshots/showcase/20.jpg" alt="20"></td>
+    <td><img src="./screenshots/showcase/21.jpg" alt="21"></td>
   </tr> 
 </table>
 

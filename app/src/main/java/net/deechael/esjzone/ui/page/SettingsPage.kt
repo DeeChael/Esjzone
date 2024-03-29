@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material.icons.filled.ArrowBackIosNew
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.NoAdultContent
 import androidx.compose.material3.Card
 import androidx.compose.material3.HorizontalDivider
@@ -124,6 +125,28 @@ object SettingsPage : Screen {
                         modifier = Modifier
                             .padding(top = 4.dp, bottom = 4.dp, end = 16.dp)
                             .scale(0.9f),
+                    )
+                }
+            }
+
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 8.dp, end = 8.dp, bottom = 4.dp)
+                    .clickable {
+                        navigator.push(AboutPage)
+                    }
+            ) {
+                Row {
+                    Icon(
+                        imageVector = Icons.Filled.Info,
+                        contentDescription = "",
+                        modifier = Modifier.padding(16.dp)
+                    )
+                    Text(
+                        text = stringResource(id = R.string.about),
+                        modifier = Modifier.padding(top = 16.dp, bottom = 16.dp),
+                        fontSize = 16.sp
                     )
                 }
             }

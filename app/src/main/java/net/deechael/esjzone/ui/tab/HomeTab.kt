@@ -277,23 +277,6 @@ object HomeTab : Tab {
             }
 
             Spacer(modifier = Modifier.height(80.dp))
-
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(text = "Powered by ")
-                Image(
-                    painter = painterResource(id = R.drawable.jetpack_compose_high),
-                    contentScale = ContentScale.Inside,
-                    contentDescription = "jetpack compose",
-                    modifier = Modifier.height(20.dp)
-                )
-                Text(text = "Jetpack Compose", fontWeight = FontWeight.Bold)
-            }
-
-            Spacer(modifier = Modifier.height(20.dp))
         }
 
         LaunchedEffect(currentCompositeKeyHash) {
