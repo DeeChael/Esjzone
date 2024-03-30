@@ -142,15 +142,15 @@
   <tr>
     <td><img src="./screenshots/showcase/23.jpg" alt="23"></td>
     <td><img src="./screenshots/showcase/24.jpg" alt="24"></td>
-    <td><img src="./screenshots/showcase/25.jpg" alt="24"></td>
+    <td><img src="./screenshots/showcase/25.jpg" alt="25"></td>
   </tr> 
   <tr>
     <td>底部栏展示（有上下章）</td>
     <td>作品简介界面（最新）</td>
   </tr> 
   <tr>
-    <td><img src="./screenshots/showcase/26.jpg" alt="23"></td>
-    <td><img src="./screenshots/showcase/27.jpg" alt="24"></td>
+    <td><img src="./screenshots/showcase/26.jpg" alt="26"></td>
+    <td><img src="./screenshots/showcase/27.jpg" alt="27"></td>
   </tr> 
 </table>
 
