@@ -3,14 +3,18 @@ package net.deechael.esjzone.novellibrary.novel
 import java.io.Serializable
 
 interface Novel : Serializable {
-
-    val coverUrl: String
     val name: String
     val url: String
 }
 
+data class CategoryNovel(
+    override val name: String,
+    override val url: String,
+    val forumUrl: String
+) : Novel
+
 data class CoveredNovel(
-    override val coverUrl: String,
+    val coverUrl: String,
     override val name: String,
     override val url: String,
     val views: Int,
@@ -42,6 +46,9 @@ data class DetailedNovel(
     val words: Int,
     val type: String,
     val author: String,
+    val forumUrl: String,
+    val tags: List<String>,
+    val isAdult: Boolean,
     val description: NovelDescription,
     val chapterList: NovelChapterList
 ) : Serializable

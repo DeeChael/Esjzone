@@ -51,13 +51,13 @@ import net.deechael.esjzone.network.Authorization
 import net.deechael.esjzone.network.EsjzoneClient
 import net.deechael.esjzone.network.LocalAuthorization
 import net.deechael.esjzone.network.features.getNovelDetail
-import net.deechael.esjzone.novellibrary.novel.CoveredNovel
 import net.deechael.esjzone.novellibrary.novel.DetailedNovel
+import net.deechael.esjzone.novellibrary.novel.Novel
 import net.deechael.esjzone.ui.component.ChapterList
 import net.deechael.esjzone.ui.component.Description
 import net.deechael.esjzone.ui.navigation.LocalBaseNavigator
 
-class NovelPage(private val novel: CoveredNovel) : Screen {
+class NovelPage(private val novel: Novel) : Screen {
 
     @Composable
     override fun Content() {
@@ -122,7 +122,7 @@ class NovelPage(private val novel: CoveredNovel) : Screen {
                     ) {
                         SubcomposeAsyncImage(
                             model = ImageRequest.Builder(LocalContext.current)
-                                .data(novel.coverUrl)
+                                .data(result.detailed.cover)
                                 .crossfade(true)
                                 .build(),
                             contentDescription = novel.name,
@@ -224,7 +224,7 @@ class NovelPage(private val novel: CoveredNovel) : Screen {
 class NovelPageModel(
     private val authorization: Authorization,
     private val scope: CoroutineScope,
-    private val novel: CoveredNovel
+    private val novel: Novel
 ) : StateScreenModel<NovelPageModel.State>(State.Loading) {
 
     sealed class State {

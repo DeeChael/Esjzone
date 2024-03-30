@@ -108,7 +108,8 @@ object SettingsPage : Screen {
             }
 
             Column(
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier
+                    .fillMaxSize()
                     .verticalScroll(rememberScrollState())
             ) {
                 Spacer(modifier = Modifier.height(8.dp))
@@ -189,7 +190,10 @@ object SettingsPage : Screen {
                                     contentAlignment = Alignment.Center
                                 ) {
                                     if (type == theme) {
-                                        Icon(imageVector = Icons.Filled.Check, contentDescription = "")
+                                        Icon(
+                                            imageVector = Icons.Filled.Check,
+                                            contentDescription = ""
+                                        )
                                     }
                                 }
                             }
@@ -237,7 +241,10 @@ object SettingsPage : Screen {
                                     contentAlignment = Alignment.Center
                                 ) {
                                     if (type == theme) {
-                                        Icon(imageVector = Icons.Filled.Check, contentDescription = "")
+                                        Icon(
+                                            imageVector = Icons.Filled.Check,
+                                            contentDescription = ""
+                                        )
                                     }
                                 }
                             }
@@ -285,7 +292,10 @@ object SettingsPage : Screen {
                                     contentAlignment = Alignment.Center
                                 ) {
                                     if (type == theme) {
-                                        Icon(imageVector = Icons.Filled.Check, contentDescription = "")
+                                        Icon(
+                                            imageVector = Icons.Filled.Check,
+                                            contentDescription = ""
+                                        )
                                     }
                                 }
                             }
@@ -333,7 +343,10 @@ object SettingsPage : Screen {
                                     contentAlignment = Alignment.Center
                                 ) {
                                     if (type == theme) {
-                                        Icon(imageVector = Icons.Filled.Check, contentDescription = "")
+                                        Icon(
+                                            imageVector = Icons.Filled.Check,
+                                            contentDescription = ""
+                                        )
                                     }
                                 }
                             }

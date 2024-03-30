@@ -5,8 +5,10 @@ import net.deechael.esjzone.network.AuthorizationCookieJar
 import net.deechael.esjzone.network.EsjzoneClient
 import net.deechael.esjzone.network.EsjzoneUrls
 import net.deechael.esjzone.network.EsjzoneXPaths
-import net.deechael.esjzone.novellibrary.novel.CoveredNovel
 import net.deechael.esjzone.novellibrary.novel.DetailedNovel
+import net.deechael.esjzone.novellibrary.novel.Novel
+import net.deechael.esjzone.novellibrary.novel.NovelChapterList
+import net.deechael.esjzone.novellibrary.novel.NovelDescription
 import net.deechael.esjzone.novellibrary.novel.analyseChapterList
 import net.deechael.esjzone.novellibrary.novel.analyseDescription
 import okhttp3.OkHttpClient
@@ -14,7 +16,7 @@ import okhttp3.Request
 import org.jsoup.Jsoup
 
 
-fun EsjzoneClient.getNovelDetail(authorization: Authorization, novel: CoveredNovel): DetailedNovel {
+fun EsjzoneClient.getNovelDetail(authorization: Authorization, novel: Novel): DetailedNovel {
     val httpClient = OkHttpClient.Builder()
         .cookieJar(AuthorizationCookieJar(authorization))
         .build()
@@ -47,10 +49,22 @@ fun EsjzoneClient.getNovelDetail(authorization: Authorization, novel: CoveredNov
     val type = EsjzoneXPaths.Detail.Type.evaluate(document).get()
     val author = EsjzoneXPaths.Detail.Author.evaluate(document).get()
 
-    val description =
-        analyseDescription(EsjzoneXPaths.Detail.Description.evaluate(document).elements[0])
-    val chapterList =
-        analyseChapterList(EsjzoneXPaths.Detail.ChapterList.evaluate(document).elements[0])
+    val forumUrl = EsjzoneXPaths.Detail.ForumUrl.evaluate(document).get()
+
+    val tags = EsjzoneXPaths.Detail.Tags.evaluate(document).list().toList()
+
+    val descriptionElements = EsjzoneXPaths.Detail.Description.evaluate(document).elements
+    val chapterListElements = EsjzoneXPaths.Detail.ChapterList.evaluate(document).elements
+
+    val description = if (descriptionElements.size == 0)
+        NovelDescription(listOf())
+    else
+        analyseDescription(descriptionElements[0])
+
+    val chapterList = if (chapterListElements.size == 0)
+        NovelChapterList(listOf())
+    else
+        analyseChapterList(chapterListElements[0])
 
     return DetailedNovel(
         novel.name,
@@ -60,6 +74,9 @@ fun EsjzoneClient.getNovelDetail(authorization: Authorization, novel: CoveredNov
         words,
         type,
         author,
+        forumUrl,
+        tags,
+        tags.contains("R18"),
         description,
         chapterList
     )

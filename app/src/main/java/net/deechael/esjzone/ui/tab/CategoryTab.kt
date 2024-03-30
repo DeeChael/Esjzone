@@ -53,6 +53,7 @@ import net.deechael.esjzone.network.LocalAuthorization
 import net.deechael.esjzone.network.features.getCategories
 import net.deechael.esjzone.novellibrary.novel.Category
 import net.deechael.esjzone.ui.navigation.LocalBaseNavigator
+import net.deechael.esjzone.ui.page.CategoryPage
 
 @Composable
 private fun MirroredIcon(index: Int, modifier: Modifier) {
@@ -154,7 +155,7 @@ object CategoryTab : Tab {
                                         .padding(start = 8.dp, end = 8.dp, bottom = 16.dp)
                                         .aspectRatio(1f)
                                         .clickable {
-                                            // TODO: turn to novel list page
+                                            navigator.push(CategoryPage(category))
                                         }
                                 ) {
                                     Column(

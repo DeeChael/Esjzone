@@ -74,10 +74,12 @@ object EsjzoneXPaths {
             Xsoup.compile("/html/body/div[3]/section/div/div[1]/div[1]/div[2]/ul/li[1]/text()")
         val Author: XPathEvaluator =
             Xsoup.compile("/html/body/div[3]/section/div/div[1]/div[1]/div[2]/ul/li[2]/a/text()")
-        val Description: XPathEvaluator =
-            Xsoup.compile("/html/body/div[3]/section/div/div[1]/div[2]/div/div/div") // used with NovelDescription#analyseDescription
         val ForumUrl: XPathEvaluator =
             Xsoup.compile("/html/body/div[3]/section/div/div[1]/div[1]/div[2]/div[2]/div/a[1]/@href")
+        val Tags: XPathEvaluator =
+            Xsoup.compile("/html/body/div[3]/section/div/div[2]/section/a/text()")
+        val Description: XPathEvaluator =
+            Xsoup.compile("/html/body/div[3]/section/div/div[1]/div[2]/div/div/div") // used with NovelDescription#analyseDescription
         val ChapterList: XPathEvaluator =
             Xsoup.compile("/html/body/div[3]/section/div/div[1]/div[5]/div/div/div/div[2]")
 
