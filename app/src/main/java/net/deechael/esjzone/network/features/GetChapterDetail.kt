@@ -34,14 +34,31 @@ fun EsjzoneClient.getChapterDetail(
 
     val document = Jsoup.parse(responseBody)
 
-    println(EsjzoneXPaths.Forum.Content.evaluate(document).elements[0])
-
     val components = analyseComponents(EsjzoneXPaths.Forum.Content.evaluate(document).elements[0])
 
-    println("components: $components")
+    val previousChapter = EsjzoneXPaths.Forum.PreviousChapter.evaluate(document).elements
+    val nextChapter = EsjzoneXPaths.Forum.NextChapter.evaluate(document).elements
+
+    val previous = if (previousChapter.isNotEmpty()) {
+        Chapter(
+            previousChapter.attr("data-title"),
+            previousChapter.attr("href"),
+            false
+        )
+    } else null
+
+    val next = if (nextChapter.isNotEmpty()) {
+        Chapter(
+            nextChapter.attr("data-title"),
+            nextChapter.attr("href"),
+            false
+        )
+    } else null
 
     return DetailedChapter(
         chapter.name,
-        components
+        components,
+        previous,
+        next
     )
 }

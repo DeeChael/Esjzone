@@ -11,7 +11,11 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.jsoup.Jsoup
 
-fun EsjzoneClient.novels(authorization: Authorization, novelType: Int, sortType: Int): Pair<PageableRequester<CoveredNovel>, List<CoveredNovel>> {
+fun EsjzoneClient.novels(
+    authorization: Authorization,
+    novelType: Int,
+    sortType: Int
+): Pair<PageableRequester<CoveredNovel>, List<CoveredNovel>> {
     val httpClient = OkHttpClient.Builder()
         .cookieJar(AuthorizationCookieJar(authorization))
         .build()
@@ -29,7 +33,8 @@ fun EsjzoneClient.novels(authorization: Authorization, novelType: Int, sortType:
 
     val document = Jsoup.parse(responseBody)
 
-    val pages = pagesRegex.find(EsjzoneXPaths.Tags.Pages.evaluate(document).get())!!.groupValues[1].toInt()
+    val pages =
+        pagesRegex.find(EsjzoneXPaths.Tags.Pages.evaluate(document).get())!!.groupValues[1].toInt()
 
     val novels = mutableListOf<CoveredNovel>()
 

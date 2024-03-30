@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -16,6 +17,7 @@ import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material.icons.filled.RemoveRedEye
 import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material.icons.filled.Topic
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -26,7 +28,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.currentCompositeKeyHash
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -115,6 +119,26 @@ class NovelPage(private val novel: Novel) : Screen {
                         )
                 ) {
                     val result = state as NovelPageModel.State.Result
+
+                    val chapterList = result.detailed.chapterList
+
+                    val history = rememberSaveable {
+                        // Saveable, to prevent a situation that you pop from chapter page but the history chapter didn't updated so that if you click continue button it will go to your first read chapter
+                        mutableStateOf(chapterList.toRead)
+                    }
+
+                    val hasHistory = rememberSaveable {
+                        mutableStateOf(chapterList.hasHistory)
+                    }
+
+                    val rememberedHistory by rememberSaveable {
+                        history
+                    }
+
+                    val rememberedHasHistory by rememberSaveable {
+                        hasHistory
+                    }
+
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -134,6 +158,7 @@ class NovelPage(private val novel: Novel) : Screen {
                             modifier = Modifier
                                 .padding(8.dp)
                                 .height((configuration.screenHeightDp / 4).dp)
+                                .width((configuration.screenHeightDp / 5).dp) // TODO: Magic Numbers should be replaced in the future?
                         )
                         Column {
                             Text(
@@ -203,13 +228,44 @@ class NovelPage(private val novel: Novel) : Screen {
                                     modifier = Modifier.padding(start = 4.dp)
                                 )
                             }
+                            Spacer(modifier = Modifier.height(10.dp))
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Button(
+                                    enabled = rememberedHistory != null,
+                                    onClick = {
+                                        navigator.push(
+                                            ChapterPage(
+                                                result.detailed.id(),
+                                                rememberedHistory!!,
+                                                history
+                                            )
+                                        )
+                                    }
+                                ) {
+                                    val id = if (rememberedHasHistory)
+                                        R.string.continue_reading
+                                    else
+                                        R.string.start_reading
+                                    Text(
+                                        text = stringResource(id = id),
+                                        modifier = Modifier.padding(8.dp)
+                                    )
+                                }
+                            }
                         }
                     }
                     Description(
                         description = result.detailed.description,
                         modifier = Modifier.padding(8.dp)
                     )
-                    ChapterList(chapterList = result.detailed.chapterList)
+                    ChapterList(
+                        chapterList = chapterList,
+                        history = history,
+                        hasHistory = hasHistory
+                    )
                 }
             }
         }

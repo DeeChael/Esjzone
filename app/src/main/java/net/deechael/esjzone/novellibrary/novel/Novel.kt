@@ -38,6 +38,8 @@ data class CoveredNovel(
 
 }
 
+private val FORUM_URL_REGEX = "/forum/[0-9]+/([0-9]+)/".toRegex()
+
 data class DetailedNovel(
     val name: String,
     val cover: String,
@@ -51,4 +53,10 @@ data class DetailedNovel(
     val isAdult: Boolean,
     val description: NovelDescription,
     val chapterList: NovelChapterList
-) : Serializable
+) : Serializable {
+
+    fun id(): String {
+        return FORUM_URL_REGEX.find(this.forumUrl)!!.groupValues[1]
+    }
+
+}

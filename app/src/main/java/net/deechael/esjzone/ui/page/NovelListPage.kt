@@ -70,7 +70,6 @@ import net.deechael.esjzone.network.PageableRequester
 import net.deechael.esjzone.network.features.novels
 import net.deechael.esjzone.novellibrary.novel.CoveredNovel
 import net.deechael.esjzone.ui.navigation.LocalBaseNavigator
-import java.lang.RuntimeException
 
 private fun typeResource(type: Int): Int {
     return when (type) {
@@ -100,11 +99,12 @@ class NovelListPage(
     private val initializedNovelType: Int,
     private val initializedSortType: Int,
     private val initializedAdultOnly: Boolean
-): Screen {
+) : Screen {
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    override fun Content() {val navigator = LocalBaseNavigator.current
+    override fun Content() {
+        val navigator = LocalBaseNavigator.current
 
         val authorization = LocalAuthorization.current
         val configuration = LocalConfiguration.current
@@ -123,7 +123,8 @@ class NovelListPage(
             mutableStateOf(initializedAdultOnly)
         }
 
-        val novelListModel = rememberScreenModel { NovelListPageModel(authorization, scope, novelType, sortType) }
+        val novelListModel =
+            rememberScreenModel { NovelListPageModel(authorization, scope, novelType, sortType) }
         val state by novelListModel.state.collectAsState()
 
         val adult by remember {
@@ -160,7 +161,9 @@ class NovelListPage(
                 Row {
                     var typeExposed by remember { mutableStateOf(false) }
                     var sortExposed by remember { mutableStateOf(false) }
-                    ExposedDropdownMenuBox(expanded = typeExposed, onExpandedChange = { typeExposed = it }) {
+                    ExposedDropdownMenuBox(
+                        expanded = typeExposed,
+                        onExpandedChange = { typeExposed = it }) {
                         TextField(
                             readOnly = true,
                             value = stringResource(id = typeResource(novelType.intValue)),
@@ -225,11 +228,20 @@ class NovelListPage(
                     }
                     Spacer(modifier = Modifier.weight(2f))
                     if (adult) {
-                        Text(text = stringResource(id = R.string.novel_list_adultonly), modifier = Modifier.padding(top = 16.dp))
-                        Checkbox(checked = adultOnly, onCheckedChange = { adultOnly = it }, modifier = Modifier.padding(top = 4.dp))
+                        Text(
+                            text = stringResource(id = R.string.novel_list_adultonly),
+                            modifier = Modifier.padding(top = 16.dp)
+                        )
+                        Checkbox(
+                            checked = adultOnly,
+                            onCheckedChange = { adultOnly = it },
+                            modifier = Modifier.padding(top = 4.dp)
+                        )
                     }
                     Spacer(modifier = Modifier.weight(1f))
-                    ExposedDropdownMenuBox(expanded = sortExposed, onExpandedChange = { sortExposed = it }) {
+                    ExposedDropdownMenuBox(
+                        expanded = sortExposed,
+                        onExpandedChange = { sortExposed = it }) {
                         TextField(
                             readOnly = true,
                             value = stringResource(id = sortResource(sortType.intValue)),
@@ -517,7 +529,11 @@ class NovelListPageModel(
     fun getRequester() {
         scope.launch(Dispatchers.IO) {
             mutableState.value = State.Loading
-            val (requester, novels) = EsjzoneClient.novels(authorization, novelType.intValue, sortType.intValue)
+            val (requester, novels) = EsjzoneClient.novels(
+                authorization,
+                novelType.intValue,
+                sortType.intValue
+            )
             mutableState.value = State.Result(requester, novels)
         }
     }

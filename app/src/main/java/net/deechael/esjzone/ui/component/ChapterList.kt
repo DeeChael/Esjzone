@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,7 +22,13 @@ import net.deechael.esjzone.novellibrary.novel.Chapter
 import net.deechael.esjzone.novellibrary.novel.NovelChapterList
 
 @Composable
-fun ChapterList(chapterList: NovelChapterList, modifier: Modifier = Modifier) {
+fun ChapterList(
+    chapterList: NovelChapterList,
+    modifier: Modifier = Modifier,
+    novelId: String = "",
+    history: MutableState<Chapter?> = mutableStateOf(null),
+    hasHistory: MutableState<Boolean> = mutableStateOf(false)
+) {
     OutlinedCard(
         modifier = modifier
             .padding(8.dp)
@@ -37,7 +45,7 @@ fun ChapterList(chapterList: NovelChapterList, modifier: Modifier = Modifier) {
                 .fillMaxWidth()
         ) {
             for (item in chapterList.items) {
-                item.Render()
+                item.Render(novelId, history, hasHistory)
             }
         }
     }
@@ -50,14 +58,14 @@ fun ChapterListPreview() {
         chapterList = NovelChapterList(
             listOf(
                 TextItem(TextComponent("Just example")),
-                ChapterItem(Chapter("example chapter 1", "")),
-                ChapterItem(Chapter("example chapter 2", "")),
+                ChapterItem(Chapter("example chapter 1", "", false)),
+                ChapterItem(Chapter("example chapter 2", "", false)),
                 ChapterListItem(
                     TextComponent("Chapter list example"),
                     listOf(
-                        Chapter("in chapter list 1", ""),
-                        Chapter("in chapter list 2", ""),
-                        Chapter("in chapter list 3", ""),
+                        Chapter("in chapter list 1", "", false),
+                        Chapter("in chapter list 2", "", false),
+                        Chapter("in chapter list 3", "", false),
                     )
                 )
             )

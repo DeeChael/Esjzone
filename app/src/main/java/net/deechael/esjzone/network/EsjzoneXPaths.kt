@@ -120,6 +120,11 @@ object EsjzoneXPaths {
             Xsoup.compile("/html/body/div[3]/section/div/div/div/table/tbody/tr/td/a") // text() for novel name, @href for link
         val Content: XPathEvaluator = Xsoup.compile("/html/body/div[3]/section/div/div[1]/div[3]")
 
+        val PreviousChapter: XPathEvaluator =
+            Xsoup.compile("/html/body/div[3]/section/div/div[1]/div[2]/div[1]/a")
+        val NextChapter: XPathEvaluator =
+            Xsoup.compile("/html/body/div[3]/section/div/div[1]/div[2]/div[3]/a")
+
     }
 
     object Profile {

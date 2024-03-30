@@ -15,26 +15,34 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Slider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.currentCompositeKeyHash
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,6 +50,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -54,6 +63,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import net.deechael.esjzone.MainActivity
+import net.deechael.esjzone.R
 import net.deechael.esjzone.network.Authorization
 import net.deechael.esjzone.network.EsjzoneClient
 import net.deechael.esjzone.network.LocalAuthorization
@@ -64,8 +74,13 @@ import net.deechael.esjzone.novellibrary.novel.Chapter
 import net.deechael.esjzone.novellibrary.novel.DetailedChapter
 import net.deechael.esjzone.ui.navigation.LocalBaseNavigator
 
-class ChapterPage(private val chapter: Chapter) : Screen {
+class ChapterPage(
+    private val novelId: String,
+    private var chapter: Chapter,
+    private val history: MutableState<Chapter?>
+) : Screen {
 
+    @OptIn(ExperimentalMaterial3Api::class)
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     @Composable
     override fun Content() {
@@ -80,17 +95,40 @@ class ChapterPage(private val chapter: Chapter) : Screen {
 
         val scope = rememberCoroutineScope()
 
-        val screenModel = rememberScreenModel { ChapterPageModel(authorization, scope, chapter) }
-        val state by screenModel.state.collectAsState()
+        val requestedChapter = rememberSaveable {
+            mutableStateOf(chapter)
+        }
 
-        var showTopBar by remember {
+        val chapterPageModel =
+            rememberScreenModel { ChapterPageModel(authorization, scope, requestedChapter) }
+        val state by chapterPageModel.state.collectAsState()
+
+        var showToolbar by remember {
             mutableStateOf(false)
+        }
+
+        val scrollState = rememberScrollState()
+
+        val maxScroll by remember {
+            derivedStateOf {
+                scrollState.maxValue
+            }
+        }
+
+        var sliderPosition by remember { mutableFloatStateOf(0f) }
+
+        var chapterName by remember {
+            mutableStateOf(chapter.name)
+        }
+
+        if (scrollState.isScrollInProgress) {
+            sliderPosition = scrollState.value.toFloat() / scrollState.maxValue.toFloat()
         }
 
         Scaffold(
             topBar = {
                 AnimatedVisibility(
-                    visible = showTopBar,
+                    visible = showToolbar,
                     enter = slideInVertically(),
                     exit = shrinkVertically()
                 ) {
@@ -117,7 +155,7 @@ class ChapterPage(private val chapter: Chapter) : Screen {
                                 }
                                 Spacer(modifier = Modifier.weight(3f))
                                 Text(
-                                    text = chapter.name,
+                                    text = chapterName,
                                     fontSize = 20.sp,
                                     modifier = Modifier.padding(
                                         top = 24.dp,
@@ -126,7 +164,117 @@ class ChapterPage(private val chapter: Chapter) : Screen {
                                 )
                                 Spacer(modifier = Modifier.weight(5f))
                             }
-                            HorizontalDivider(thickness = 1.dp)
+                            HorizontalDivider(thickness = 2.dp)
+                        }
+                    }
+                }
+            },
+            bottomBar = {
+                AnimatedVisibility(
+                    visible = showToolbar,
+                    enter = slideInVertically(
+                        initialOffsetY = {
+                            it / 2
+                        },
+                    ),
+                    exit = shrinkVertically(shrinkTowards = Alignment.Top)
+                ) {
+                    Surface(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Column(
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            HorizontalDivider(thickness = 2.dp)
+                            Spacer(modifier = Modifier.height(10.dp))
+
+                            if (state is ChapterPageModel.State.Result) {
+                                var rememberedHistory by rememberSaveable {
+                                    history
+                                }
+
+                                val result = state as ChapterPageModel.State.Result
+                                val detailed by remember {
+                                    result.detailed
+                                }
+                                Row(
+                                    modifier = Modifier.fillMaxWidth()
+                                ) {
+                                    Spacer(modifier = Modifier.width(5.dp))
+                                    OutlinedButton(
+                                        enabled = detailed.previous != null,
+                                        onClick = {
+                                            val previous = detailed.previous!!
+                                            if (novelId == previous.novelId()) { // README 吐槽#4
+                                                rememberedHistory = previous
+                                            }
+                                            requestedChapter.value = previous
+                                            chapterName = previous.name
+                                            chapter = previous
+                                            chapterPageModel.getDetail()
+                                        }
+                                    ) {
+                                        Text(text = stringResource(id = R.string.previous_chapter))
+                                    }
+                                    Spacer(modifier = Modifier.width(5.dp))
+                                    Slider(
+                                        value = sliderPosition,
+                                        onValueChange = {
+                                            sliderPosition = it
+                                            val scrollTo = (maxScroll * it).toInt()
+                                            scope.launch(Dispatchers.Main) {
+                                                scrollState.animateScrollTo(scrollTo)
+                                            }
+                                        },
+                                        modifier = Modifier.weight(1f)
+                                    )
+                                    Spacer(modifier = Modifier.width(5.dp))
+                                    OutlinedButton(
+                                        enabled = detailed.next != null,
+                                        onClick = {
+                                            val next = detailed.next!!
+                                            if (novelId == next.novelId()) { // README 吐槽#4
+                                                rememberedHistory = next
+                                            }
+                                            requestedChapter.value = next
+                                            chapterName = next.name
+                                            chapter = next
+                                            chapterPageModel.getDetail()
+                                        }
+                                    ) {
+                                        Text(text = stringResource(id = R.string.next_chapter))
+                                    }
+                                    Spacer(modifier = Modifier.width(5.dp))
+                                }
+                            } else {
+                                Row(
+                                    modifier = Modifier.fillMaxWidth()
+                                ) {
+                                    Spacer(modifier = Modifier.width(5.dp))
+                                    OutlinedButton(
+                                        enabled = false,
+                                        onClick = {}
+                                    ) {
+                                        Text(text = stringResource(id = R.string.previous_chapter))
+                                    }
+                                    Spacer(modifier = Modifier.width(5.dp))
+                                    Slider(
+                                        value = 0f,
+                                        onValueChange = {},
+                                        enabled = false,
+                                        modifier = Modifier.weight(1f)
+                                    )
+                                    Spacer(modifier = Modifier.width(5.dp))
+                                    OutlinedButton(
+                                        enabled = false,
+                                        onClick = {}
+                                    ) {
+                                        Text(text = stringResource(id = R.string.next_chapter))
+                                    }
+                                    Spacer(modifier = Modifier.width(5.dp))
+                                }
+                            }
+                            Spacer(modifier = Modifier.height(30.dp))
                         }
                     }
                 }
@@ -140,13 +288,13 @@ class ChapterPage(private val chapter: Chapter) : Screen {
                     .clickable(
                         interactionSource = interactionSource,
                         indication = null
-                    ) { showTopBar = !showTopBar }
+                    ) { showToolbar = !showToolbar }
             ) {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
                         .verticalScroll(
-                            rememberScrollState()
+                            scrollState
                         )
                 ) {
                     Text(
@@ -166,7 +314,7 @@ class ChapterPage(private val chapter: Chapter) : Screen {
                                 .fillMaxSize()
                         ) {
                             val result = state as ChapterPageModel.State.Result
-                            for (component in result.detailed.content) {
+                            for (component in result.detailed.value.content) {
                                 if (component is TextComponent) {
                                     val (str, inlines) = component.toInlineAnnotatedString(
                                         textMeasurer,
@@ -213,7 +361,7 @@ class ChapterPage(private val chapter: Chapter) : Screen {
         }
 
         LaunchedEffect(currentCompositeKeyHash) {
-            screenModel.getDetail()
+            chapterPageModel.getDetail()
         }
     }
 
@@ -222,19 +370,26 @@ class ChapterPage(private val chapter: Chapter) : Screen {
 class ChapterPageModel(
     private val authorization: Authorization,
     private val scope: CoroutineScope,
-    private val chapter: Chapter
+    private val chapter: MutableState<Chapter>
 ) : StateScreenModel<ChapterPageModel.State>(State.Loading) {
 
     sealed class State {
         data object Loading : State()
-        data class Result(val detailed: DetailedChapter) : State()
+        data class Result(val detailed: MutableState<DetailedChapter>) : State()
     }
 
     fun getDetail() {
         scope.launch(Dispatchers.IO) {
             mutableState.value = State.Loading
             mutableState.value =
-                State.Result(EsjzoneClient.getChapterDetail(authorization, chapter))
+                State.Result(
+                    mutableStateOf(
+                        EsjzoneClient.getChapterDetail(
+                            authorization,
+                            chapter.value
+                        )
+                    )
+                )
         }
     }
 
