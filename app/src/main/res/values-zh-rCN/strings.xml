@@ -53,4 +53,8 @@
     <string name="settings_category_content">内容</string>
     <string name="settings_category_app">软件</string>
     <string name="settings_theme">主题</string>
+    <string name="novel_list">小说列表</string>
+    <string name="novel_list_sort">排序</string>
+    <string name="novel_list_type">类型</string>
+    <string name="novel_list_adultonly">仅 R18</string>
 </resources>

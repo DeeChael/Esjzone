@@ -11,19 +11,14 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.jsoup.Jsoup
 
-internal val pagesRegex = "total: ([0-9]+)".toRegex()
-
-fun EsjzoneClient.search(
-    authorization: Authorization,
-    keyword: String
-): Pair<PageableRequester<CoveredNovel>, List<CoveredNovel>> {
+fun EsjzoneClient.novels(authorization: Authorization, novelType: Int, sortType: Int): Pair<PageableRequester<CoveredNovel>, List<CoveredNovel>> {
     val httpClient = OkHttpClient.Builder()
         .cookieJar(AuthorizationCookieJar(authorization))
         .build()
 
     val response = httpClient.newCall(
         Request.Builder()
-            .url("${EsjzoneUrls.Tags}/$keyword")
+            .url("${EsjzoneUrls.Base}/list-$novelType$sortType")
             .get()
             .headers(this.headers)
             .build()
@@ -34,8 +29,7 @@ fun EsjzoneClient.search(
 
     val document = Jsoup.parse(responseBody)
 
-    val pages =
-        pagesRegex.find(EsjzoneXPaths.Tags.Pages.evaluate(document).get())!!.groupValues[1].toInt()
+    val pages = pagesRegex.find(EsjzoneXPaths.Tags.Pages.evaluate(document).get())!!.groupValues[1].toInt()
 
     val novels = mutableListOf<CoveredNovel>()
 
@@ -53,13 +47,15 @@ fun EsjzoneClient.search(
         )
     }
 
-    return SearchNovelRequester(authorization, keyword, pages) to novels
+    return ListNovelRequester(authorization, pages, novelType, sortType) to novels
 }
 
-private class SearchNovelRequester(
+
+private class ListNovelRequester(
     authorization: Authorization,
-    private val keyword: String,
-    private val pages: Int
+    private val pages: Int,
+    private val novelType: Int,
+    private val sortType: Int
 ) : PageableRequester<CoveredNovel> {
 
     private val httpClient = OkHttpClient.Builder()
@@ -80,7 +76,7 @@ private class SearchNovelRequester(
     override fun more(page: Int): List<CoveredNovel> {
         val response = httpClient.newCall(
             Request.Builder()
-                .url("${EsjzoneUrls.Tags}-01/$keyword/$page.html")
+                .url("${EsjzoneUrls.Base}/list-$novelType$sortType/$page.html")
                 .get()
                 .headers(EsjzoneClient.headers)
                 .build()

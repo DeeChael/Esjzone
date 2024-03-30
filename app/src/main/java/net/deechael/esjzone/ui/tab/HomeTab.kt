@@ -62,6 +62,7 @@ import net.deechael.esjzone.novellibrary.data.HomeData
 import net.deechael.esjzone.novellibrary.novel.CoveredNovel
 import net.deechael.esjzone.ui.compose.SubcomposeRow
 import net.deechael.esjzone.ui.navigation.LocalBaseNavigator
+import net.deechael.esjzone.ui.page.NovelListPage
 import net.deechael.esjzone.ui.page.NovelPage
 
 object HomeTab : Tab {
@@ -78,6 +79,8 @@ object HomeTab : Tab {
 
     @Composable
     override fun Content() {
+        val navigator = LocalBaseNavigator.current
+
         val authorization = LocalAuthorization.current
         val scope = rememberCoroutineScope()
 
@@ -108,7 +111,7 @@ object HomeTab : Tab {
             ) {
                 Row(
                     modifier = Modifier.clickable {
-                        // More page: https://www.esjzone.me/list-11/
+                        navigator.push(NovelListPage(1, 1, false))
                     }
                 ) {
                     Text(
@@ -144,7 +147,7 @@ object HomeTab : Tab {
             ) {
                 Row(
                     modifier = Modifier.clickable {
-                        // More page: https://www.esjzone.me/list-21/
+                        navigator.push(NovelListPage(2, 1, false))
                     }
                 ) {
                     Text(
@@ -185,7 +188,7 @@ object HomeTab : Tab {
                 ) {
                     Row(
                         modifier = Modifier.clickable {
-                            // More page: https://www.esjzone.me/tags/R18
+                            navigator.push(NovelListPage(1, 1, true))
                         }
                     ) {
                         Text(
@@ -221,7 +224,7 @@ object HomeTab : Tab {
                 ) {
                     Row(
                         modifier = Modifier.clickable {
-                            // More page: https://www.esjzone.me/list-21/
+                            navigator.push(NovelListPage(2, 1, true))
                         }
                     ) {
                         Text(

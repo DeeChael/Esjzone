@@ -52,4 +52,8 @@
     <string name="settings_category_content">Content</string>
     <string name="settings_category_app">App</string>
     <string name="settings_theme">Theme</string>
+    <string name="novel_list">Novel List</string>
+    <string name="novel_list_type">Type</string>
+    <string name="novel_list_sort">Sort</string>
+    <string name="novel_list_adultonly">R18 Only</string>
 </resources>
