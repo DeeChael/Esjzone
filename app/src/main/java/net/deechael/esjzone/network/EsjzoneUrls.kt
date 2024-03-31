@@ -30,6 +30,8 @@ object EsjzoneUrls {
 
         const val MemFavorite: String = "$Base/inc/mem_favorite.php"
 
+        const val MemViewDel: String = "$Base/inc/mem_view_del.php"
+
     }
 
     object Novel {

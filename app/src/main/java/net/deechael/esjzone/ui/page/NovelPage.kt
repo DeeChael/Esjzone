@@ -14,6 +14,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.RemoveRedEye
 import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material.icons.filled.Topic
@@ -32,6 +34,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -55,6 +58,7 @@ import net.deechael.esjzone.R
 import net.deechael.esjzone.network.Authorization
 import net.deechael.esjzone.network.EsjzoneClient
 import net.deechael.esjzone.network.LocalAuthorization
+import net.deechael.esjzone.network.features.changeFavorites
 import net.deechael.esjzone.network.features.getNovelDetail
 import net.deechael.esjzone.novellibrary.novel.Chapter
 import net.deechael.esjzone.novellibrary.novel.DetailedNovel
@@ -65,7 +69,8 @@ import net.deechael.esjzone.ui.navigation.LocalBaseNavigator
 
 class NovelPage(
     private val novel: Novel,
-    private val history: MutableState<Chapter?> = mutableStateOf(null)
+    private val history: MutableState<Chapter?> = mutableStateOf(null),
+    private val favorite: MutableState<Boolean> = mutableStateOf(false)
 ) : Screen {
 
     @Composable
@@ -146,6 +151,12 @@ class NovelPage(
                         hasHistory
                     }
 
+                    var rememberedFavorite by rememberSaveable {
+                        favorite
+                    }
+
+                    rememberedFavorite = result.detailed.isFavorite
+
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -168,72 +179,95 @@ class NovelPage(
                                 .width((configuration.screenHeightDp / 5).dp) // TODO: Magic Numbers should be replaced in the future?
                         )
                         Column {
-                            Text(
-                                text = "${stringResource(id = R.string.author)}: ${result.detailed.author}",
-                                modifier = Modifier.padding(8.dp)
-                            )
-                            Row(
-                                modifier = Modifier
-                                    .padding(
-                                        top = 4.dp,
-                                        bottom = 4.dp,
-                                        start = 8.dp,
-                                        end = 4.dp
+                            Row {
+                                Column {
+                                    Text(
+                                        text = "${stringResource(id = R.string.author)}: ${result.detailed.author}",
+                                        modifier = Modifier.padding(8.dp)
                                     )
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Filled.RemoveRedEye,
-                                    contentDescription = ""
-                                )
-                                Text(
-                                    text = "${result.detailed.views}",
-                                    maxLines = 1,
-                                    overflow = TextOverflow.Ellipsis,
-                                    fontSize = 3.em,
-                                    modifier = Modifier.padding(start = 4.dp)
-                                )
-                            }
-                            Row(
-                                modifier = Modifier
-                                    .padding(
-                                        top = 4.dp,
-                                        bottom = 4.dp,
-                                        start = 8.dp,
-                                        end = 4.dp
-                                    )
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Filled.ThumbUp,
-                                    contentDescription = ""
-                                )
-                                Text(
-                                    text = "${result.detailed.likes}",
-                                    maxLines = 1,
-                                    overflow = TextOverflow.Ellipsis,
-                                    fontSize = 3.em,
-                                    modifier = Modifier.padding(start = 4.dp)
-                                )
-                            }
-                            Row(
-                                modifier = Modifier
-                                    .padding(
-                                        top = 4.dp,
-                                        bottom = 4.dp,
-                                        start = 8.dp,
-                                        end = 4.dp
-                                    )
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Filled.Topic,
-                                    contentDescription = ""
-                                )
-                                Text(
-                                    text = "${result.detailed.words}",
-                                    maxLines = 1,
-                                    overflow = TextOverflow.Ellipsis,
-                                    fontSize = 3.em,
-                                    modifier = Modifier.padding(start = 4.dp)
-                                )
+                                    Row(
+                                        modifier = Modifier
+                                            .padding(
+                                                top = 4.dp,
+                                                bottom = 4.dp,
+                                                start = 8.dp,
+                                                end = 4.dp
+                                            )
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Filled.RemoveRedEye,
+                                            contentDescription = ""
+                                        )
+                                        Text(
+                                            text = "${result.detailed.views}",
+                                            maxLines = 1,
+                                            overflow = TextOverflow.Ellipsis,
+                                            fontSize = 3.em,
+                                            modifier = Modifier.padding(start = 4.dp)
+                                        )
+                                    }
+                                    Row(
+                                        modifier = Modifier
+                                            .padding(
+                                                top = 4.dp,
+                                                bottom = 4.dp,
+                                                start = 8.dp,
+                                                end = 4.dp
+                                            )
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Filled.ThumbUp,
+                                            contentDescription = ""
+                                        )
+                                        Text(
+                                            text = "${result.detailed.likes}",
+                                            maxLines = 1,
+                                            overflow = TextOverflow.Ellipsis,
+                                            fontSize = 3.em,
+                                            modifier = Modifier.padding(start = 4.dp)
+                                        )
+                                    }
+                                    Row(
+                                        modifier = Modifier
+                                            .padding(
+                                                top = 4.dp,
+                                                bottom = 4.dp,
+                                                start = 8.dp,
+                                                end = 4.dp
+                                            )
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Filled.Topic,
+                                            contentDescription = ""
+                                        )
+                                        Text(
+                                            text = "${result.detailed.words}",
+                                            maxLines = 1,
+                                            overflow = TextOverflow.Ellipsis,
+                                            fontSize = 3.em,
+                                            modifier = Modifier.padding(start = 4.dp)
+                                        )
+                                    }
+                                }
+                                Spacer(modifier = Modifier.weight(1f))
+                                TextButton(onClick = {
+                                    scope.launch(Dispatchers.IO) {
+                                        EsjzoneClient.changeFavorites(authorization, novel)
+                                    }
+                                    rememberedFavorite = !rememberedFavorite
+                                }) {
+                                    if (rememberedFavorite) {
+                                        Icon(
+                                            imageVector = Icons.Filled.Favorite,
+                                            contentDescription = ""
+                                        )
+                                    } else {
+                                        Icon(
+                                            imageVector = Icons.Filled.FavoriteBorder,
+                                            contentDescription = ""
+                                        )
+                                    }
+                                }
                             }
                             Spacer(modifier = Modifier.height(10.dp))
                             Column(

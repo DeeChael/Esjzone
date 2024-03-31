@@ -53,6 +53,8 @@ fun EsjzoneClient.getNovelDetail(authorization: Authorization, novel: Novel): De
 
     val tags = EsjzoneXPaths.Detail.Tags.evaluate(document).list().toList()
 
+    val favorite = EsjzoneXPaths.Detail.FavoriteText.evaluate(document).get()
+
     val descriptionElements = EsjzoneXPaths.Detail.Description.evaluate(document).elements
     val chapterListElements = EsjzoneXPaths.Detail.ChapterList.evaluate(document).elements
 
@@ -68,6 +70,7 @@ fun EsjzoneClient.getNovelDetail(authorization: Authorization, novel: Novel): De
 
     return DetailedNovel(
         novel.name,
+        novel.url,
         coverUrl,
         views,
         likes,
@@ -77,6 +80,7 @@ fun EsjzoneClient.getNovelDetail(authorization: Authorization, novel: Novel): De
         forumUrl,
         tags,
         tags.contains("R18"),
+        favorite == "已收藏",
         description,
         chapterList
     )

@@ -62,4 +62,5 @@
     <string name="next_chapter">Next</string>
     <string name="favorites_recently_added">Recently Added</string>
     <string name="favorites_recently_update">Recently Update</string>
+    <string name="delete_history">Delete</string>
 </resources>

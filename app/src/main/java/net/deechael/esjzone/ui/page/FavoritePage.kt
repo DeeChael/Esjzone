@@ -40,6 +40,7 @@ import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -238,79 +239,94 @@ object FavoritePage : Screen {
                                 }
                             } else {
                                 if (adult || !detailedNovel!!.isAdult) {
-                                    Card(
-                                        modifier = Modifier
-                                            .fillMaxSize()
-                                            .padding(start = 8.dp, top = 4.dp, end = 8.dp)
-                                            .clickable {
-                                                navigator.push(NovelPage(favoriteNovel))
-                                            }
-                                    ) {
-                                        Row {
-                                            SubcomposeAsyncImage(
-                                                model = ImageRequest.Builder(LocalContext.current)
-                                                    .data(detailedNovel!!.cover)
-                                                    .crossfade(true)
-                                                    .build(),
-                                                contentDescription = favoriteNovel.name,
-                                                imageLoader = MainActivity.imageLoader,
-                                                loading = {
-                                                    CircularProgressIndicator()
-                                                },
-                                                contentScale = ContentScale.FillHeight,
-                                                modifier = Modifier
-                                                    .padding(8.dp)
-                                                    .height((configuration.screenHeightDp / 3.5).dp)
-                                                    .width((configuration.screenWidthDp / 2.5).dp)
-                                            )
-                                            Column {
-                                                Text(
-                                                    text = detailedNovel!!.name,
-                                                    overflow = TextOverflow.Ellipsis,
-                                                    modifier = Modifier.padding(8.dp)
-                                                )
-                                                Spacer(modifier = Modifier.weight(1f))
-                                                Row(
-                                                    modifier = Modifier
-                                                        .padding(
-                                                            top = 4.dp,
-                                                            bottom = 4.dp,
-                                                            start = 8.dp,
-                                                            end = 4.dp
+                                    val favorite = rememberSaveable {
+                                        mutableStateOf(true)
+                                    }
+
+                                    val rememberedFavorite by rememberSaveable {
+                                        favorite
+                                    }
+
+                                    if (rememberedFavorite && detailedNovel!!.isFavorite) {
+                                        Card(
+                                            modifier = Modifier
+                                                .fillMaxSize()
+                                                .padding(start = 8.dp, top = 4.dp, end = 8.dp)
+                                                .clickable {
+                                                    navigator.push(
+                                                        NovelPage(
+                                                            favoriteNovel,
+                                                            favorite = favorite
                                                         )
-                                                ) {
-                                                    Icon(
-                                                        imageVector = Icons.Filled.RemoveRedEye,
-                                                        contentDescription = ""
-                                                    )
-                                                    Text(
-                                                        text = "${detailedNovel!!.views}",
-                                                        maxLines = 1,
-                                                        overflow = TextOverflow.Ellipsis,
-                                                        fontSize = 3.em,
-                                                        modifier = Modifier.padding(start = 4.dp)
                                                     )
                                                 }
-                                                Row(
+                                        ) {
+                                            Row {
+                                                SubcomposeAsyncImage(
+                                                    model = ImageRequest.Builder(LocalContext.current)
+                                                        .data(detailedNovel!!.cover)
+                                                        .crossfade(true)
+                                                        .build(),
+                                                    contentDescription = favoriteNovel.name,
+                                                    imageLoader = MainActivity.imageLoader,
+                                                    loading = {
+                                                        CircularProgressIndicator()
+                                                    },
+                                                    contentScale = ContentScale.FillHeight,
                                                     modifier = Modifier
-                                                        .padding(
-                                                            top = 4.dp,
-                                                            bottom = 4.dp,
-                                                            start = 8.dp,
-                                                            end = 4.dp
-                                                        )
-                                                ) {
-                                                    Icon(
-                                                        imageVector = Icons.Filled.ThumbUp,
-                                                        contentDescription = ""
-                                                    )
+                                                        .padding(8.dp)
+                                                        .height((configuration.screenHeightDp / 3.5).dp)
+                                                        .width((configuration.screenWidthDp / 2.5).dp)
+                                                )
+                                                Column {
                                                     Text(
-                                                        text = "${detailedNovel!!.likes}",
-                                                        maxLines = 1,
+                                                        text = detailedNovel!!.name,
                                                         overflow = TextOverflow.Ellipsis,
-                                                        fontSize = 3.em,
-                                                        modifier = Modifier.padding(start = 4.dp)
+                                                        modifier = Modifier.padding(8.dp)
                                                     )
+                                                    Spacer(modifier = Modifier.weight(1f))
+                                                    Row(
+                                                        modifier = Modifier
+                                                            .padding(
+                                                                top = 4.dp,
+                                                                bottom = 4.dp,
+                                                                start = 8.dp,
+                                                                end = 4.dp
+                                                            )
+                                                    ) {
+                                                        Icon(
+                                                            imageVector = Icons.Filled.RemoveRedEye,
+                                                            contentDescription = ""
+                                                        )
+                                                        Text(
+                                                            text = "${detailedNovel!!.views}",
+                                                            maxLines = 1,
+                                                            overflow = TextOverflow.Ellipsis,
+                                                            fontSize = 3.em,
+                                                            modifier = Modifier.padding(start = 4.dp)
+                                                        )
+                                                    }
+                                                    Row(
+                                                        modifier = Modifier
+                                                            .padding(
+                                                                top = 4.dp,
+                                                                bottom = 4.dp,
+                                                                start = 8.dp,
+                                                                end = 4.dp
+                                                            )
+                                                    ) {
+                                                        Icon(
+                                                            imageVector = Icons.Filled.ThumbUp,
+                                                            contentDescription = ""
+                                                        )
+                                                        Text(
+                                                            text = "${detailedNovel!!.likes}",
+                                                            maxLines = 1,
+                                                            overflow = TextOverflow.Ellipsis,
+                                                            fontSize = 3.em,
+                                                            modifier = Modifier.padding(start = 4.dp)
+                                                        )
+                                                    }
                                                 }
                                             }
                                         }
