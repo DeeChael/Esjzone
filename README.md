@@ -170,4 +170,4 @@
 
 软件主页
 
-https://github.com/DeeChael/DeeChael/assets/63186003/bc835c1c-2206-4788-8c2e-70c10a173e25
+https://github.com/DeeChael/DeeChael/assets/63186003/6e24c2b0-6965-409d-8417-3b3a9adda6cf
