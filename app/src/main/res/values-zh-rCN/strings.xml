@@ -61,4 +61,6 @@
     <string name="start_reading">开始阅读</string>
     <string name="previous_chapter">上一章</string>
     <string name="next_chapter">下一章</string>
+    <string name="favorites_recently_added">最新收藏</string>
+    <string name="favorites_recently_update">最新更新</string>
 </resources>

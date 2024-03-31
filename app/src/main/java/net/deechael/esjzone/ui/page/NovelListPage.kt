@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material.icons.filled.RemoveRedEye
@@ -370,9 +369,7 @@ class NovelListPage(
 
                     items.addAll(result.firstPage)
 
-                    val listState = rememberLazyListState()
-
-                    LazyColumn(state = listState) {
+                    LazyColumn {
                         items(items.toList().filter {
                             if (adult) {
                                 if (adultOnly)

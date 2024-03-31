@@ -54,6 +54,8 @@ import net.deechael.esjzone.network.LocalAuthorization
 import net.deechael.esjzone.network.features.getUserProfile
 import net.deechael.esjzone.novellibrary.user.UserProfile
 import net.deechael.esjzone.ui.navigation.LocalBaseNavigator
+import net.deechael.esjzone.ui.page.FavoritePage
+import net.deechael.esjzone.ui.page.HistoryPage
 import net.deechael.esjzone.ui.page.SettingsPage
 
 object ProfileTab : Tab {
@@ -132,7 +134,7 @@ object ProfileTab : Tab {
                         modifier = Modifier
                             .padding(start = 8.dp, end = 8.dp, bottom = 16.dp)
                             .clickable {
-                                // TODO: push to Favorites page
+                                navigator.push(FavoritePage)
                             }
                     ) {
                         Column(
@@ -160,7 +162,7 @@ object ProfileTab : Tab {
                         modifier = Modifier
                             .padding(start = 8.dp, end = 8.dp, bottom = 16.dp)
                             .clickable {
-                                // TODO: push to History page
+                                navigator.push(HistoryPage)
                             }
                     ) {
                         Column(

@@ -100,3 +100,15 @@
   "favorite": 1438 // 这个位置是更新收藏状态后新的收藏数，到时候需要在点了收藏按钮后更新收藏数
 }
 ```
+
+### 移除观看记录
+#### 第一步
+向 `https://www.esjzone.me/my/view` 请求获取到 auth token
+#### 第二步
+向 `https://www.esjzone.me/inc/mem_view_del.php` 发送 POST 请求 \
+Payload:
+```json
+{
+  "vid": 历史记录id（不理解为什么要给历史记录专门定义一个id）
+}
+```

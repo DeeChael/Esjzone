@@ -83,6 +83,9 @@ object EsjzoneXPaths {
         val ChapterList: XPathEvaluator =
             Xsoup.compile("/html/body/div[3]/section/div/div[1]/div[5]/div/div/div/div[2]")
 
+        val FavoriteText: XPathEvaluator =
+            Xsoup.compile("/html/body/div[3]/section/div/div[1]/div[1]/div[2]/div[2]/div/button[1]/span") // 已收藏/收藏
+
         object ChapterListDetails {
 
             val Title: XPathEvaluator = Xsoup.compile("/summary")
@@ -133,6 +136,24 @@ object EsjzoneXPaths {
             Xsoup.compile("/html/body/div[3]/section/div/div[1]/aside/form/div[2]/h4/text()")
         val AvatarUrl: XPathEvaluator =
             Xsoup.compile("/html/body/div[3]/section/div/div[1]/aside/form/div[1]/img/@src")
+
+        object Favorite {
+
+            val Pages: XPathEvaluator = Xsoup.compile("/html/body/script[21]")
+
+            val Novel: XPathEvaluator =
+                Xsoup.compile("/html/body/div[3]/section/div/div[2]/div[3]/table/tbody/tr/td/div/div/h5/a")
+
+        }
+
+        object View {
+
+            val Novel: XPathEvaluator =
+                Xsoup.compile("/html/body/div[3]/section/div/div[2]/div[2]/table/tbody/tr")
+            val TitleAndUrl: XPathEvaluator = Xsoup.compile("/td/div/div/div[1]/div[1]/h5/a")
+            val Chapter: XPathEvaluator = Xsoup.compile("/td/div/div/div[2]/span/a")
+
+        }
 
     }
 

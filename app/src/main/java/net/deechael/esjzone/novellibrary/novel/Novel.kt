@@ -7,6 +7,18 @@ interface Novel : Serializable {
     val url: String
 }
 
+data class HistoryNovel(
+    override val name: String,
+    override val url: String,
+    val vid: String,
+    val chapter: Chapter
+) : Novel
+
+data class FavoriteNovel(
+    override val name: String,
+    override val url: String,
+) : Novel
+
 data class CategoryNovel(
     override val name: String,
     override val url: String,

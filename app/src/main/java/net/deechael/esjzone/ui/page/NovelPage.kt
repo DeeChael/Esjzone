@@ -25,6 +25,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.currentCompositeKeyHash
 import androidx.compose.runtime.getValue
@@ -55,13 +56,17 @@ import net.deechael.esjzone.network.Authorization
 import net.deechael.esjzone.network.EsjzoneClient
 import net.deechael.esjzone.network.LocalAuthorization
 import net.deechael.esjzone.network.features.getNovelDetail
+import net.deechael.esjzone.novellibrary.novel.Chapter
 import net.deechael.esjzone.novellibrary.novel.DetailedNovel
 import net.deechael.esjzone.novellibrary.novel.Novel
 import net.deechael.esjzone.ui.component.ChapterList
 import net.deechael.esjzone.ui.component.Description
 import net.deechael.esjzone.ui.navigation.LocalBaseNavigator
 
-class NovelPage(private val novel: Novel) : Screen {
+class NovelPage(
+    private val novel: Novel,
+    private val history: MutableState<Chapter?> = mutableStateOf(null)
+) : Screen {
 
     @Composable
     override fun Content() {
@@ -124,8 +129,10 @@ class NovelPage(private val novel: Novel) : Screen {
 
                     val history = rememberSaveable {
                         // Saveable, to prevent a situation that you pop from chapter page but the history chapter didn't updated so that if you click continue button it will go to your first read chapter
-                        mutableStateOf(chapterList.toRead)
+                        this@NovelPage.history
                     }
+
+                    history.value = chapterList.toRead
 
                     val hasHistory = rememberSaveable {
                         mutableStateOf(chapterList.hasHistory)
