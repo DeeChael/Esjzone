@@ -3,7 +3,6 @@ package net.deechael.esjzone.ui.page
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,18 +11,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -73,6 +69,8 @@ import net.deechael.esjzone.network.features.removeHistory
 import net.deechael.esjzone.novellibrary.novel.Chapter
 import net.deechael.esjzone.novellibrary.novel.DetailedNovel
 import net.deechael.esjzone.novellibrary.novel.HistoryNovel
+import net.deechael.esjzone.ui.component.AppBar
+import net.deechael.esjzone.ui.component.Loading
 import net.deechael.esjzone.ui.navigation.LocalBaseNavigator
 
 object HistoryPage : Screen {
@@ -94,40 +92,15 @@ object HistoryPage : Screen {
         val state by historyPageModel.state.collectAsState()
 
         Column {
-            Column(
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Spacer(modifier = Modifier.height(20.dp))
-                Row {
-                    TextButton(
-                        onClick = {
-                            navigator.pop()
-                        },
-                        modifier = Modifier
-                            .padding(start = 16.dp, top = 16.dp, bottom = 4.dp)
-                            .size(50.dp)
-                    ) {
-                        Icon(imageVector = Icons.Filled.ArrowBackIosNew, contentDescription = "")
-                    }
-                    Spacer(modifier = Modifier.weight(3f))
-                    Text(
-                        text = stringResource(id = R.string.history),
-                        fontSize = 20.sp,
-                        modifier = Modifier.padding(
-                            top = 24.dp,
-                            bottom = 4.dp
-                        )
-                    )
-                    Spacer(modifier = Modifier.weight(5f))
+            AppBar(
+                title = stringResource(id = R.string.history),
+                onBack = {
+                    navigator.pop()
                 }
-                HorizontalDivider(thickness = 1.dp)
-            }
+            )
 
             when (state) {
-                is HistoryPageModel.State.Loading -> Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) { CircularProgressIndicator() }
+                is HistoryPageModel.State.Loading -> Loading()
 
                 is HistoryPageModel.State.Result -> {
                     val result = state as HistoryPageModel.State.Result

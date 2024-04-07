@@ -14,6 +14,8 @@ import net.deechael.esjzone.novellibrary.novel.analyseDescription
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
+import org.jsoup.nodes.Element
 
 
 fun EsjzoneClient.getNovelDetail(authorization: Authorization, novel: Novel): DetailedNovel {
@@ -84,4 +86,18 @@ fun EsjzoneClient.getNovelDetail(authorization: Authorization, novel: Novel): De
         description,
         chapterList
     )
+}
+
+private fun analyseComments(document: Document) {
+    val commentElements = mutableListOf<Element>()
+
+    for (pages in EsjzoneXPaths.Detail.Comment.Pages.evaluate(document).elements) {
+        for (element in pages.children()) {
+            if (element.nameIs("div") && element.hasAttr("class") && element.attr("class") == "comment") {
+                commentElements.add(element)
+            }
+        }
+    }
+
+
 }

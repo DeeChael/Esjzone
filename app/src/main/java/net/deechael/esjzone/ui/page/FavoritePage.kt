@@ -9,25 +9,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material.icons.filled.RemoveRedEye
 import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.ExposedDropdownMenuDefaults
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
@@ -51,7 +43,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
-import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.model.StateScreenModel
 import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
@@ -71,6 +62,9 @@ import net.deechael.esjzone.network.features.getFavorites
 import net.deechael.esjzone.network.features.getNovelDetail
 import net.deechael.esjzone.novellibrary.novel.DetailedNovel
 import net.deechael.esjzone.novellibrary.novel.FavoriteNovel
+import net.deechael.esjzone.ui.component.AppBar
+import net.deechael.esjzone.ui.component.DropdownSelection
+import net.deechael.esjzone.ui.component.Loading
 import net.deechael.esjzone.ui.navigation.LocalBaseNavigator
 
 private fun favoriteSortResource(name: String): Int {
@@ -109,88 +103,34 @@ object FavoritePage : Screen {
 
 
         Column {
-            Column(
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Spacer(modifier = Modifier.height(20.dp))
-                Row {
-                    TextButton(
-                        onClick = {
-                            navigator.pop()
-                        },
-                        modifier = Modifier
-                            .padding(start = 16.dp, top = 16.dp, bottom = 4.dp)
-                            .size(50.dp)
-                    ) {
-                        Icon(imageVector = Icons.Filled.ArrowBackIosNew, contentDescription = "")
-                    }
-                    Spacer(modifier = Modifier.weight(3f))
-                    Text(
-                        text = stringResource(id = R.string.favorites),
-                        fontSize = 20.sp,
-                        modifier = Modifier.padding(
-                            top = 24.dp,
-                            bottom = 4.dp
-                        )
-                    )
-                    Spacer(modifier = Modifier.weight(5f))
+            AppBar(
+                title = stringResource(id = R.string.favorites),
+                onBack = {
+                    navigator.pop()
                 }
+            ) {
                 Row {
                     var exposed by remember { mutableStateOf(false) }
-                    ExposedDropdownMenuBox(
-                        expanded = exposed,
-                        onExpandedChange = { exposed = it }) {
-                        TextField(
-                            readOnly = true,
-                            value = stringResource(id = favoriteSortResource(sort.value)),
-                            onValueChange = { },
-                            label = { Text(stringResource(id = R.string.novel_list_sort)) },
-                            trailingIcon = {
-                                ExposedDropdownMenuDefaults.TrailingIcon(
-                                    expanded = exposed
-                                )
-                            },
-                            modifier = Modifier
-                                .menuAnchor()
-                                .width(140.dp)
-                        )
-                        ExposedDropdownMenu(
-                            expanded = exposed,
-                            onDismissRequest = {
-                                exposed = false
-                            }
-                        ) {
-                            DropdownMenuItem(
-                                text = {
-                                    Text(text = stringResource(id = R.string.favorites_recently_added))
-                                },
-                                onClick = {
-                                    sort.value = "new"
-                                    exposed = false
-                                    favoritePageModel.getRequester()
-                                }
-                            )
-                            DropdownMenuItem(
-                                text = {
-                                    Text(text = stringResource(id = R.string.favorites_recently_update))
-                                },
-                                onClick = {
-                                    sort.value = "udate"
-                                    exposed = false
-                                    favoritePageModel.getRequester()
-                                }
-                            )
+                    DropdownSelection(
+                        label = stringResource(id = R.string.novel_list_sort),
+                        items = listOf("new", "udate"),
+                        current = sort.value,
+                        onChange = {
+                            sort.value = it
+                            favoritePageModel.getRequester()
+                        },
+                        exposed = exposed,
+                        onExposeChanged = { exposed = it },
+                        modifier = Modifier.width(140.dp),
+                        nameProvider = {
+                            stringResource(id = favoriteSortResource(this))
                         }
-                    }
+                    )
                 }
-                HorizontalDivider(thickness = 1.dp)
             }
 
             when (state) {
-                is FavoritePageModel.State.Loading -> Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) { CircularProgressIndicator() }
+                is FavoritePageModel.State.Loading -> Loading()
 
                 is FavoritePageModel.State.Result -> {
                     val result = (state as FavoritePageModel.State.Result)

@@ -86,6 +86,14 @@ object EsjzoneXPaths {
         val FavoriteText: XPathEvaluator =
             Xsoup.compile("/html/body/div[3]/section/div/div[1]/div[1]/div[2]/div[2]/div/button[1]/span/text()") // 已收藏/收藏
 
+        object Comment {
+
+            val Pages: XPathEvaluator =
+                Xsoup.compile("/html/body/div[3]/section/div/div[1]/section")
+
+
+        }
+
         object ChapterListDetails {
 
             val Title: XPathEvaluator = Xsoup.compile("/summary")

@@ -5,30 +5,21 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material.icons.filled.RemoveRedEye
 import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material3.Card
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.ExposedDropdownMenuDefaults
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableIntState
@@ -50,7 +41,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
-import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.model.StateScreenModel
 import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
@@ -68,6 +58,9 @@ import net.deechael.esjzone.network.LocalAuthorization
 import net.deechael.esjzone.network.PageableRequester
 import net.deechael.esjzone.network.features.novels
 import net.deechael.esjzone.novellibrary.novel.CoveredNovel
+import net.deechael.esjzone.ui.component.AppBar
+import net.deechael.esjzone.ui.component.DropdownSelection
+import net.deechael.esjzone.ui.component.Loading
 import net.deechael.esjzone.ui.navigation.LocalBaseNavigator
 
 private fun typeResource(type: Int): Int {
@@ -131,100 +124,30 @@ class NovelListPage(
         }
 
         Column {
-            Column(
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Spacer(modifier = Modifier.height(20.dp))
-                Row {
-                    TextButton(
-                        onClick = {
-                            navigator.pop()
-                        },
-                        modifier = Modifier
-                            .padding(start = 16.dp, top = 16.dp, bottom = 4.dp)
-                            .size(50.dp)
-                    ) {
-                        Icon(imageVector = Icons.Filled.ArrowBackIosNew, contentDescription = "")
-                    }
-                    Spacer(modifier = Modifier.weight(3f))
-                    Text(
-                        text = stringResource(id = R.string.novel_list),
-                        fontSize = 20.sp,
-                        modifier = Modifier.padding(
-                            top = 24.dp,
-                            bottom = 4.dp
-                        )
-                    )
-                    Spacer(modifier = Modifier.weight(5f))
+            AppBar(
+                title = stringResource(id = R.string.novel_list),
+                onBack = {
+                    navigator.pop()
                 }
+            ) {
                 Row {
                     var typeExposed by remember { mutableStateOf(false) }
                     var sortExposed by remember { mutableStateOf(false) }
-                    ExposedDropdownMenuBox(
-                        expanded = typeExposed,
-                        onExpandedChange = { typeExposed = it }) {
-                        TextField(
-                            readOnly = true,
-                            value = stringResource(id = typeResource(novelType.intValue)),
-                            onValueChange = { },
-                            label = { Text(stringResource(id = R.string.novel_list_type)) },
-                            trailingIcon = {
-                                ExposedDropdownMenuDefaults.TrailingIcon(
-                                    expanded = typeExposed
-                                )
-                            },
-                            modifier = Modifier
-                                .menuAnchor()
-                                .width(110.dp)
-                        )
-                        ExposedDropdownMenu(
-                            expanded = typeExposed,
-                            onDismissRequest = {
-                                typeExposed = false
-                            }
-                        ) {
-                            DropdownMenuItem(
-                                text = {
-                                    Text(text = stringResource(id = R.string.novel_list_all))
-                                },
-                                onClick = {
-                                    novelType.intValue = 0
-                                    typeExposed = false
-                                    novelListModel.getRequester()
-                                }
-                            )
-                            DropdownMenuItem(
-                                text = {
-                                    Text(text = stringResource(id = R.string.novel_list_original))
-                                },
-                                onClick = {
-                                    novelType.intValue = 2
-                                    typeExposed = false
-                                    novelListModel.getRequester()
-                                }
-                            )
-                            DropdownMenuItem(
-                                text = {
-                                    Text(text = stringResource(id = R.string.novel_list_japanese))
-                                },
-                                onClick = {
-                                    novelType.intValue = 1
-                                    typeExposed = false
-                                    novelListModel.getRequester()
-                                }
-                            )
-                            DropdownMenuItem(
-                                text = {
-                                    Text(text = stringResource(id = R.string.novel_list_korean))
-                                },
-                                onClick = {
-                                    novelType.intValue = 3
-                                    typeExposed = false
-                                    novelListModel.getRequester()
-                                }
-                            )
-                        }
-                    }
+                    DropdownSelection(
+                        label = stringResource(id = R.string.novel_list_type),
+                        items = listOf(0, 2, 1, 3),
+                        current = novelType.intValue,
+                        onChange = {
+                            novelType.intValue = it
+                            novelListModel.getRequester()
+                        },
+                        exposed = typeExposed,
+                        onExposeChanged = {
+                            typeExposed = it
+                        },
+                        modifier = Modifier.width(110.dp),
+                        nameProvider = { stringResource(id = typeResource(this)) }
+                    )
                     Spacer(modifier = Modifier.weight(2f))
                     if (adult) {
                         Text(
@@ -238,120 +161,26 @@ class NovelListPage(
                         )
                     }
                     Spacer(modifier = Modifier.weight(1f))
-                    ExposedDropdownMenuBox(
-                        expanded = sortExposed,
-                        onExpandedChange = { sortExposed = it }) {
-                        TextField(
-                            readOnly = true,
-                            value = stringResource(id = sortResource(sortType.intValue)),
-                            onValueChange = { },
-                            label = { Text(stringResource(id = R.string.novel_list_sort)) },
-                            trailingIcon = {
-                                ExposedDropdownMenuDefaults.TrailingIcon(
-                                    expanded = sortExposed
-                                )
-                            },
-                            modifier = Modifier
-                                .menuAnchor()
-                                .width(140.dp)
-                        )
-                        ExposedDropdownMenu(
-                            expanded = sortExposed,
-                            onDismissRequest = {
-                                sortExposed = false
-                            }
-                        ) {
-                            DropdownMenuItem(
-                                text = {
-                                    Text(text = stringResource(id = R.string.novel_filter_recentlyupdate))
-                                },
-                                onClick = {
-                                    sortType.intValue = 1
-                                    sortExposed = false
-                                    novelListModel.getRequester()
-                                }
-                            )
-                            DropdownMenuItem(
-                                text = {
-                                    Text(text = stringResource(id = R.string.novel_filter_recentlyupload))
-                                },
-                                onClick = {
-                                    sortType.intValue = 2
-                                    sortExposed = false
-                                    novelListModel.getRequester()
-                                }
-                            )
-                            DropdownMenuItem(
-                                text = {
-                                    Text(text = stringResource(id = R.string.novel_filter_highestrating))
-                                },
-                                onClick = {
-                                    sortType.intValue = 3
-                                    sortExposed = false
-                                    novelListModel.getRequester()
-                                }
-                            )
-                            DropdownMenuItem(
-                                text = {
-                                    Text(text = stringResource(id = R.string.novel_filter_mostviews))
-                                },
-                                onClick = {
-                                    sortType.intValue = 4
-                                    sortExposed = false
-                                    novelListModel.getRequester()
-                                }
-                            )
-                            DropdownMenuItem(
-                                text = {
-                                    Text(text = stringResource(id = R.string.novel_filter_mostchapters))
-                                },
-                                onClick = {
-                                    sortType.intValue = 5
-                                    sortExposed = false
-                                    novelListModel.getRequester()
-                                }
-                            )
-                            DropdownMenuItem(
-                                text = {
-                                    Text(text = stringResource(id = R.string.novel_filter_mostcomments))
-                                },
-                                onClick = {
-                                    sortType.intValue = 6
-                                    sortExposed = false
-                                    novelListModel.getRequester()
-                                }
-                            )
-                            DropdownMenuItem(
-                                text = {
-                                    Text(text = stringResource(id = R.string.novel_filter_mostfavorites))
-                                },
-                                onClick = {
-                                    sortType.intValue = 7
-                                    sortExposed = false
-                                    novelListModel.getRequester()
-                                }
-                            )
-                            DropdownMenuItem(
-                                text = {
-                                    Text(text = stringResource(id = R.string.novel_filter_mostwords))
-                                },
-                                onClick = {
-                                    sortType.intValue = 8
-                                    sortExposed = false
-                                    novelListModel.getRequester()
-                                }
-                            )
-                        }
-                    }
+                    DropdownSelection(
+                        label = stringResource(id = R.string.novel_list_sort),
+                        items = listOf(1, 2, 3, 4, 5, 6, 7, 8),
+                        current = sortType.intValue,
+                        onChange = {
+                            sortType.intValue = it
+                            novelListModel.getRequester()
+                        },
+                        exposed = sortExposed,
+                        onExposeChanged = {
+                            sortExposed = it
+                        },
+                        modifier = Modifier.width(140.dp),
+                        nameProvider = { stringResource(id = sortResource(this)) }
+                    )
                 }
-                HorizontalDivider(thickness = 1.dp)
             }
 
             when (state) {
-                is NovelListPageModel.State.Loading -> Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) { CircularProgressIndicator() }
+                is NovelListPageModel.State.Loading -> Loading()
 
                 is NovelListPageModel.State.Result -> {
                     val result = (state as NovelListPageModel.State.Result)

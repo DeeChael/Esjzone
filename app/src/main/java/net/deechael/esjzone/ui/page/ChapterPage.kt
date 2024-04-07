@@ -14,23 +14,18 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
@@ -72,6 +67,7 @@ import net.deechael.esjzone.novellibrary.component.ImageComponent
 import net.deechael.esjzone.novellibrary.component.TextComponent
 import net.deechael.esjzone.novellibrary.novel.Chapter
 import net.deechael.esjzone.novellibrary.novel.DetailedChapter
+import net.deechael.esjzone.ui.component.AppBar
 import net.deechael.esjzone.ui.navigation.LocalBaseNavigator
 
 class ChapterPage(
@@ -135,37 +131,12 @@ class ChapterPage(
                     Surface(
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Column(
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            Spacer(modifier = Modifier.height(20.dp))
-                            Row {
-                                TextButton(
-                                    onClick = {
-                                        navigator.pop()
-                                    },
-                                    modifier = Modifier
-                                        .padding(start = 16.dp, top = 16.dp, bottom = 4.dp)
-                                        .size(50.dp)
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Filled.ArrowBackIosNew,
-                                        contentDescription = ""
-                                    )
-                                }
-                                Spacer(modifier = Modifier.weight(3f))
-                                Text(
-                                    text = chapterName,
-                                    fontSize = 20.sp,
-                                    modifier = Modifier.padding(
-                                        top = 24.dp,
-                                        bottom = 4.dp
-                                    )
-                                )
-                                Spacer(modifier = Modifier.weight(5f))
+                        AppBar(
+                            title = chapterName,
+                            onBack = {
+                                navigator.pop()
                             }
-                            HorizontalDivider(thickness = 2.dp)
-                        }
+                        )
                     }
                 }
             },
