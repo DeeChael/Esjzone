@@ -32,6 +32,7 @@ jobs:
           commit_message=$(git log --format=%B -n 1 $GITHUB_SHA)
           if [[ $commit_message =~ \[release=([0-9]+)\.([0-9]+)\.([0-9]+)\] ]]; then
             export RELEASE_VERSION="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.${BASH_REMATCH[3]}"
+            echo RELEASE_VERSION
           fi
 
       - name: Setup JDK
@@ -82,7 +83,7 @@ jobs:
         if: ${{ env.RELEASE_VERSION == '' }}
         uses: marvinpinto/action-automatic-releases@latest
         with:
-          title: "v${{ env.RELEASE_VERSION }}"
+          title: "Esjzone v${{ env.RELEASE_VERSION }}"
           automatic_release_tag: "v${{ env.RELEASE_VERSION }}"
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           files: "outputs/*"
