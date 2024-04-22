@@ -78,18 +78,12 @@ jobs:
         with:
           name: esjzone
           path: outputs/*
-
       - name: Create release
         if: ${{ env.RELEASE_VERSION == '' }}
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: marvinpinto/action-automatic-releases@latest
         with:
-          files: |
-            outputs/*
-          tag_name: v${{ env.RELEASE_VERSION }}
-          release_name: v${{ env.RELEASE_VERSION }}
-          body: |
-            Release.
-          draft: false
+          title: "v${{ env.RELEASE_VERSION }}"
+          automatic_release_tag: "v${{ env.RELEASE_VERSION }}"
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          files: "outputs/*"
           prerelease: false
