@@ -32,7 +32,7 @@ jobs:
           commit_message=$(git log --format=%B -n 1 $GITHUB_SHA)
           if [[ $commit_message =~ \[release=([0-9]+)\.([0-9]+)\.([0-9]+)\] ]]; then
             export RELEASE_VERSION="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.${BASH_REMATCH[3]}"
-            echo RELEASE_VERSION
+            echo $RELEASE_VERSION
           fi
 
       - name: Setup JDK
