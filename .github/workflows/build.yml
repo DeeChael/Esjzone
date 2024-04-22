@@ -27,9 +27,17 @@ jobs:
             export COMMIT_ID="${{ github.sha }}"
           fi
 
-      - name: Set RELEASE_VERSION
-        if: startsWith(github.event.head_commit.message, '[release=')
-        run: echo "::set-env name=RELEASE_VERSION::$(echo ${{ github.event.head_commit.message }} | grep -oP '\[release=\K\d+\.\d+\.\d+\]')"
+      - name: Extract release version from commit message
+        id: extract_version
+        run: |
+          commit_message=$(git log --format=%B -n 1 $GITHUB_SHA)
+          if [[ $commit_message =~ \[release=([0-9]+)\.([0-9]+)\.([0-9]+)\] ]]; then
+            version="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.${BASH_REMATCH[3]}"
+            echo "::set-output name=version::$version"
+          else
+            echo "No version found in commit message."
+            exit 1
+          fi
 
       - name: Setup JDK
         uses: actions/setup-java@v2
@@ -83,8 +91,8 @@ jobs:
         with:
           files: |
             outputs/*
-          tag_name: v${{ env.RELEASE_VERSION }}
-          release_name: v${{ env.RELEASE_VERSION }}
+          tag_name: v${{ steps.extract_version.outputs.version }}
+          release_name: v${{ steps.extract_version.outputs.version }}
           body: |
             Release.
           draft: false
