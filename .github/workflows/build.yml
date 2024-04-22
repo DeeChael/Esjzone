@@ -14,9 +14,9 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: Set ENVIRONMENT variables
+      - name: Setup ENVIRONMENT variables
         run: |
           if [[ ${{ github.event_name }} == 'push' ]]; then
             if [[ "${{ github.event.head_commit.message }}" == '[release]*' ]]; then
@@ -28,7 +28,6 @@ jobs:
           fi
 
       - name: Extract release version from commit message
-        id: extract_version
         run: |
           commit_message=$(git log --format=%B -n 1 $GITHUB_SHA)
           if [[ $commit_message =~ \[release=([0-9]+)\.([0-9]+)\.([0-9]+)\] ]]; then
@@ -36,7 +35,7 @@ jobs:
           fi
 
       - name: Setup JDK
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
@@ -44,19 +43,19 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Permission
+      - name: Grant permission
         run: chmod +x ./gradlew
 
       - name: Build with Gradle
         run: ./gradlew build
 
-      - name: Compile
+      - name: Compile apk & aab
         run: |
           ./gradlew assembleRelease
           ./gradlew bundleRelease
 
-      - name: Sign app APK
-        uses: kevin-david/zipalign-sign-android-release@v1.1
+      - name: Sign apks
+        uses: r0adkll/zipalign-sign-android-release@v1.1
         with:
           releaseDirectory: app/build/outputs/apk/release
           signingKeyBase64: ${{ secrets.SIGNING_KEY }}
@@ -65,7 +64,7 @@ jobs:
           keyPassword: ${{ secrets.KEY_PASSWORD }}
           zipAlign: true
 
-      - name: Moving
+      - name: Relocate outputs
         run: |
           mkdir outputs
           mv app/build/outputs/apk/release/*.apk outputs/
@@ -73,14 +72,13 @@ jobs:
           mv outputs/app-release-unsigned-signed.apk outputs/app-release.apk
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: esjzone
-          path: |
-            outputs/*
+          path: outputs/*
 
-      - name: Create Release
-        if: env.RELEASE_VERSION != null
+      - name: Create release
+        if: ${{ env.RELEASE_VERSION == '' }}
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
