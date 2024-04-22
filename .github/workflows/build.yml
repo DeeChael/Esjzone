@@ -55,7 +55,7 @@ jobs:
           ./gradlew bundleRelease
 
       - name: Sign apks
-        uses: r0adkll/sign-android-release@v1
+        uses: kevin-david/zipalign-sign-android-release@v1.1
         with:
           releaseDirectory: app/build/outputs/apk/release
           signingKeyBase64: ${{ secrets.SIGNING_KEY }}
@@ -63,6 +63,8 @@ jobs:
           keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
           zipAlign: true
+        env:
+          BUILD_TOOLS_VERSION: "33.0.0"
 
       - name: Relocate outputs
         run: |
