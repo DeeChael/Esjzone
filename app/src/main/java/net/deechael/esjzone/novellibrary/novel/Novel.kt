@@ -7,6 +7,13 @@ interface Novel : Serializable {
     val url: String
 }
 
+interface CoveredNovel : Novel {
+    val coverUrl: String
+    val views: Int
+    val likes: Int
+    val isAdult: Boolean
+}
+
 data class HistoryNovel(
     override val name: String,
     override val url: String,
@@ -25,14 +32,14 @@ data class CategoryNovel(
     val forumUrl: String
 ) : Novel
 
-data class CoveredNovel(
-    val coverUrl: String,
+data class CoveredNovelImpl(
+    override val coverUrl: String,
     override val name: String,
     override val url: String,
-    val views: Int,
-    val likes: Int,
-    val isAdult: Boolean
-) : Novel {
+    override val views: Int,
+    override val likes: Int,
+    override val isAdult: Boolean
+) : CoveredNovel {
 
     override fun equals(other: Any?): Boolean {
         if (other == null)
@@ -55,19 +62,19 @@ private val FORUM_URL_REGEX = "/forum/[0-9]+/([0-9]+)/".toRegex()
 data class DetailedNovel(
     override val name: String,
     override val url: String,
-    val cover: String,
-    val views: Int,
-    val likes: Int,
+    override val coverUrl: String,
+    override val views: Int,
+    override val likes: Int,
     val words: Int,
     val type: String,
     val author: String,
     val forumUrl: String,
     val tags: List<String>,
-    val isAdult: Boolean,
+    override val isAdult: Boolean,
     val isFavorite: Boolean,
     val description: NovelDescription,
     val chapterList: NovelChapterList
-) : Novel {
+) : CoveredNovel {
 
     fun id(): String {
         return FORUM_URL_REGEX.find(this.forumUrl)!!.groupValues[1]

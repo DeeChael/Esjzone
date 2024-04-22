@@ -136,7 +136,7 @@ class NovelPage(
                     ) {
                         SubcomposeAsyncImage(
                             model = ImageRequest.Builder(LocalContext.current)
-                                .data(result.detailed.cover)
+                                .data(result.detailed.coverUrl)
                                 .crossfade(true)
                                 .build(),
                             contentDescription = novel.name,

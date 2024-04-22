@@ -7,6 +7,7 @@ import net.deechael.esjzone.network.EsjzoneUrls
 import net.deechael.esjzone.network.EsjzoneXPaths
 import net.deechael.esjzone.novellibrary.data.HomeData
 import net.deechael.esjzone.novellibrary.novel.CoveredNovel
+import net.deechael.esjzone.novellibrary.novel.CoveredNovelImpl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.jsoup.Jsoup
@@ -39,7 +40,7 @@ fun EsjzoneClient.getHomeData(authorization: Authorization): HomeData {
         document
     ).elements) {
         recentlyUpdateTranslatedNovels.add(
-            CoveredNovel(
+            CoveredNovelImpl(
                 EsjzoneXPaths.Home.Novel.Cover.evaluate(recentlyUpdateTranslatedData).get(),
                 EsjzoneXPaths.Home.Novel.Name.evaluate(recentlyUpdateTranslatedData).get(),
                 EsjzoneXPaths.Home.Novel.Url.evaluate(recentlyUpdateTranslatedData).get(),
@@ -56,7 +57,7 @@ fun EsjzoneClient.getHomeData(authorization: Authorization): HomeData {
         document
     ).elements) {
         recentlyUpdateOriginalNovels.add(
-            CoveredNovel(
+            CoveredNovelImpl(
                 EsjzoneXPaths.Home.Novel.Cover.evaluate(recentlyUpdateOriginalData).get(),
                 EsjzoneXPaths.Home.Novel.Name.evaluate(recentlyUpdateOriginalData).get(),
                 EsjzoneXPaths.Home.Novel.Url.evaluate(recentlyUpdateOriginalData).get(),
@@ -73,7 +74,7 @@ fun EsjzoneClient.getHomeData(authorization: Authorization): HomeData {
         document
     ).elements) {
         recentlyUpdateTranslatedR18Novels.add(
-            CoveredNovel(
+            CoveredNovelImpl(
                 EsjzoneXPaths.Home.Novel.Cover.evaluate(recentlyUpdateTranslatedR18Data).get(),
                 EsjzoneXPaths.Home.Novel.Name.evaluate(recentlyUpdateTranslatedR18Data).get(),
                 EsjzoneXPaths.Home.Novel.Url.evaluate(recentlyUpdateTranslatedR18Data).get(),
@@ -90,7 +91,7 @@ fun EsjzoneClient.getHomeData(authorization: Authorization): HomeData {
         document
     ).elements) {
         recentlyUpdateOriginalR18Novels.add(
-            CoveredNovel(
+            CoveredNovelImpl(
                 EsjzoneXPaths.Home.Novel.Cover.evaluate(recentlyUpdateOriginalR18Data).get(),
                 EsjzoneXPaths.Home.Novel.Name.evaluate(recentlyUpdateOriginalR18Data).get(),
                 EsjzoneXPaths.Home.Novel.Url.evaluate(recentlyUpdateOriginalR18Data).get(),
@@ -105,7 +106,7 @@ fun EsjzoneClient.getHomeData(authorization: Authorization): HomeData {
 
     for (recommendationData in EsjzoneXPaths.Home.Recommendation.All.evaluate(document).elements) {
         recommendationNovels.add(
-            CoveredNovel(
+            CoveredNovelImpl(
                 EsjzoneXPaths.Home.Novel.Cover.evaluate(recommendationData).get(),
                 EsjzoneXPaths.Home.Novel.Name.evaluate(recommendationData).get(),
                 EsjzoneXPaths.Home.Novel.Url.evaluate(recommendationData).get(),

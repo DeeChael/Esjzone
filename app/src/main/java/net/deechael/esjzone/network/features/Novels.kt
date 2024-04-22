@@ -7,6 +7,7 @@ import net.deechael.esjzone.network.EsjzoneUrls
 import net.deechael.esjzone.network.EsjzoneXPaths
 import net.deechael.esjzone.network.PageableRequester
 import net.deechael.esjzone.novellibrary.novel.CoveredNovel
+import net.deechael.esjzone.novellibrary.novel.CoveredNovelImpl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.jsoup.Jsoup
@@ -40,7 +41,7 @@ fun EsjzoneClient.novels(
 
     for (novelData in EsjzoneXPaths.Tags.Novel.All.evaluate(document).elements) {
         novels.add(
-            CoveredNovel(
+            CoveredNovelImpl(
                 EsjzoneXPaths.Tags.Novel.Cover.evaluate(novelData).get(),
                 EsjzoneXPaths.Tags.Novel.Name.evaluate(novelData).get(),
                 EsjzoneXPaths.Tags.Novel.Url.evaluate(novelData).get(),
@@ -96,7 +97,7 @@ private class ListNovelRequester(
 
         for (novelData in EsjzoneXPaths.Tags.Novel.All.evaluate(document).elements) {
             novels.add(
-                CoveredNovel(
+                CoveredNovelImpl(
                     EsjzoneXPaths.Tags.Novel.Cover.evaluate(novelData).get(),
                     EsjzoneXPaths.Tags.Novel.Name.evaluate(novelData).get(),
                     EsjzoneXPaths.Tags.Novel.Url.evaluate(novelData).get(),

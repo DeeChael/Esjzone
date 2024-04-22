@@ -27,12 +27,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.currentCompositeKeyHash
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
@@ -46,15 +45,19 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
+import cafe.adriel.voyager.core.model.StateScreenModel
+import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import net.deechael.esjzone.GlobalSettings
 import net.deechael.esjzone.MainActivity
 import net.deechael.esjzone.R
+import net.deechael.esjzone.network.Authorization
 import net.deechael.esjzone.network.EsjzoneClient
 import net.deechael.esjzone.network.LocalAuthorization
 import net.deechael.esjzone.network.features.getHomeData
@@ -84,9 +87,8 @@ object HomeTab : Tab {
         val authorization = LocalAuthorization.current
         val scope = rememberCoroutineScope()
 
-        var homeData: HomeData? by remember {
-            mutableStateOf(null)
-        }
+        val homeTabModel = rememberScreenModel { HomeTabModel(authorization, scope) }
+        val state by homeTabModel.state.collectAsState()
 
         Column(
             modifier = Modifier
@@ -130,12 +132,12 @@ object HomeTab : Tab {
                     )
                 }
 
-                if (homeData == null) {
+                if (state !is HomeTabModel.State.Result) {
                     CircularProgressIndicator(
                         modifier = Modifier.align(Alignment.CenterHorizontally)
                     )
                 } else {
-                    NovelSets(novels = homeData!!.recentlyUpdateTranslated)
+                    NovelSets(novels = (state as HomeTabModel.State.Result).homeData.recentlyUpdateTranslated)
                 }
 
             }
@@ -166,12 +168,12 @@ object HomeTab : Tab {
                     )
                 }
 
-                if (homeData == null) {
+                if (state !is HomeTabModel.State.Result) {
                     CircularProgressIndicator(
                         modifier = Modifier.align(Alignment.CenterHorizontally)
                     )
                 } else {
-                    NovelSets(novels = homeData!!.recentlyUpdateOriginal)
+                    NovelSets(novels = (state as HomeTabModel.State.Result).homeData.recentlyUpdateOriginal)
                 }
 
             }
@@ -207,12 +209,12 @@ object HomeTab : Tab {
                         )
                     }
 
-                    if (homeData == null) {
+                    if (state !is HomeTabModel.State.Result) {
                         CircularProgressIndicator(
                             modifier = Modifier.align(Alignment.CenterHorizontally)
                         )
                     } else {
-                        NovelSets(novels = homeData!!.recentlyUpdateTranslatedR18)
+                        NovelSets(novels = (state as HomeTabModel.State.Result).homeData.recentlyUpdateTranslatedR18)
                     }
 
                 }
@@ -243,12 +245,12 @@ object HomeTab : Tab {
                         )
                     }
 
-                    if (homeData == null) {
+                    if (state !is HomeTabModel.State.Result) {
                         CircularProgressIndicator(
                             modifier = Modifier.align(Alignment.CenterHorizontally)
                         )
                     } else {
-                        NovelSets(novels = homeData!!.recentlyUpdateOriginalR18)
+                        NovelSets(novels = (state as HomeTabModel.State.Result).homeData.recentlyUpdateOriginalR18)
                     }
 
                 }
@@ -269,12 +271,12 @@ object HomeTab : Tab {
                     )
                 }
 
-                if (homeData == null) {
+                if (state !is HomeTabModel.State.Result) {
                     CircularProgressIndicator(
                         modifier = Modifier.align(Alignment.CenterHorizontally)
                     )
                 } else {
-                    NovelSets(novels = homeData!!.recommendation)
+                    NovelSets(novels = (state as HomeTabModel.State.Result).homeData.recommendation)
                 }
 
             }
@@ -283,9 +285,26 @@ object HomeTab : Tab {
         }
 
         LaunchedEffect(currentCompositeKeyHash) {
-            scope.launch(Dispatchers.IO) {
-                homeData = EsjzoneClient.getHomeData(authorization)
-            }
+            homeTabModel.getHomeData()
+        }
+    }
+
+}
+
+class HomeTabModel(
+    private val authorization: Authorization,
+    private val scope: CoroutineScope
+) : StateScreenModel<HomeTabModel.State>(State.Loading) {
+
+    sealed class State {
+        data object Loading : State()
+        data class Result(val homeData: HomeData) : State()
+    }
+
+    fun getHomeData() {
+        scope.launch(Dispatchers.IO) {
+            mutableState.value = State.Loading
+            mutableState.value = State.Result(EsjzoneClient.getHomeData(authorization))
         }
     }
 

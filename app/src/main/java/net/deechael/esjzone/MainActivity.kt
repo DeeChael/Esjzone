@@ -9,6 +9,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import coil.ImageLoader
 import coil.decode.ImageDecoderDecoder
+import coil.disk.DiskCache
+import coil.memory.MemoryCache
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import net.deechael.esjzone.database.GeneralDatabase
@@ -34,6 +36,18 @@ class MainActivity : ComponentActivity() {
             .components {
                 add(ImageDecoderDecoder.Factory())
             }
+            .memoryCache {
+                MemoryCache.Builder(this)
+                    .maxSizePercent(0.15)
+                    .build()
+            }
+            .diskCache {
+                DiskCache.Builder()
+                    .directory(this.cacheDir.resolve("image_cache"))
+                    .maxSizePercent(0.02)
+                    .build()
+            }
+            .respectCacheHeaders(false)
             .build()
 
         enableEdgeToEdge()

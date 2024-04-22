@@ -1,0 +1,86 @@
+name: Android Build
+
+on:
+  push:
+    branches:
+      - master
+
+env:
+  COMMIT_ID: ${{ github.sha }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set ENVIRONMENT variables
+        run: |
+          if [[ ${{ github.event_name }} == 'push' ]]; then
+            if [[ "${{ github.event.head_commit.message }}" == '[release]*' ]]; then
+              export BUILD_VERSION="release"
+            else
+              export BUILD_VERSION="${{ github.sha }}"
+            fi
+            export COMMIT_ID="${{ github.sha }}"
+          fi
+
+      - name: Set RELEASE_VERSION
+        if: startsWith(github.event.head_commit.message, '[release=')
+        run: echo "::set-env name=RELEASE_VERSION::$(echo ${{ github.event.head_commit.message }} | grep -oP '\[release=\K\d+\.\d+\.\d+\]')"
+
+      - name: Setup JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Permission
+        run: chmod +x ./gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew build
+
+      - name: Compile
+        run: |
+          ./gradlew assembleRelease
+          ./gradlew bundleRelease
+
+      - name: Sign app APK
+        uses: kevin-david/zipalign-sign-android-release@v1.1
+        with:
+          releaseDirectory: app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+          zipAlign: true
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: android-artifacts
+          path: |
+            app/build/outputs/apk/release/*.apk
+            app/build/outputs/bundle/release/*.aab
+
+      - name: Create Release
+        if: env.RELEASE_VERSION != null
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: |
+            app/build/outputs/apk/release/*.apk
+            app/build/outputs/bundle/release/*.aab
+          tag_name: v${{ env.RELEASE_VERSION }}
+          release_name: v${{ env.RELEASE_VERSION }}
+          body: |
+            Release.
+          draft: false
+          prerelease: false

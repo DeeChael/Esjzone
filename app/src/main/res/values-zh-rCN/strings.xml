@@ -64,4 +64,8 @@
     <string name="favorites_recently_added">最新收藏</string>
     <string name="favorites_recently_update">最新更新</string>
     <string name="delete_history">删除</string>
+    <string name="compile_information">编译信息</string>
+    <string name="build_version">构建版本</string>
+    <string name="build_date">构建日期</string>
+    <string name="commit_id">提交 Id</string>
 </resources>

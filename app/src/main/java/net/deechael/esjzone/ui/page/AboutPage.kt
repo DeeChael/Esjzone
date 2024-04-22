@@ -26,6 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
+import net.deechael.esjzone.BuildConfig
 import net.deechael.esjzone.Constants
 import net.deechael.esjzone.R
 import net.deechael.esjzone.ui.component.AppBar
@@ -40,18 +41,45 @@ object AboutPage : Screen {
         val navigator = LocalBaseNavigator.current
         val uriHandler = LocalUriHandler.current
 
-        AppBar(
-            title = stringResource(id = R.string.about),
-            onBack = {
-                navigator.pop()
-            }
-        )
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
         ) {
+            AppBar(
+                title = stringResource(id = R.string.about),
+                onBack = {
+                    navigator.pop()
+                }
+            )
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Text(
+                text = stringResource(id = R.string.compile_information),
+                fontSize = 24.sp,
+                modifier = Modifier.padding(start = 16.dp)
+            )
+
+            Spacer(modifier = Modifier.height(5.dp))
+
+            Text(
+                text = "${stringResource(id = R.string.build_version)}: ${BuildConfig.VERSION_NAME}-${BuildConfig.APP_VERSION}",
+                fontSize = 16.sp,
+                modifier = Modifier.padding(start = 24.dp)
+            )
+
+            Text(
+                text = "${stringResource(id = R.string.build_date)}: ${BuildConfig.BUILD_DATE}",
+                fontSize = 16.sp,
+                modifier = Modifier.padding(start = 24.dp)
+            )
+
+            Text(
+                text = "${stringResource(id = R.string.commit_id)}: ${BuildConfig.COMMIT_ID}",
+                fontSize = 16.sp,
+                modifier = Modifier.padding(start = 24.dp)
+            )
 
             Spacer(modifier = Modifier.height(20.dp))
 
@@ -88,7 +116,6 @@ object AboutPage : Screen {
                     modifier = Modifier.padding(start = 24.dp)
                 )
             }
-
             Spacer(modifier = Modifier.height(20.dp))
 
             Text(

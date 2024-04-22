@@ -222,7 +222,7 @@ object HistoryPage : Screen {
                                                 ) {
                                                     SubcomposeAsyncImage(
                                                         model = ImageRequest.Builder(LocalContext.current)
-                                                            .data(detailedNovel!!.cover)
+                                                            .data(detailedNovel!!.coverUrl)
                                                             .crossfade(true)
                                                             .build(),
                                                         contentDescription = historyNovel.name,

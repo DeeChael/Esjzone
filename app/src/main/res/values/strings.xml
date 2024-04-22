@@ -63,4 +63,8 @@
     <string name="favorites_recently_added">Recently Added</string>
     <string name="favorites_recently_update">Recently Update</string>
     <string name="delete_history">Delete</string>
+    <string name="compile_information">Compille Info</string>
+    <string name="build_version">Build Version</string>
+    <string name="build_date">Build Date</string>
+    <string name="commit_id">Commit Id</string>
 </resources>
