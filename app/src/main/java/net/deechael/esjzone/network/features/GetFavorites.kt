@@ -33,7 +33,7 @@ fun EsjzoneClient.getFavorites(
 
     val document = Jsoup.parse(responseBody)
 
-    val matcher = pagesRegex.find(EsjzoneXPaths.Tags.Pages.evaluate(document).get())
+    val matcher = pagesRegex.find(EsjzoneXPaths.Profile.Favorite.Pages.evaluate(document).get())
 
     val pages = matcher?.groupValues?.get(1)?.toInt() ?: 0
 
