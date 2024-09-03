@@ -28,7 +28,7 @@
 
 #### 第二步
 向 `https://www.esjzone.me/inc/mem_login.php` 发送一个 POST 请求，并在 Header 中添加 `Authorization: {authorization_token}` 这个 {authorization_token} 就是上方要求你保存下来的数据。 \
-同时还需要添加胰以下 Payload：
+同时还需要添加以下 Payload：
 ```json
 { 
   "email": "{email}",
