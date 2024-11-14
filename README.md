@@ -1,4 +1,4 @@
-# Esjzone
+# Esjzone （已停更）
 
 一个为安卓平台打造的 Esjzone 应用，基于 Jetpack Compose
 
