@@ -2,7 +2,7 @@
 我会在这里详细介绍一下如何请求 Esjzone 的数据，Esjzone 的网站是半前后端分离的，一部分内容前后端分离了，一部分没有，所以我不得不使用 Jsoup 和 Xsoup 来进行数据解析，不过解析数据不是什么难事，先得搞清楚怎么获取到这些页面才行。
 
 ## 如何通过 XPath 进行数据检索
-！！ Xsoup 对 XPath 的部分函数并不支持，但是这是我用起来最舒服简洁的库，你也可以考虑使用其他库
+！！ Xsoup 对 XPath 的部分函数并不支持，但是这是我用起来最舒服简洁的库，你也可以考虑使用其他
 
 为了方便开发，你首先应该在你的浏览器上安装 XPath Helper 插件：https://chromewebstore.google.com/detail/xpath-helper/hgimnogjllphhhkhlmebbmlgjoejdpjl
 
